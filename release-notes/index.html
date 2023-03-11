@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+<title>AVM Release Notes</title>
+<link rel="stylesheet" href="./../foundation.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+<link rel="stylesheet" href="custom.css">
+<link rel="stylesheet" href="../nav-bar.css">
+<script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Create toggle anchor
+        var target = document.querySelector('#header');
+        var anchor = document.createElement('a');
+        anchor.className = 'tocSwitch fa fa-arrow-up';
+        // Add click listener to the button
+        anchor.addEventListener('click', function (e) {
+            e.stopPropagation();
+            var toc = document.querySelector('#toc');
+            var body = document.querySelector('body');
+            // If the toc is visible
+            if (body.classList.contains('toc2')) {
+                body.classList.remove('toc2');
+                body.classList.remove('toc-left');
+                toc.style.display = 'none';
+                anchor.className = 'tocSwitch fa fa-arrow-down';
+            } else { // If the toc is not visible
+                body.classList.add('toc2');
+                body.classList.add('toc-left');
+                toc.style.display = 'block';
+                anchor.className = 'tocSwitch fa fa-arrow-up';
+            }
+        });
+        // Add anchor to DOM
+        target.appendChild(anchor);
+        // Add window resize listener
+        $(window).resize(function() {
+            var toc = document.querySelector('#toc');
+            var body = document.querySelector('body');
+            // If the window is smaller than 768px, collapse the toc by default
+            if ($(window).width() < 768) {
+                body.classList.remove('toc2');
+                body.classList.remove('toc-left');
+                toc.style.display = 'none';
+                anchor.className = 'tocSwitch fa fa-arrow-down';
+            } else { // If the window is bigger than 768px, keep the toc open
+                body.classList.add('toc2');
+                body.classList.add('toc-left');
+                toc.style.display = 'block';
+                anchor.className = 'tocSwitch fa fa-arrow-up';
+            }
+        });
+        // Add click listener for
+        $('#toc a').click(function() {
+            var toc = document.querySelector('#toc');
+            var body = document.querySelector('body');
+            if ($(window).width() < 768) {
+                body.classList.remove('toc2');
+                body.classList.remove('toc-left');
+                toc.style.display = 'none';
+                anchor.className = 'tocSwitch fa fa-arrow-down';
+            }
+        });
+    });
+</script>
+</head>
+<body class="article toc2 toc-left">
+<div class="nav-bar">
+    <a class="img-link" href="/">
+        <img src="../logo_white_transparent.png" alt="Alternative AVM Logo"/>
+    </a>
+    <input type="checkbox" name="menu-btn" id="menu-btn" value="1" />
+    <label class="menu-icon" for="menu-btn"><i class="fa fa-bars" aria-hidden="true"></i></label>
+    <ul class="nav-items">
+        <li><a href="/latest/index.html">User Manual</a></li>
+        <li><a href="/release-notes/index.html">Release Notes</a></li>
+        <li><a href="https://docs.cambridgesemantics.com" target="_blank">Anzo Docs</a></li>
+    </ul>
+</div><div id="header">
+<h1>AVM Release Notes</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#release_notes_for_avm_2_1">Release Notes for AVM 2.1</a>
+<ul class="sectlevel2">
+<li><a href="#whats_new">What&#8217;s New</a></li>
+<li><a href="#detailed_notes">Detailed Notes</a>
+<ul class="sectlevel3">
+<li><a href="#anzo_integration">Anzo Integration</a></li>
+<li><a href="#general_improvements_and_fixes">General Improvements and Fixes</a></li>
+<li><a href="#catalog">Catalog</a></li>
+<li><a href="#ontology_editor">Ontology Editor</a></li>
+<li><a href="#link">Link</a></li>
+<li><a href="#merge_requests">Merge Requests</a></li>
+<li><a href="#shapes_editor">Shapes Editor</a></li>
+<li><a href="#mapping_tool">Mapping Tool</a></li>
+<li><a href="#datasets">Datasets</a></li>
+<li><a href="#administration">Administration</a></li>
+</ul>
+</li>
+<li><a href="#hotfixes">Hotfixes</a>
+<ul class="sectlevel3">
+<li><a href="#2_1_1">2.1.1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#release_notes_for_avm_2_0">Release Notes for AVM 2.0</a>
+<ul class="sectlevel2">
+<li><a href="#whats_new_2">What&#8217;s New</a></li>
+<li><a href="#detailed_notes_2">Detailed Notes</a>
+<ul class="sectlevel3">
+<li><a href="#anzo_integration_2">Anzo Integration</a></li>
+<li><a href="#ontology_editor_2">Ontology Editor</a></li>
+<li><a href="#discover">Discover</a></li>
+</ul>
+</li>
+<li><a href="#hotfixes_2">Hotfixes</a>
+<ul class="sectlevel3">
+<li><a href="#2_0_3">2.0.3</a></li>
+<li><a href="#2_0_2">2.0.2</a></li>
+<li><a href="#2_0_1">2.0.1</a></li>
+</ul>
+</li>
+<li><a href="#migration_guide">Migration Guide</a>
+<ul class="sectlevel3">
+<li><a href="#step_by_step_guide">Step-by-step Guide</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#release_notes_for_avm_1_7">Release Notes for AVM 1.7</a>
+<ul class="sectlevel2">
+<li><a href="#whats_new_3">What&#8217;s New</a></li>
+<li><a href="#detailed_notes_3">Detailed Notes</a>
+<ul class="sectlevel3">
+<li><a href="#anzo_integration_3">Anzo Integration</a></li>
+<li><a href="#general_improvements_and_fixes_2">General Improvements and Fixes</a></li>
+<li><a href="#catalog_2">Catalog</a></li>
+<li><a href="#ontology_editor_3">Ontology Editor</a></li>
+<li><a href="#merge_requests_2">Merge Requests</a></li>
+<li><a href="#shapes_editor_2">Shapes Editor</a></li>
+<li><a href="#mapping_tool_2">Mapping Tool</a></li>
+<li><a href="#discover_2">Discover</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#release_notes_for_avm_1_6">Release Notes for AVM 1.6</a>
+<ul class="sectlevel2">
+<li><a href="#whats_new_4">What&#8217;s New</a></li>
+<li><a href="#detailed_notes_4">Detailed Notes</a>
+<ul class="sectlevel3">
+<li><a href="#general_improvements_and_fixes_3">General Improvements and Fixes</a></li>
+<li><a href="#catalog_3">Catalog</a></li>
+<li><a href="#ontology_editor_4">Ontology Editor</a></li>
+<li><a href="#merge_requests_3">Merge Requests</a></li>
+<li><a href="#shapes_editor_3">Shapes Editor</a></li>
+<li><a href="#mapping_tool_3">Mapping Tool</a></li>
+<li><a href="#datasets_2">Datasets</a></li>
+<li><a href="#administration_2">Administration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#release_notes_for_avm_1_5">Release Notes for AVM 1.5</a>
+<ul class="sectlevel2">
+<li><a href="#whats_new_5">What&#8217;s New</a></li>
+<li><a href="#detailed_notes_5">Detailed Notes</a>
+<ul class="sectlevel3">
+<li><a href="#anzo_integration_4">Anzo Integration</a></li>
+<li><a href="#general_improvements_and_fixes_4">General Improvements and Fixes</a></li>
+<li><a href="#catalog_4">Catalog</a></li>
+<li><a href="#ontology_editor_5">Ontology Editor</a></li>
+<li><a href="#mapping_tool_4">Mapping Tool</a></li>
+<li><a href="#discover_3">Discover</a></li>
+<li><a href="#my_account">My Account</a></li>
+<li><a href="#administration_3">Administration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#release_notes_for_avm_1_4">Release Notes for AVM 1.4</a>
+<ul class="sectlevel2">
+<li><a href="#whats_new_6">What&#8217;s New</a></li>
+<li><a href="#detailed_notes_6">Detailed Notes</a>
+<ul class="sectlevel3">
+<li><a href="#anzo_integration_5">Anzo Integration</a></li>
+<li><a href="#general_improvements_and_fixes_5">General Improvements and Fixes</a></li>
+<li><a href="#catalog_5">Catalog</a></li>
+<li><a href="#ontology_editor_6">Ontology Editor</a></li>
+<li><a href="#merge_requests_4">Merge Requests</a></li>
+<li><a href="#mapping_tool_5">Mapping Tool</a></li>
+<li><a href="#discover_4">Discover</a></li>
+<li><a href="#my_account_2">My Account</a></li>
+<li><a href="#administration_4">Administration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#release_notes_for_avm_1_3">Release Notes for AVM 1.3</a>
+<ul class="sectlevel2">
+<li><a href="#whats_new_7">What&#8217;s New</a></li>
+<li><a href="#detailed_notes_7">Detailed Notes</a>
+<ul class="sectlevel3">
+<li><a href="#general_improvements_and_fixes_6">General Improvements and Fixes</a></li>
+<li><a href="#catalog_6">Catalog</a></li>
+<li><a href="#ontology_editor_7">Ontology Editor</a></li>
+<li><a href="#sync">Sync</a></li>
+<li><a href="#publish">Publish</a></li>
+<li><a href="#link_2">Link</a></li>
+<li><a href="#merge_requests_5">Merge Requests</a></li>
+<li><a href="#mapping_tool_6">Mapping Tool</a></li>
+<li><a href="#discover_5">Discover</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#release_notes_for_avm_1_2">Release Notes for AVM 1.2</a>
+<ul class="sectlevel2">
+<li><a href="#whats_new_8">What&#8217;s New</a></li>
+<li><a href="#detailed_notes_8">Detailed Notes</a>
+<ul class="sectlevel3">
+<li><a href="#general_improvements_and_fixes_7">General Improvements and Fixes</a></li>
+<li><a href="#publish_2">Publish</a></li>
+<li><a href="#link_3">Link</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#release_notes_for_avm_1_1">Release Notes for AVM 1.1</a>
+<ul class="sectlevel2">
+<li><a href="#whats_new_9">What&#8217;s New</a></li>
+<li><a href="#detailed_notes_9">Detailed Notes</a>
+<ul class="sectlevel3">
+<li><a href="#general_improvements_and_fixes_8">General Improvements and Fixes</a></li>
+<li><a href="#ontology_editor_8">Ontology Editor</a></li>
+<li><a href="#sync_2">Sync</a></li>
+<li><a href="#publish_3">Publish</a></li>
+<li><a href="#link_4">Link</a></li>
+<li><a href="#catalog_7">Catalog</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Anzo Vocabulary Manager (AVM) is a graph data platform for teams and communities to collaboratively develop ontologies and vocabularies for seamless integration with the Anzo platform. These are the Release notes for the AVM platform.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release_notes_for_avm_2_1">Release Notes for AVM 2.1</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AVM 2.1 was released on December 16, 2022. This includes more intuitive changes displays, multiple improvements for "solutioneers" building on top of AVM, and a variety of performance enhancements and bug fixes.</p>
+</div>
+<div class="sect2">
+<h3 id="whats_new">What&#8217;s New</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>We&#8217;ve updated all displays of changed triples to be consistently formatted and introduced a new toggle to display all unchanged triples as well, enabling more context when reviewing</p>
+</li>
+<li>
+<p>We&#8217;ve moved all default policies and policy templates to a specific location in the installation directory so administrators can customize the default permissions for their AVM instance</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="detailed_notes">Detailed Notes</h3>
+<div class="sect3">
+<h4 id="anzo_integration">Anzo Integration</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated SKOS publishing to also include subclasses of SKOS Concept when selecting the “Concepts” option</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="general_improvements_and_fixes">General Improvements and Fixes</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgraded RDF4J to 4.2.1</p>
+</li>
+<li>
+<p>Upgraded Karaf to 4.4.2</p>
+</li>
+<li>
+<p>Created a folder in the installation directory to hold all policy templates used for new records and the default system policies</p>
+</li>
+<li>
+<p>Added a new command to the AVM Karaf shell that will revert all system policies to the defaults specified in the new directory</p>
+</li>
+<li>
+<p>Enabled ability to reach the Swagger Documentation without specifying <code>/index.html</code> at the end of the URL</p>
+</li>
+<li>
+<p>Added ability to provide a custom relay state on SAML redirects to support custom solutions in the platform to use the AVM SSO connectivity</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="catalog">Catalog</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated all triple changes displays to display triples grouped by property and delineated with ++ and&#8201;&#8212;&#8201;symbols</p>
+</li>
+<li>
+<p>Added "Show Full" toggle to all changes displays except in the Commit Information modal which will display all triples for a particular subject alongside the changed triples</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ontology_editor">Ontology Editor</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated all triple changes displays to display triples grouped by property and delineated with <code>++</code> and <code>--</code> symbols</p>
+</li>
+<li>
+<p>Added "Show Full" toggle to all changes displays except in the Commit Information modal which will display all triples for a particular subject alongside the changed triples</p>
+</li>
+<li>
+<p>Added logic to clean up user state associated with a deleted record</p>
+</li>
+<li>
+<p>Added success toast on commit</p>
+</li>
+<li>
+<p>Improved performance of hierarchy renders on first load</p>
+</li>
+<li>
+<p>Fixed issue where updates to an IRI used in a complex restriction were not reflected</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="link">Link</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Fixed issue where results were not shown for a new analysis if the previous analysis results were empty</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="merge_requests">Merge Requests</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated all triple changes displays to display triples grouped by property and delineated with <code>++</code> and <code>--</code> symbols</p>
+</li>
+<li>
+<p>Added "Show Full" toggle to all changes displays except in the Commit Information modal which will display all triples for a particular subject alongside the changed triples</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="shapes_editor">Shapes Editor</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated all triple changes displays to display triples grouped by property and delineated with <code>++</code> and <code>--</code> symbols</p>
+</li>
+<li>
+<p>Added "Show Full" toggle to all changes displays except in the Commit Information modal which will display all triples for a particular subject alongside the changed triples</p>
+</li>
+<li>
+<p>Added logic to clean up user state associated with a deleted record</p>
+</li>
+<li>
+<p>Added success toast on commit</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mapping_tool">Mapping Tool</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated all triple changes displays to display triples grouped by property and delineated with <code>++</code> and <code>--</code> symbols</p>
+</li>
+<li>
+<p>Added "Show Full" toggle to all changes displays except in the Commit Information modal which will display all triples for a particular subject alongside the changed triples</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="datasets">Datasets</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Introduced restrictions on uploads to datasets to protect system graphs</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="administration">Administration</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Changed the Permissions page to dynamically pull the list of system policies allowing new policies introduced to automatically appear in the list</p>
+</li>
+<li>
+<p>Fixed issue where deleting a group referenced in a policy would not allow that policy to be edited</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="hotfixes">Hotfixes</h3>
+<div class="sect3">
+<h4 id="2_1_1">2.1.1</h4>
+<div class="paragraph">
+<p>Version 2.1.1 was released on December 19, 2022.
+* Reverted the Karaf version to 4.4.1 due to a bug with the <code>bin/client</code> script</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release_notes_for_avm_2_0">Release Notes for AVM 2.0</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AVM 2.0 was released on September 16, 2022. This major release includes major infrastructure updates throughout the platform along with a variety of performance enhancements and bug fixes. Most impactful changes are a new requirement for Java 17 and the entire web application is now built with Angular 6 and more consistent of an experience.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+For those upgrading from 1.x to 2.0, follow the steps under <a href="#migration_guide">Migration Guide</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="whats_new_2">What&#8217;s New</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>We&#8217;ve upgraded our Karaf, Angular, RDF4J, and OSGi dependencies to take advantage of the latest stability and functionality improvements</p>
+</li>
+<li>
+<p>We&#8217;ve updated the required Java version to 17</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+AVM will now no longer start the Java version is older than 17. Please ensure your Java version is correct and the <code>$JAVA_HOME</code> environment is set properly as described in the <strong>AVM Administration Guide</strong>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+With the latest version of Karaf, the password properties in <code>$AVM_HOME/etc/org.ops4j.pax.web.cfg</code> that enable custom SSL certificates have changed. See <strong>Configure Custom SSL Certificates</strong> in the AVM User Manual.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="detailed_notes_2">Detailed Notes</h3>
+<div class="sect3">
+<h4 id="anzo_integration_2">Anzo Integration</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Fixed issue where Graphmart Configuration was not visible in the list if a sync failed
+==== General Improvements and Fixes</p>
+</li>
+<li>
+<p>Upgraded Karaf to 4.4.1</p>
+</li>
+<li>
+<p>Upgraded Angular to 6.1.10 and removed all usages and references to AngularJS</p>
+</li>
+<li>
+<p>Upgraded RDF4J to 4.1.0</p>
+</li>
+<li>
+<p>Upgraded OSGi to 8</p>
+</li>
+<li>
+<p>Updated the required Java version to 17</p>
+</li>
+<li>
+<p>Replaced <code>osgi-jax-rs-connector</code> with Apache Aries Whiteboard Extender for all REST services</p>
+</li>
+<li>
+<p>Removed all AVM API wrappers around RDF4J and switched to using the library directly for drastic performance improvements</p>
+</li>
+<li>
+<p>Removed the OWL API based implementation of our Ontology API</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ontology_editor_2">Ontology Editor</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Fixed issue where blank nodes would be detached on upload changes if the IRI of the parent node changed</p>
+</li>
+<li>
+<p>Fixed issue where blank node IDs with hyphens would be affected when previewing the ontology data</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="discover">Discover</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Removed the outdated and underutilized Search tab</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="hotfixes_2">Hotfixes</h3>
+<div class="sect3">
+<h4 id="2_0_3">2.0.3</h4>
+<div class="paragraph">
+<p>Version 2.0.3 was released on November 7, 2022.
+* Fixed issue where certain screens with a lot of content were not scrolling properly
+* Fixed issue where final blank nodes in RDF lists were left dangling on delete and were not rendered properly in changes displays
+* Fixed issue where the <strong>Load More</strong> buttons in the Ontology Editor and Shapes Editor merge previews did not render more content
+* Fixed issue where failed upload changes processes in the Ontology Editor did not display any error messages
+* Fixed issue where AVM would not build or run on ARM based Machines
+* Fixed issue where ontologies with mid to large size class hierarchies took a long time to open
+* Fixed issue where IRIs of entities being created in the Ontology Editor could not be edited before being saved
+* Fixed issue where the Schemes and Concepts tabs did not render immediately after SKOS was added to the imports closure</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="2_0_2">2.0.2</h4>
+<div class="paragraph">
+<p>Version 2.0.2 was released on October 16, 2022.
+* Fixed issue where Merge Requests could not be accepted</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="2_0_1">2.0.1</h4>
+<div class="paragraph">
+<p>Version 2.0.1 was released on September 17, 2022.
+* Fixed an issue with missing bundles on startup</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="migration_guide">Migration Guide</h3>
+<div class="paragraph">
+<p>This guide describes how to upgrade AVM from any 1.x release to version 2.0.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<code>$AVM_HOME</code> is the extracted directory from the original AVM distribution, e.g. <code>avm-distribution-1.7.0</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="step_by_step_guide">Step-by-step Guide</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run the following command to create a zipped backup of your old distribution., The name of the backup can be whatever you choose as long as it is a valid zip file name.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$MOBI_HOME/bin/client "mobi:backup -f /path/to/mobi-backup.zip"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Shut down your old installation.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$MOBI_HOME/bin/stop</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install Java 17 on your system. On a standard RHEL/CentOS system, there is no package available via yum to install. So we suggest downloading the Oracle installer from here and running it manually using the follow commands:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">wget https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm
+sudo rpm -Uvh jdk-17_linux-x64_bin.rpm</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Ensure that Java 17 is now the default version used by running:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">java -version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output of the command should look like the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">java version "1.8.0_102"
+Java(TM) SE Runtime Environment (build 1.8.0_102-b14)
+Java HotSpot(TM) 64-Bit Server VM (build 25.102-b14, mixed mode)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the output of that command does not display Java 17, ensure that the correct version of Java is selected when you run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">sudo alternatives --config java</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Update the <code>$JAVA_HOME</code> environment variable of the user running AVM to the new Java installation directory. After running the rpm above, the variable should look like <code>/usr/java/jdk-17.0.4.1</code></p>
+</li>
+<li>
+<p>Unpack and start up the new distribution.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">tar -xf avm-distribution-2.0.1.tar.gz
+./avm-distribution-2.0.1/bin/start</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the following command with the path to your zipped backup to restore your data into the new installation.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">./avm-distribution-2.0.1/bin/client "mobi:restore /path/to/backup.zip"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>After restoring, there is one configuration file that will need to be updated to conform to the new property naming conventions. In <code>./avm-distribution-2.0.1/etc/org.ops4j.pax.web.cfg</code>, change org.<code>ops4j.pax.web.ssl.password</code> to <code>org.ops4j.pax.web.ssl.keystore.password</code> and <code>org.ops4j.pax.web.ssl.keypassword</code> to <code>org.ops4j.pax.web.ssl.key.password</code>. <span class="underline">No restart is required after this change</span>.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The AVM server takes several seconds to start up. If the <code>client</code> script fails, try again after a few seconds. If the server is not starting, check the logs in <code>./avm-distribution-2.0.1/data/log/karaf.log</code>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release_notes_for_avm_1_7">Release Notes for AVM 1.7</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AVM 1.7 was released on June 24, 2022. This release includes support for SSO connectivity without an LDAP backing engine, full policy management in the Catalog, enhanced access control on Shapes Graph Records, and a prepackaged default trust store for secure SSL communications. It also includes various bug fixes and improvements.</p>
+</div>
+<div class="sect2">
+<h3 id="whats_new_3">What&#8217;s New</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>We&#8217;ve introduced support for standalone SAML and OAuth 2.0/OpenID SSO connections without requiring a LDAP configuration as well</p>
+</li>
+<li>
+<p>We&#8217;ve consolidated access control management of all records into the Catalog</p>
+</li>
+<li>
+<p>We&#8217;ve included a default trust store with the platform to simplify the process to enable secure SSL communication with external sources</p>
+</li>
+<li>
+<p>We&#8217;ve introduced a new policy for controlling who can create Shapes Graph Records</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+All system level policies will be reset to their defaults on a restore into this version and will need to be updated to the desired state again.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="detailed_notes_3">Detailed Notes</h3>
+<div class="sect3">
+<h4 id="anzo_integration_3">Anzo Integration</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Adjusted Synchronization REST API to return the IRI of the Sync Activity created</p>
+</li>
+<li>
+<p>Fixed race condition in Synchronization Semantic Service affecting long synchronization processes</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="general_improvements_and_fixes_2">General Improvements and Fixes</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Introduced new <code>standalone</code> property on SAML and OAuth/OpenID configurations which enables the application to pull user info from the authentication responses rather than relying on an LDAP backend</p>
+</li>
+<li>
+<p>Introduced a new bundled trust store that is used throughout the platform when establishing connections to outside sources, including importing ontologies from the web</p>
+</li>
+<li>
+<p>Adjusted the <code>setenv</code> file to make setting the max and min memory usage more straightforward</p>
+</li>
+<li>
+<p>Fixed issue where un-encrypted configuration properties would be encrypted on restore even if auto-encryption was not enabled</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="catalog_2">Catalog</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Introduced new UI for editing the policy of any Record in the platform to centralize and simplify the functionality</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ontology_editor_3">Ontology Editor</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Removed the UI for managing ontology access in favor of the new consolidated experience in the Catalog</p>
+</li>
+<li>
+<p>Updated the backend SPARQL endpoints for querying ontologies to more closely align with the SPARQL 1.1 W3C specification and behave similarly to the overall SPARQL endpoint used for querying datasets and repositories</p>
+</li>
+<li>
+<p>Fixed issue where merges could be submitted even when there were no commits different between the source and target branches</p>
+</li>
+<li>
+<p>Fixed issue where entities with empty label values would prevent the ontology from being opened</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="merge_requests_2">Merge Requests</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Fixed issue where merges could be submitted even when there were no commits different between the source and target branches</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="shapes_editor_2">Shapes Editor</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Introduced a new policy for managing who can create a Shapes Graph Record</p>
+</li>
+<li>
+<p>Improved user experience when a user&#8217;s access is limited within the editor</p>
+</li>
+<li>
+<p>Adjusted the defaults set when creating new Shapes Graph Records such that managing, deleting, and modifying the master branch are limited to the creator of the Record while viewing and general modification are enabled for everyone</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mapping_tool_2">Mapping Tool</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Adjusted the class select when creating a class mapping to dynamically pull the list from the source ontology and improve rendering time</p>
+</li>
+<li>
+<p>Adjusted process to map data into a Dataset to take into account the Dataset&#8217;s policy</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="discover_2">Discover</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Adjusted the Explore tool to take into account the Dataset&#8217;s policy and display appropriate feedback to the user</p>
+</li>
+<li>
+<p>Improved user experience in the Query tool when the user is unauthorized to submit</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release_notes_for_avm_1_6">Release Notes for AVM 1.6</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AVM 1.6 was released on February 2, 2022. This release features the full release of the Ontology Visualization feature in the Ontology Editor, access control policies on datasets, a UI for defining the default IRI when creating new ontologies, and a brand new beta release of a Shapes Editor for Shapes Constraint Language (SHACL) files. It also includes various bug fixes and improvements.</p>
+</div>
+<div class="sect2">
+<h3 id="whats_new_4">What&#8217;s New</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>We&#8217;ve added a new beta module for editing SHACL Graphs called the Shapes Editor</p>
+</li>
+<li>
+<p>We&#8217;ve expanded the Ontology Visualization feature out of beta with a host of usability improvements</p>
+</li>
+<li>
+<p>We&#8217;ve added a section to customize application-wide settings to the Administration page</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="detailed_notes_4">Detailed Notes</h3>
+<div class="sect3">
+<h4 id="general_improvements_and_fixes_3">General Improvements and Fixes</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgraded AngularJS version to 1.8.2</p>
+</li>
+<li>
+<p>Upgraded Lodash version to 4.17.21</p>
+</li>
+<li>
+<p>Upgraded UnboundID version to 6.0.3</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="catalog_3">Catalog</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Fixed issue where a publisher was not set on the MASTER branch when a new record was created</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ontology_editor_4">Ontology Editor</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated the Ontology Visualization feature to enable customization of the graph by hiding and showing classes and ontologies in a collapsible side panel</p>
+</li>
+<li>
+<p>Updated merge workflow to prevent merges into the same branch as the source</p>
+</li>
+<li>
+<p>Added application setting to customize the default IRI for new ontologies</p>
+</li>
+<li>
+<p>Fixed issue where tabbing quickly after typing a character into the title field when creating a class would not update the IRI properly</p>
+</li>
+<li>
+<p>Fixed issue where circular subclass relationships were not properly represented in the class hierarchy</p>
+</li>
+<li>
+<p>Fixed issue where IRIs with an invalid extra "#" were accepted when editing an IRI</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="merge_requests_3">Merge Requests</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated merge workflow to prevent merges into the same branch as the source</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="shapes_editor_3">Shapes Editor</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Introduced brand new beta module for editing SHACL shapes graphs with full versioning support. Behaves like the Ontology Editor with commits, branches, and tags to facilitate collaborative development</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mapping_tool_3">Mapping Tool</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Improved formatting of JSON-LD preview</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="datasets_2">Datasets</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Introduced default access policies for Dataset Records. Default access only allows the creator to delete and manage record metadata</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="administration_2">Administration</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Added a new section for managing Application Settings</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release_notes_for_avm_1_5">Release Notes for AVM 1.5</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AVM 1.5 was released on October 25, 2021. This release features a beta for Ontology Visualization in the Ontology Editor, updated <code>dct:modified</code> dates on Records, Record filtering by keyword in the Catalog, UPDATE query CLI support, and a new application wide setting for the default Ontology namespaces. It also includes updates to policy handling, such as the filtering Records based on the user&#8217;s ability to view the Record. Additionally, this release includes SPARQL query endpoint compliance, a REST interface for ETL, Basic Authentication on REST endpoints, Reflexive/Irreflexive property support, and various bug fixes and improvements.</p>
+</div>
+<div class="sect2">
+<h3 id="whats_new_5">What&#8217;s New</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>We&#8217;ve added a new beta feature for Ontology Visualization in the Ontology Editor</p>
+</li>
+<li>
+<p>We&#8217;ve added Record filtering by keywords in the Catalog</p>
+</li>
+<li>
+<p>We&#8217;ve introduced filtering Records based on the user&#8217;s ability to view the Record</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+The "Query System Repo" policy will be rest to support updated SPARQL compliant endpoints
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="detailed_notes_5">Detailed Notes</h3>
+<div class="sect3">
+<h4 id="anzo_integration_4">Anzo Integration</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Support for Anzo 5.2.x</p>
+</li>
+<li>
+<p>Updated Publish REST API to enable fetching of individual Publish Activity metadata</p>
+</li>
+<li>
+<p>Improved UI logic for gathering individual publish statuses</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="general_improvements_and_fixes_4">General Improvements and Fixes</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Removed deprecated OWLAPI Ontology Implementation bundle</p>
+</li>
+<li>
+<p>Added support for UPDATE queries to the <code>mobi:query</code> CLI command. Has the ability to perform a dry run of the query displaying what will change</p>
+</li>
+<li>
+<p>Created an experimental REST interface for automatically translating source files into RDF with an extracted ontology. Currently supports XML, JSON, and CSV files</p>
+</li>
+<li>
+<p>Added Basic Authentication support to REST endpoints</p>
+</li>
+<li>
+<p>Introduced POST support to SPARQL Query endpoint in order to be more aligned with the SPARQL query endpoint specification</p>
+</li>
+<li>
+<p>Extended Settings framework to add support for application wide system settings</p>
+</li>
+<li>
+<p>The User Management module in the frontend code have been converted from AngularJS to Angular</p>
+</li>
+<li>
+<p>Added a REST endpoint to retrieve a Provenance Activity by resource ID</p>
+</li>
+<li>
+<p>Fixed issue with system policies being evicted from the policy cache and updated API for easier loading of policies</p>
+</li>
+<li>
+<p>Fixed issue where dangling graphs would persist across backup/restores</p>
+</li>
+<li>
+<p>Fixed system policy to restrict permissions to do everything from anyone with the admin role to only the admin user</p>
+</li>
+<li>
+<p>Fixed issue with Swagger docs not displaying list parameters correctly</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="catalog_4">Catalog</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Added the ability to filter Records based on keywords on the Record</p>
+</li>
+<li>
+<p>Updated <code>dct:modified</code> date of Records based on committing to a branch, adding/removing branches, editing branch metadata, and editing Record metadata</p>
+</li>
+<li>
+<p>Fixed issue where the markdown editor help text would be cut off by side component</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ontology_editor_5">Ontology Editor</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Introduced a beta feature for Ontology Visualization that will render up to 500 classes as nodes in a network graph, using the subclass relationships and object properties as edges. Uses the source Ontology and its imports</p>
+</li>
+<li>
+<p>Added backend support for setting the default namespace for new ontologies and defaulted the value to <code><a href="https://avm.com/ontologies/" class="bare">https://avm.com/ontologies/</a></code></p>
+</li>
+<li>
+<p>Added the source Ontology IRI when viewing an imported entity</p>
+</li>
+<li>
+<p>Added <code>owl:ReflexiveProperty</code> and <code>owl:IrreflexiveProperty</code> support to properties</p>
+</li>
+<li>
+<p>Introduced a notification to the user when Ontology state is updated on reopen of an Ontology</p>
+</li>
+<li>
+<p>Added the ability to see the full ontology title on hover when importing an Ontology on the server</p>
+</li>
+<li>
+<p>Updated query REST requests to stream results back to the frontend</p>
+</li>
+<li>
+<p>Fixed issue where failed imports did not truncate</p>
+</li>
+<li>
+<p>Fixed issue in the Search Tab where the warning message did not display for searches with more than 500 results</p>
+</li>
+<li>
+<p>Fixed issue when viewing an Entity&#8217;s history in a large Ontology would cause server slowdowns</p>
+</li>
+<li>
+<p>Fixed issue where a long imported Ontology IRI would extend past the confirm modal on deletion</p>
+</li>
+<li>
+<p>Fixed issue where a long imported Ontology IRI would extend past modal on addition</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mapping_tool_4">Mapping Tool</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Fixed issue where Classes from uncommitted changes on MASTER of source Ontologies appeared in Class selector</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="discover_3">Discover</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated the display of syntax error messages in the Query tab when submitting invalid SPARQL queries to be more human-readable</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="my_account">My Account</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Fixed issue where updated names wouldn&#8217;t immediately reflect the change in the side panel</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="administration_3">Administration</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Added handling for cleaning up User State when deleting a User</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release_notes_for_avm_1_4">Release Notes for AVM 1.4</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AVM 1.4 was released on June 20, 2021. This release includes improved performance for various actions within the Ontology Editor, support for uploading compressed ontology files, and new features for an improved editing and viewing experience. It also features a new AnzoGraph gRPC based repository implementation, an overhaul of the publishing framework to be more extensible and with better performance, a new <a href="https://www.w3.org/TR/shacl/">SHACL</a> based framework for setting user preferences in the UI, fully interactive Swagger documentation for our extensive REST APIs, and numerous bug fixes and improvements.</p>
+</div>
+<div class="sect2">
+<h3 id="whats_new_6">What&#8217;s New</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>We&#8217;ve added new Swagger-based REST API documentation where API calls can be tested live</p>
+</li>
+<li>
+<p>We&#8217;ve introduced a new framework for configuring and generating web forms for user preferences powered by <a href="https://www.w3.org/TR/shacl/">SHACL</a></p>
+</li>
+<li>
+<p>We&#8217;ve introduced performance improvements to the Ontology Editor to better support uploading large ontologies and viewing the change history of ontology entities</p>
+</li>
+<li>
+<p>We&#8217;ve introduced a new type of repository configuration for AnzoGraph connectivity over gRPC</p>
+</li>
+<li>
+<p>We&#8217;ve refactored the Publish Services to create an extensible framework with improved performance and clear APIs</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="detailed_notes_6">Detailed Notes</h3>
+<div class="sect3">
+<h4 id="anzo_integration_5">Anzo Integration</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Support for Anzo 5.1.x</p>
+</li>
+<li>
+<p>Fixed race conditions in the Orchestration Service integrations for sync, merge, and publish</p>
+</li>
+<li>
+<p>Performance improvement when publishing large vocabularies</p>
+</li>
+<li>
+<p>Changed properties set on published OWL datasets and included migration logic by default on upgrade</p>
+</li>
+<li>
+<p>Updated AVM SKOS Ontology to include domains and ranges on <code>skos:related</code>, <code>skos:closeMatch</code>, and <code>skos:exactMatch</code> properties by default</p>
+</li>
+<li>
+<p>Introduced a new extensible publishing backend framework and refactored Anzo Integration to build off of it</p>
+</li>
+<li>
+<p>Introduce a new repository type for connecting to an AnzoGraph cluster via gRPC</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="general_improvements_and_fixes_5">General Improvements and Fixes</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Introduced default license location of <code>~/.mobi/license.lic</code> if not found at <code>${karaf.home}/license.lic</code></p>
+</li>
+<li>
+<p>Encryption of sensitive information stored within service configuration files is now enabled by default</p>
+</li>
+<li>
+<p>Changes to the master password used for service configuration encryption can be changed without having to restart the server</p>
+</li>
+<li>
+<p>Swagger REST API documentation is available on every running server</p>
+</li>
+<li>
+<p>Enabled an experimental command-line feature for automatically translating source files into RDF with an extracted ontology. Currently supports XML, JSON, and CSV files</p>
+</li>
+<li>
+<p>Added full Java and REST API framework for storing, updating, and retrieving preferences based on <a href="https://www.w3.org/TR/shacl/">SHACL shape</a> definitions</p>
+</li>
+<li>
+<p>Downgraded the jsonld-java library to fix issue where subjects could not be defined as a type of themselves</p>
+</li>
+<li>
+<p>Fixed issue where tags in an ontology were not included when exporting the record via the <code>mobi:export-record</code> command</p>
+</li>
+<li>
+<p>Fixed issue where icons did not load when not connected to the internet</p>
+</li>
+<li>
+<p>Fixed issue where logs viewed via the Karaf console did not display the Java Class names</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="catalog_5">Catalog</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Added ability to copy the full IRI of a commit when clicking on the hash in the commit info overlay</p>
+</li>
+<li>
+<p>Fixed issue where a new record "Overview" value would not immediately display after saving</p>
+</li>
+<li>
+<p>Fixed issue where In Progress Commits were not deleted from the repository when a Record was deleted</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ontology_editor_6">Ontology Editor</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Changed calculation of differences on upload changes to deterministically skolemize blank nodes to provide a more accurate difference</p>
+</li>
+<li>
+<p>Improved the performance of the See History view for individual entities in an ontology</p>
+</li>
+<li>
+<p>Improved the performance of caching an retrieving ontology data</p>
+</li>
+<li>
+<p>All ontology file uploads are automatically compressed before sending to the server for improved network performance</p>
+</li>
+<li>
+<p>Changed wording of info messages to be more helpful</p>
+</li>
+<li>
+<p>Combined the endpoints for uploading ontology JSON-LD and an ontology file such that the data and record metadata are both provided as form data parameters</p>
+</li>
+<li>
+<p>Added new filter to hierarchies to remove deprecated entities (i.e. items annotated with <code>owl:deprecated</code>)</p>
+</li>
+<li>
+<p>Added ability to upload zipped (<code>.zip</code>) and gzipped (<code>.gzip</code>) ontology files</p>
+</li>
+<li>
+<p>Added ability to copy the full IRI of a commit when clicking on the hash in the commit info overlay</p>
+</li>
+<li>
+<p>Added support for rendering SKOS-XL literal form as entity names in hierarchies and relationship labels</p>
+</li>
+<li>
+<p>Added support for <code>owl:TransitiveProperty</code> and <code>owl:SymmetricProperty</code> in Property Characteristics block</p>
+</li>
+<li>
+<p>Added ability to change the type of individuals in an ontology even if they do not contain the <code>owl:NamedIndividual</code> type</p>
+</li>
+<li>
+<p>Added support for creating qualified restrictions on a class where the class is another restriction. An example in Manchester Syntax looks like this: <code>isConnectedTo exactly 1 (Fin or Fuselage or Wing)</code></p>
+</li>
+<li>
+<p>Added display of syntax errors to the upload changes overlay</p>
+</li>
+<li>
+<p>Added prevention of trig upload which would cause unexpected behavior</p>
+</li>
+<li>
+<p>Fixed issue where the class hierarchy did not fully reset after a branch was created</p>
+</li>
+<li>
+<p>Fixed issue where uploading the same ontology as changes still created an In Progress Commit</p>
+</li>
+<li>
+<p>Fixed issue where uploading an ontology file with a non-resolvable import threw an error</p>
+</li>
+<li>
+<p>Fixed issue where See History did not update when switching branches</p>
+</li>
+<li>
+<p>Fixed issue where a "IRI already exists" error would display for a split second when creating a new entity</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="merge_requests_4">Merge Requests</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Fixed issue where long ontology names caused the second step of creating a Merge Request to horizontally scroll</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mapping_tool_5">Mapping Tool</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Added ability to copy the full IRI of a commit when clicking on the hash in the commit info overlay</p>
+</li>
+<li>
+<p>Fixed issue where full mapping definition was not returned when downloading a mapping</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="discover_4">Discover</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Fixed issue where blank nodes defined as known classes caused errors in the Explore tool when viewing the class list and list of instances</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="my_account_2">My Account</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>New Preferences tab that will populate with User Preference <a href="https://www.w3.org/TR/shacl/">SHACL</a> definitions from the repository</p>
+</li>
+<li>
+<p>Confirm password input in Password tab was converted to a single field with the ability to unmask the value for verification</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="administration_4">Administration</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Confirm password input in Reset Password overlay and Create User overlay was converted to a single field with the ability to unmask the value for verification</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release_notes_for_avm_1_3">Release Notes for AVM 1.3</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AVM 1.3 released on November 5, 2020.</p>
+</div>
+<div class="sect2">
+<h3 id="whats_new_7">What&#8217;s New</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>We&#8217;ve introduced performance improvements to the Ontology Editor, Merge Requests, and Catalog to support viewing extremely large collections of differences while also displaying the calculated name for each entity instead of the local name of the IRIs</p>
+</li>
+<li>
+<p>We&#8217;ve introduced a new SPARQL query editor in the Discover module with a better query editing experience, resizable editor and results areas, and support for CONSTRUCT SPARQL queries</p>
+</li>
+<li>
+<p>We&#8217;ve added the ability to view syntax errors when an ontology upload fails</p>
+</li>
+<li>
+<p>We&#8217;ve added configurable encryption of sensitive information stored within service configuration files</p>
+</li>
+<li>
+<p>We&#8217;ve added OAuth 2.0 and OpenID Connect SSO support</p>
+</li>
+<li>
+<p>We&#8217;ve introduced the ability to use AVM as the manager for Models in addition to Vocabularies by allowing publishing of models to the Anzo Catalog</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="detailed_notes_7">Detailed Notes</h3>
+<div class="sect3">
+<h4 id="general_improvements_and_fixes_6">General Improvements and Fixes</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>We&#8217;ve introduced performance improvements to the Ontology Editor, Merge Requests, and Catalog to support viewing extremely large collections of differences while also displaying the calculated name for each entity instead of the local name of the IRIs</p>
+</li>
+<li>
+<p>We&#8217;ve introduced a new SPARQL query editor in the Discover module with a better query editing experience, resizable editor and results areas, and support for CONSTRUCT SPARQL queries</p>
+</li>
+<li>
+<p>We&#8217;ve added the ability to view syntax errors when an ontology upload fails</p>
+</li>
+<li>
+<p>We&#8217;ve added configurable encryption of sensitive information stored within service configuration files</p>
+</li>
+<li>
+<p>We&#8217;ve introduced support for OAuth 2.0 or OpenID SSO configurations in addition to the existing SAML SSO support</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="catalog_6">Catalog</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Changed the display of commit differences to load incrementally and display the calculated names of each entity instead of the local name of the IRI</p>
+</li>
+<li>
+<p>Fixed issue where the graph in the Catalog Commit table overlapped with the Creator column</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ontology_editor_7">Ontology Editor</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Added support for <code>owl:versionInfo</code> and <code>owl:versionIRI</code></p>
+</li>
+<li>
+<p>Added more intelligent identification of the RDF format of a file when uploading ontologies</p>
+</li>
+<li>
+<p>Added display of syntax errors to the ontology upload snackbar</p>
+</li>
+<li>
+<p>Changed the display of commit differences to load incrementally and display the calculated names of each entity instead of the local name of the IRI</p>
+</li>
+<li>
+<p>Improved performance of the Concepts hierarchy by reworking a filter used within the Annotation, Data Property, and Object Property sections</p>
+</li>
+<li>
+<p>Fixed issue where the endpoint for fetching the list of branches had no default sort value</p>
+</li>
+<li>
+<p>Fixed issue where search text was not properly highlighting matches within the list of ontologies</p>
+</li>
+<li>
+<p>Fixed issue where modals for creating entities within an ontology accepted invalid characters at the beginning of the IRI</p>
+</li>
+<li>
+<p>Fixed issue where modals for editing an IRI accepted invalid characters</p>
+</li>
+<li>
+<p>Fixed issue where editing an <code>owl:subPropertyOf</code> axiom would cause Concept tab to lose identification of imported concepts</p>
+</li>
+<li>
+<p>Fixed issue where the text of the selected data or object property in the "Add Datatype Property Value" modal would extend past the edge of the modal</p>
+</li>
+<li>
+<p>Fixed issue where changing the language of a <code>skos:prefLabel</code> value on a Concept Scheme or Concept would cause an "Invalid JSON-LD" error</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="sync">Sync</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Changed name from “Synchronization” to “Sync” in the navigation bar</p>
+</li>
+<li>
+<p>Include entities linked to vocabulary concepts when synchronizing</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="publish">Publish</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>New ability to publish full OWL content of ontologies as Models or Datasets in the Anzo Catalog</p>
+</li>
+<li>
+<p>Fixed issue where search text was not properly highlighting matches within the list of ontologies</p>
+</li>
+<li>
+<p>Fixed issue where long ontology names would increase width of the publish history page for that ontology</p>
+</li>
+<li>
+<p>Fixed issue where updated ontology titles would not display in the main Publish list until the browser was refreshed</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="link_2">Link</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Moved to be a sub-module item underneath “Ontology Editor” in the navigation bar and changed name from “Vocabulary Linking” to just “Link”</p>
+</li>
+<li>
+<p>Improved performance of vocabulary linking for large ontologies</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="merge_requests_5">Merge Requests</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Changed the display of commit differences to load incrementally and display the calculated names of each entity instead of the local name of the IRI</p>
+</li>
+<li>
+<p>Fixed issue where ontology IRIs would extend past their cards in the first step of creating a merge request on Firefox</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mapping_tool_6">Mapping Tool</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Changed the display of commit differences to load incrementally</p>
+</li>
+<li>
+<p>Fixed issue where the selected property would not load when editing an existing property mapping</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="discover_5">Discover</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Refactored Query submodule to re-skin <a href="http://yasgui.org/">YASGUI</a> for Mobi</p>
+</li>
+<li>
+<p>Introduced CONSTRUCT query support to both frontend Query editor and backend endpoints</p>
+</li>
+<li>
+<p>Changed JSON response for SELECT SPARQL queries to conform to the <a href="https://www.w3.org/TR/sparql11-results-json/">W3C specification</a></p>
+</li>
+<li>
+<p>Introduced utility Java class to support converting SELECT SPARQL query results to JSON, CSV, and TSV</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release_notes_for_avm_1_2">Release Notes for AVM 1.2</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AVM 1.2 released on August 28, 2020.</p>
+</div>
+<div class="sect2">
+<h3 id="whats_new_8">What&#8217;s New</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>We&#8217;ve introduced the ability to commit one sided links within the Link module</p>
+</li>
+<li>
+<p>We&#8217;ve added a new navigation option within the Publish module to display more details about the publish history of a specific ontology</p>
+</li>
+<li>
+<p>We&#8217;ve introduced services within the Anzo plugins to enable execution of syncs, merges, and publishes within the Anzo Service Pipeline Framework</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="detailed_notes_8">Detailed Notes</h3>
+<div class="sect3">
+<h4 id="general_improvements_and_fixes_7">General Improvements and Fixes</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Added three services to the plugins deployed to the Anzo server that enable an Anzo Ingest Manager within to execute syncs of Graphmarts, merges of vocabulary sync branches, and publishes off specific vocabularies</p>
+</li>
+<li>
+<p>Fixed issue where search text in paginated lists of ontologies would affect the ability to page through the results</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="publish_2">Publish</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Moved the publish history table to a separate view available when clicking on a specific ontology in the list</p>
+</li>
+<li>
+<p>Expanded properties for published Concept Scheme/Ontology titles to include other standard annotations</p>
+</li>
+<li>
+<p>Fixed bug where certain ways of representing Boolean values within vocabularies would cause a publish to fail</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="link_3">Link</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Introduced new commit overlay with options to commit the chosen matches to one vocabulary or both</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release_notes_for_avm_1_1">Release Notes for AVM 1.1</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AVM 1.1 released on May 7, 2020.</p>
+</div>
+<div class="sect2">
+<h3 id="whats_new_9">What&#8217;s New</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>We&#8217;ve introduced performance improvements to the Ontology Editor to support extremely large ontologies with hundreds of thousands of entities as well increasing application response speed for various actions</p>
+</li>
+<li>
+<p>We&#8217;ve introduced a new filter for the hierarchy in each of the ontology tabs that will optionally filter out imported entities from the hierarchy view</p>
+</li>
+<li>
+<p>We&#8217;ve restructured the UI navigation to group ontology/vocabulary focused modules together</p>
+</li>
+<li>
+<p>We&#8217;ve created a separate module just for publishing which includes a publish history view per ontology along with the specific commit that was published</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="detailed_notes_9">Detailed Notes</h3>
+<div class="sect3">
+<h4 id="general_improvements_and_fixes_8">General Improvements and Fixes</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>New support for configurable token duration for account logins</p>
+</li>
+<li>
+<p>Added a line in the config specifying the default port for AVM</p>
+</li>
+<li>
+<p>Fixed issue where the username of the logged in user was replaced with "…" if it was too long to fit in the navbar instead of truncating</p>
+</li>
+<li>
+<p>Added scaffolding that includes new packages and files to help facilitate the switch from AngularJS to Angular</p>
+</li>
+<li>
+<p>Changed default permissions of AVM ontologies loaded into Anzo so everyone can view them</p>
+</li>
+<li>
+<p>Support for Anzo 5.0 in plugins deployed to the Anzo server</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ontology_editor_8">Ontology Editor</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>New "Active Entity" filter in each of the ontology tabs that will optionally filter out imported entities from the hierarchy view</p>
+</li>
+<li>
+<p>Refactored the Ontology Editor to store only required data for rendering in the web application rather than the entire Ontology RDF</p>
+</li>
+<li>
+<p>New backend endpoint to retrieve full RDF for a specified entity along with its transitively attached blank nodes</p>
+</li>
+<li>
+<p>Modified the behavior on click of an entity in the hierarchy so that it retrieves the entity RDF from the new GET entity endpoint.</p>
+</li>
+<li>
+<p>Modified the GET ontology-stuff endpoint to include a map of entity IRIs in the imports closure to the values of properties used in calculating the display name</p>
+</li>
+<li>
+<p>Removed the GET ontology calls from the frontend to improve performance, especially when opening large ontologies</p>
+</li>
+<li>
+<p>Modified the GET commit endpoint to only retrieve commit metadata instead of full list of differences</p>
+</li>
+<li>
+<p>Modified the GET differences endpoint to make the target commit ID optional</p>
+</li>
+<li>
+<p>Improved performance of opening an Ontology</p>
+</li>
+<li>
+<p>Improved performance of switching branches</p>
+</li>
+<li>
+<p>Improved performance of retrieving ontology data after a new commit</p>
+</li>
+<li>
+<p>Improved performance of uploading an Ontology</p>
+</li>
+<li>
+<p>Improved the Ontology Editor module to support extremely large ontologies with hundreds of thousands of entities</p>
+</li>
+<li>
+<p>Added a limit to the amount of data displayed in the Preview block to improve performance of large ontologies</p>
+</li>
+<li>
+<p>Fixed issue where the ontology upload modal would stop appearing if the user accidentally clicked off of the ontology upload modal</p>
+</li>
+<li>
+<p>Fixed issue where imported ontologies without an Ontology IRI defined showed up blank in the Imports block of the Project tab</p>
+</li>
+<li>
+<p>Fixed issue where a long title for an ontology would expand the row on the Ontology List page too far horizontally and push the page content to the right along with it</p>
+</li>
+<li>
+<p>Fixed issue where a modal would close if you clicked on something in the modal, held the click, and released outside of the modal</p>
+</li>
+<li>
+<p>Fixed issue where application would run out of memory when merging large ontologies with merge conflicts</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="sync_2">Sync</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Changed name from “Synchronization” to “Sync” in the navigation bar</p>
+</li>
+<li>
+<p>Include entities linked to vocabulary concepts when synchronizing</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="publish_3">Publish</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Moved publish functionality from dropdowns in the Ontology Editor list to a full “Publish” module underneath “Ontology Editor” in the navigation bar</p>
+</li>
+<li>
+<p>Display complete publish history per ontology in Publish module along with the hash of the specific commit that was published</p>
+</li>
+<li>
+<p>Automatically add imported ontologies from published vocabularies to generated datasets</p>
+</li>
+<li>
+<p>Fixed issue where the modified date on published datasets was not updated on subsequent publishes</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="link_4">Link</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Moved to be a sub-module item underneath “Ontology Editor” in the navigation bar and changed name from “Vocabulary Linking” to just “Link”</p>
+</li>
+<li>
+<p>Improved performance of vocabulary linking for large ontologies</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="catalog_7">Catalog</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Fixed issue where the graph in the Catalog Commit table overlapped with the Creator column</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2023-03-11 13:53:08 -0500
+</div>
+</div>
+<link rel="stylesheet" href="../highlight/styles/github.min.css">
+<script src="../highlight/highlight.min.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

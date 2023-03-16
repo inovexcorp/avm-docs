@@ -4,10 +4,11 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.10">
+<meta name="generator" content="Asciidoctor 2.0.12">
 <link rel="icon" type="image/x-icon" href="../favicon.ico">
 <title>Anzo Vocabulary Manager User Manual</title>
 <link rel="stylesheet" href="./../foundation.css">
+<link rel="stylesheet" href="../highlight/styles/github.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
 <link rel="stylesheet" href="custom.css">
 <link rel="stylesheet" href="../nav-bar.css">
@@ -71,14 +72,14 @@
 </head>
 <body class="article toc2 toc-left">
 <div class="nav-bar">
-    <a class="img-link" href="../">
+    <a class="img-link" href="/">
         <img src="../logo_white_transparent.png" alt="Alternative AVM Logo"/>
     </a>
     <input type="checkbox" name="menu-btn" id="menu-btn" value="1" />
     <label class="menu-icon" for="menu-btn"><i class="fa fa-bars" aria-hidden="true"></i></label>
     <ul class="nav-items">
-        <li><a href="../latest/index.html">User Manual</a></li>
-        <li><a href="../release-notes/index.html">Release Notes</a></li>
+        <li><a href="/latest/index.html">User Manual</a></li>
+        <li><a href="/release-notes/index.html">Release Notes</a></li>
         <li><a href="https://docs.cambridgesemantics.com" target="_blank">Anzo Docs</a></li>
     </ul>
 </div><div id="header">
@@ -199,6 +200,13 @@
 </li>
 </ul>
 </li>
+<li><a href="#developer_guide">Developer Guide</a>
+<ul class="sectlevel2">
+<li><a href="#ontologycache_configuration_file">OntologyCache Configuration File</a></li>
+<li><a href="#load_dataset_data">Load Dataset Data</a></li>
+<li><a href="#accessing_swagger_rest_api_documentation">Accessing Swagger REST API Documentation</a></li>
+</ul>
+</li>
 <li><a href="#avm_mappings">Appendix A: AVM Mappings</a>
 <ul class="sectlevel2">
 <li><a href="#mapping">Mapping</a>
@@ -270,7 +278,7 @@
 <div class="sectionbody">
 <div class="imageblock text-center">
 <div class="content">
-<img src="../full_color_transparent.png" alt="AVM Logo" width="500">
+<img src="/full_color_transparent.png" alt="AVM Logo" width="500">
 </div>
 </div>
 <div class="paragraph">
@@ -328,7 +336,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="powershell" class="language-powershell hljs">&gt; cd %AVM_HOME%
+<pre class="highlightjs highlight"><code class="language-powershell hljs" data-lang="powershell">&gt; cd %AVM_HOME%
 &gt; bin\start.bat</code></pre>
 </div>
 </div>
@@ -337,7 +345,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ cd $AVM_HOME
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ cd $AVM_HOME
 $ ./bin/start</code></pre>
 </div>
 </div>
@@ -3274,7 +3282,7 @@ emailTemplate = emailTemplate.html</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="plaintext" class="language-plaintext hljs">                 @#@@
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">                 @#@@
                 @###@
                @@@@@                   _     _
    @@@       @@@@      _ __ ___   ___ | |__ (_)
@@ -3302,7 +3310,7 @@ karaf@mobi&gt;</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="plaintext" class="language-plaintext hljs">karaf@mobi&gt;mobi:import --help
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">karaf@mobi&gt;mobi:import --help
 DESCRIPTION
         mobi:import
 
@@ -3572,7 +3580,7 @@ following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">sudo useradd -d /opt/anzo anzo</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo useradd -d /opt/anzo anzo</code></pre>
 </div>
 </div>
 </div>
@@ -3583,7 +3591,7 @@ following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">wget https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">wget https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm
 sudo rpm -Uvh jdk-17_linux-x64_bin.rpm</code></pre>
 </div>
 </div>
@@ -3604,7 +3612,7 @@ If you are using a Red Hat system, you can install Java 17 with <code>sudo yum i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">sudo su - anzo
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo su - anzo
 echo 'export JAVA_HOME=/usr/java/jdk-17.0.4.1' &gt;&gt; ~/.bashrc
 exit</code></pre>
 </div>
@@ -3637,7 +3645,7 @@ server.
 <p>Unpack AVM to the installation parent directory (e.g. <code>/opt/anzo</code>)</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">sudo su - anzo
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo su - anzo
 tar -xf $AVM_DIST.tar.gz</code></pre>
 </div>
 </div>
@@ -3646,7 +3654,7 @@ tar -xf $AVM_DIST.tar.gz</code></pre>
 <p>Create a symlink to the latest distribution</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">ln -s $AVM_DIST latest</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ln -s $AVM_DIST latest</code></pre>
 </div>
 </div>
 </li>
@@ -3654,7 +3662,7 @@ tar -xf $AVM_DIST.tar.gz</code></pre>
 <p>Start the AVM Enterprise server</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">cd latest
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd latest
 ./bin/start</code></pre>
 </div>
 </div>
@@ -3666,7 +3674,7 @@ tar -xf $AVM_DIST.tar.gz</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">serverId = "{UUID}"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">serverId = "{UUID}"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3680,7 +3688,7 @@ tar -xf $AVM_DIST.tar.gz</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">cp license.lic $AVM_DIST/etc/</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cp license.lic $AVM_DIST/etc/</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3688,7 +3696,7 @@ tar -xf $AVM_DIST.tar.gz</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">cd latest
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd latest
 ./bin/start</code></pre>
 </div>
 </div>
@@ -3697,7 +3705,7 @@ tar -xf $AVM_DIST.tar.gz</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">./bin/stop</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./bin/stop</code></pre>
 </div>
 </div>
 </div>
@@ -3774,7 +3782,7 @@ tar -xf $AVM_DIST.tar.gz</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">anzo.hostname = localhost
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">anzo.hostname = localhost
 anzo.port = 8443
 anzo.ssl = true
 anzo.username = sysadmin
@@ -3834,7 +3842,7 @@ All versions from 1.7 onwards have this line already added.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">export JAVA_OPTS="-Xms${JAVA_MIN_MEM} -Xmx${JAVA_MAX_MEM}"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export JAVA_OPTS="-Xms${JAVA_MIN_MEM} -Xmx${JAVA_MAX_MEM}"</code></pre>
 </div>
 </div>
 </div>
@@ -3845,7 +3853,7 @@ All versions from 1.7 onwards have this line already added.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">org.osgi.service.http.port.secure = &lt;SSL_APPLICATION_PORT&gt;</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">org.osgi.service.http.port.secure = &lt;SSL_APPLICATION_PORT&gt;</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -3873,7 +3881,7 @@ simply replace the default keystore file with your own:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">cp mycerts.jks $AVM_DIST/etc/keystore</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cp mycerts.jks $AVM_DIST/etc/keystore</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3955,7 +3963,7 @@ Be sure to correctly configure the file locations and user.
 directory. For example:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">[Unit]
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[Unit]
 Description=AVM Service.
 After=network.target
 StartLimitIntervalSec=30
@@ -3979,7 +3987,7 @@ WantedBy=default.target</code></pre>
 and enable the new service:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">systemctl start avm
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">systemctl start avm
 systemctl enable avm</code></pre>
 </div>
 </div>
@@ -4030,7 +4038,7 @@ duration will use the default of 24 hours.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">### 1 day token duration
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### 1 day token duration
 tokenDurationMins = 1440</code></pre>
 </div>
 </div>
@@ -4247,7 +4255,7 @@ full user DNs. (ex: <code>uid</code>)</p></td>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">repository.target = (id=system)
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">repository.target = (id=system)
 ldap.server = localhost
 ldap.port = 10389
 ldap.timeout = 30
@@ -4386,7 +4394,7 @@ file in the <code>$AVM_DIST/etc/</code> directory and make this value <code>${ka
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">title=Samling
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">title=Samling
 entityId=https://localhost:8443/avm/#/login
 certFile=${karaf.etc}/samling.cert
 keyFile=${karaf.etc}/samling_pkcs8.key
@@ -4400,7 +4408,7 @@ ssoBinding=urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">title=Samling
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">title=Samling
 entityId=https://localhost:8443/avm/#/login
 certFile=${karaf.etc}/samling.cert
 keyFile=${karaf.etc}/samling_pkcs8.key
@@ -4455,7 +4463,7 @@ to set the token duration value.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">### 1 day token duration
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### 1 day token duration
 tokenDurationMins = 1440</code></pre>
 </div>
 </div>
@@ -4560,7 +4568,7 @@ tokenDurationMins = 1440</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">title=Mock OAuth
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">title=Mock OAuth
 clientId=mobi
 scope=read,openid
 grantType=CODE
@@ -4598,7 +4606,7 @@ keyFile=${karaf.etc}/NTs4oGbx1A-cROpjgUKdKtzTEkHUhhSwQ7xdhN6FdlQ_pub.pem</code><
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">title=Mock OAuth
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">title=Mock OAuth
 clientId=avm
 scope=read,openid
 openidConfigHostname=http://localhost:8080</code></pre>
@@ -4629,7 +4637,7 @@ directory and contains the following fields:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">enabled=true
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">enabled=true
 password=ENTER_A_UNIQUE_PASSWORD_HERE</code></pre>
 </div>
 </div>
@@ -4653,7 +4661,7 @@ variable. To configure the use of an environment variable, use the following fie
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">enabled=true
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">enabled=true
 variable=MY_CHOSEN_ENVIRONMENT_VARIABLE</code></pre>
 </div>
 </div>
@@ -4730,11 +4738,60 @@ If the master password is changed while AVM is not running, all previously encry
 </tr>
 </table>
 </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="developer_guide">Developer Guide</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="ontologycache_configuration_file">OntologyCache Configuration File</h3>
 <div class="paragraph">
-<p>Unresolved directive in index.adoc - include::developer_guide.adoc[]</p>
+<p>AVM utilizes the Repository Cache Ontology API implementation to represent Ontologies.</p>
+</div>
+<div class="paragraph">
+<p>Configuration file for the CacheRepositoryCleanup job:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">com.mobi.cache.impl.repository.CleanupRepositoryCache.cfg</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This file is responsible for deleting stale ontologies within the repository after a specified period in order to preserve resources and improve processing. The format looks like the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">repoId = ontologyCache
+expiry = 1800
+scheduler.expression=0 0 * * * ?</code></pre>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="load_dataset_data">Load Dataset Data</h3>
+<div class="paragraph">
+<p>Data can be manually loaded into an existing <a href="#datasets_manager">Dataset</a> using the AVM shell. You will need the full path to the data file and the IRI of the target DatasetRecord.</p>
+</div>
+<div class="paragraph">
+<p>Open the <a href="#avm_shell">AVM shell</a> and run the <code>mobi:import</code> command passing the IRI of the DatasetRecord and the path to the data file. For example, if you wanted to load data located at <code>/Users/tester/Documents/testData.trig</code> into the <code>https://mobi.com/records/my-dataset</code> DatasetRecord, you would run the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">mobi:import --dataset https://mobi.com/records/my-dataset /Users/tester/Documents/testData.trig</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>All triples that are not within a named graph will be loaded into the <a href="#systemdefaultnamedgraph">system default named graph</a>. All triples within named graphs will be added and their named graphs associated with the Dataset.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="accessing_swagger_rest_api_documentation">Accessing Swagger REST API Documentation</h3>
+<div class="paragraph">
+<p>Every installation of AVM provides <a href="https://swagger.io/">Swagger</a> Documentation for the full suite of AVM REST APIs. This documentation is provided as a standard Swagger YAML file as well as a fully interactive hosted version. The Swagger YAML file can be downloaded at <code>$AVM_HOST/swagger-ui/mobi-swagger.yaml</code>. To reach the Swagger Documentation UI, navigate to <code>$AVM_HOST/swagger-ui/index.html</code>. For example, in a default deployment these URLs would look like <a href="https://localhost:8443/swagger-ui/mobi-swagger.yaml" class="bare">https://localhost:8443/swagger-ui/mobi-swagger.yaml</a> and <a href="https://localhost:8443/swagger-ui/index.html" class="bare">https://localhost:8443/swagger-ui/index.html</a>, respectively.</p>
 </div>
 </div>
 </div>
@@ -5393,7 +5450,7 @@ the decision of the PDP. These are currently unused in AVM policies.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="xml" class="language-xml hljs">&lt;Policy xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17" PolicyId="http://mobi.com/policies/ontology-creation" RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-unless-permit" Version="1.0"&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;Policy xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17" PolicyId="http://mobi.com/policies/ontology-creation" RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-unless-permit" Version="1.0"&gt;
     &lt;Description&gt;Who can create an OntologyRecord in the Local Catalog?&lt;/Description&gt;
     &lt;Target&gt;
         &lt;AnyOf&gt;
@@ -5495,7 +5552,7 @@ the <code>hasUserRole</code> section. Our new modified policy now looks like thi
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="xml" class="language-xml hljs">&lt;Policy xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17" PolicyId="http://mobi.com/policies/ontology-creation" RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-unless-permit" Version="1.0"&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;Policy xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17" PolicyId="http://mobi.com/policies/ontology-creation" RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-unless-permit" Version="1.0"&gt;
     &lt;Description&gt;Who can create an OntologyRecord in the Local Catalog?&lt;/Description&gt;
     &lt;Target&gt;
         &lt;AnyOf&gt;
@@ -5803,11 +5860,15 @@ Record Services when a user creates a new Record.
 <div id="footer">
 <div id="footer-text">
 Version 2.1<br>
-Last updated 2023-03-11 13:36:52 -0500
+Last updated 2023-03-10 15:23:09 UTC
 </div>
 </div>
-<link rel="stylesheet" href="../highlight/styles/github.min.css">
 <script src="../highlight/highlight.min.js"></script>
-<script>hljs.initHighlighting()</script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
 </body>
 </html>

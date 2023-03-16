@@ -4,10 +4,11 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.10">
+<meta name="generator" content="Asciidoctor 2.0.12">
 <link rel="icon" type="image/x-icon" href="../favicon.ico">
 <title>AVM Release Notes</title>
 <link rel="stylesheet" href="./../foundation.css">
+<link rel="stylesheet" href="../highlight/styles/github.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
 <link rel="stylesheet" href="custom.css">
 <link rel="stylesheet" href="../nav-bar.css">
@@ -71,14 +72,14 @@
 </head>
 <body class="article toc2 toc-left">
 <div class="nav-bar">
-    <a class="img-link" href="../">
+    <a class="img-link" href="/">
         <img src="../logo_white_transparent.png" alt="Alternative AVM Logo"/>
     </a>
     <input type="checkbox" name="menu-btn" id="menu-btn" value="1" />
     <label class="menu-icon" for="menu-btn"><i class="fa fa-bars" aria-hidden="true"></i></label>
     <ul class="nav-items">
-        <li><a href="../latest/index.html">User Manual</a></li>
-        <li><a href="../release-notes/index.html">Release Notes</a></li>
+        <li><a href="/latest/index.html">User Manual</a></li>
+        <li><a href="/release-notes/index.html">Release Notes</a></li>
         <li><a href="https://docs.cambridgesemantics.com" target="_blank">Anzo Docs</a></li>
     </ul>
 </div><div id="header">
@@ -103,11 +104,8 @@
 <li><a href="#administration">Administration</a></li>
 </ul>
 </li>
-<li><a href="#hotfixes">Hotfixes</a>
-<ul class="sectlevel3">
+<li><a href="#hotfixes">Hotfixes</a></li>
 <li><a href="#2_1_1">2.1.1</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li><a href="#release_notes_for_avm_2_0">Release Notes for AVM 2.0</a>
@@ -434,12 +432,13 @@
 </div>
 <div class="sect2">
 <h3 id="hotfixes">Hotfixes</h3>
-<div class="sect3">
-<h4 id="2_1_1">2.1.1</h4>
+
+</div>
+<div class="sect2">
+<h3 id="2_1_1">2.1.1</h3>
 <div class="paragraph">
 <p>Version 2.1.1 was released on December 19, 2022.
 * Reverted the Karaf version to 4.4.1 due to a bug with the <code>bin/client</code> script</p>
-</div>
 </div>
 </div>
 </div>
@@ -616,7 +615,7 @@ With the latest version of Karaf, the password properties in <code>$AVM_HOME/etc
 <p>Run the following command to create a zipped backup of your old distribution., The name of the backup can be whatever you choose as long as it is a valid zip file name.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$MOBI_HOME/bin/client "mobi:backup -f /path/to/mobi-backup.zip"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$MOBI_HOME/bin/client "mobi:backup -f /path/to/mobi-backup.zip"</code></pre>
 </div>
 </div>
 </li>
@@ -624,7 +623,7 @@ With the latest version of Karaf, the password properties in <code>$AVM_HOME/etc
 <p>Shut down your old installation.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$MOBI_HOME/bin/stop</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$MOBI_HOME/bin/stop</code></pre>
 </div>
 </div>
 </li>
@@ -632,7 +631,7 @@ With the latest version of Karaf, the password properties in <code>$AVM_HOME/etc
 <p>Install Java 17 on your system. On a standard RHEL/CentOS system, there is no package available via yum to install. So we suggest downloading the Oracle installer from here and running it manually using the follow commands:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">wget https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">wget https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm
 sudo rpm -Uvh jdk-17_linux-x64_bin.rpm</code></pre>
 </div>
 </div>
@@ -641,7 +640,7 @@ sudo rpm -Uvh jdk-17_linux-x64_bin.rpm</code></pre>
 <p>Ensure that Java 17 is now the default version used by running:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">java -version</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">java -version</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -649,7 +648,7 @@ sudo rpm -Uvh jdk-17_linux-x64_bin.rpm</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">java version "1.8.0_102"
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">java version "1.8.0_102"
 Java(TM) SE Runtime Environment (build 1.8.0_102-b14)
 Java HotSpot(TM) 64-Bit Server VM (build 25.102-b14, mixed mode)</code></pre>
 </div>
@@ -659,7 +658,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.102-b14, mixed mode)</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">sudo alternatives --config java</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo alternatives --config java</code></pre>
 </div>
 </div>
 </li>
@@ -670,7 +669,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.102-b14, mixed mode)</code></pre>
 <p>Unpack and start up the new distribution.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">tar -xf avm-distribution-2.0.1.tar.gz
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tar -xf avm-distribution-2.0.1.tar.gz
 ./avm-distribution-2.0.1/bin/start</code></pre>
 </div>
 </div>
@@ -679,7 +678,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.102-b14, mixed mode)</code></pre>
 <p>Run the following command with the path to your zipped backup to restore your data into the new installation.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">./avm-distribution-2.0.1/bin/client "mobi:restore /path/to/backup.zip"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./avm-distribution-2.0.1/bin/client "mobi:restore /path/to/backup.zip"</code></pre>
 </div>
 </div>
 </li>
@@ -1868,11 +1867,15 @@ The "Query System Repo" policy will be rest to support updated SPARQL compliant 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-03-11 13:53:08 -0500
+Last updated 2023-03-10 15:23:09 UTC
 </div>
 </div>
-<link rel="stylesheet" href="../highlight/styles/github.min.css">
 <script src="../highlight/highlight.min.js"></script>
-<script>hljs.initHighlighting()</script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
 </body>
 </html>

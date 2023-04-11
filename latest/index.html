@@ -85,7 +85,7 @@
 </div><div id="header">
 <h1>Anzo Vocabulary Manager User Manual</h1>
 <div class="details">
-<span id="revnumber">version 2.1</span>
+<span id="revnumber">version 2.2</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -329,7 +329,7 @@
 <p>The AVM distribution comes packaged as a <code>.zip</code> file for Windows and a <code>tar.gz</code> file for Linux/OSX. Extract this file to a new directory on your system. For example, in <code>C:\AVM</code> - from now on this directory will be referenced as <strong>AVM_HOME</strong>.</p>
 </div>
 <div class="paragraph">
-<p>Open a command line console and change the directory to <strong>AVM_HOME</strong>. If you were provided a valid AVM license already, copy it into the <code>{AVM_HOME}/etc</code> directory. If you were not provided a valid AVM license already, contact the CSI team.</p>
+<p>Open a command line console and change the directory to <strong>AVM_HOME</strong>. If you were provided a valid AVM license already, copy it into the <code>{AVM_HOME}/etc</code> directory. If you were not provided a valid AVM license already, contact the Cambridge Semantics team.</p>
 </div>
 <div class="paragraph">
 <p>To start the AVM server, run the following command in Windows:</p>
@@ -359,7 +359,7 @@ $ ./bin/start</code></pre>
 <div class="title">Tip</div>
 </td>
 <td class="content">
-You can check the status of the running server using the <code>bin/status</code> script or access the <a href="#avm_shell">AVM shell</a> using the <code>bin/client</code> script (that&#8217;s <code>bin\status.bat</code> and <code>bin\client.bat</code> for you Windows users). If you are having problems starting AVM, check the log files in <code>$MOBI_HOME\data\log</code>.
+You can check the status of the running server using the <code>bin/status</code> script or access the <a href="#avm_shell">AVM shell</a> using the <code>bin/client</code> script (that&#8217;s <code>bin\status.bat</code> and <code>bin\client.bat</code> for you Windows users). If you are having problems starting AVM, check the log files in <code>$AVM_HOME\data\log</code>.
 </td>
 </tr>
 </table>
@@ -805,7 +805,7 @@ The <b class="button">Hide deprecated entities</b> filter will remove all indivi
 Clicking on an item in the list will load that individual&#8217;s information into the other sections in this tab.</p>
 </div>
 <div class="paragraph">
-<p>The title of the selected individual, its IRI, and its type(s) are displayed at the top of the tab along with buttons to delete the individual and view its change history (see <a href="#entity_history">Entity History</a>). The IRI can be copied quickly by clicking on it. The section to the center and right of the tab allow you to add, remove, and edit Data, Object, and Annotation Properties for the selected individual. The options for Data and Object Properties are populated from the ontology and its imports. Imported individuals cannot be edited.</p>
+<p>The title of the selected individual, its IRI, and its type(s) are displayed at the top of the tab along with buttons to delete the individual and view its change history (see <a href="#entity_history">Entity History</a>). The IRI can be copied quickly by clicking on it. The section to the center and right of the tab allow you to add, remove, and edit Data, Object, and Annotation Properties for the selected individual. The options for Data and Object Properties are populated from the ontology and its imports. The user entered values in both the annotation and datatype property overlays are validated against the type field of the overlay. Imported individuals cannot be edited.</p>
 </div>
 <div class="paragraph">
 <p>The types of an individual are editable by clicking the pencil icon at the end of the types list. The overlay allows you to add and remove types from the ontology and its imports. The "Named Individual" type is required.</p>
@@ -912,7 +912,7 @@ Clicking on an item in the hierarchy will load that concept&#8217;s information 
 <div class="title">Figure 23. Over the limit state</div>
 </div>
 <div class="paragraph">
-<p>The side panel of the Visualization tab displays a searchable list of all the classes in the import closure (i.e. direct and imported) grouped by parent ontology. The checkboxes next to each class indicate whether a class is currently shown in the visualization and can be toggled to customize the displayed graph. Selecting a class in the side panel will highlight the node in the graph if displayed. Selecting a node in the graph will also highlight in the side panel. The side panel also includes a "Filter" dropdown with three options to help find the classes of interest in the list.</p>
+<p>The side panel of the Visualization tab displays a searchable list of all the classes in the import closure (i.e. direct and imported) grouped by parent ontology. The checkboxes next to each class indicate whether a class is currently shown in the visualization and can be toggled to customize the displayed graph. Selecting the checkbox next to a class will update the graph by adding a new node with the class name, subclass relationships with other displayed classes, and object properties with other displayed classes. Deselecting the checkbox next to a class will remove these three things. Selecting a class in the side panel will highlight the node in the graph if displayed. Selecting a node in the graph will also highlight in the side panel. The side panel also includes a "Filter" dropdown with three options to help find the classes of interest in the list.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2041,7 +2041,7 @@ For more information about running a mapping into an ontology, refer to <a href=
 <div class="title">Figure 98. New Dataset Overlay</div>
 </div>
 <div class="paragraph">
-<p>The Create New Dataset overlay contains several sections. The <span class="underline">Title</span> field populates the <code>dcterms:title</code> annotation of the new dataset record. The <span class="underline">Dataset IRI</span> field allows you to specify what the IRI of the new dataset should be. If not provided, the system will create a unique one for you. The <span class="underline">Description</span> field populates the <code>dcterms:description</code> annotation of the new dataset record. The <span class="underline">Keywords</span> field will attach the entered values as keywords to the new dataset record. The <span class="underline">Repository ID</span> field displays the identifier of the repository registered within AVM where the dataset and all associated named graphs will be stored. For now, this is defaulted to the system repository. Finally, you can select which ontologies should be used as the basis for the data. Select an ontology from the searchable list of ontologies to add it to the dataset. To remove a selected ontology, click the x next to the ontology name. Clicking <b class="button">Cancel</b> will close the overlay. Clicking <b class="button">Submit</b> will create the dataset with the provided metadata.</p>
+<p>The Create New Dataset overlay contains several sections. The <span class="underline">Title</span> field populates the <code>dcterms:title</code> annotation of the new dataset record. The <span class="underline">Dataset IRI</span> field allows you to specify what the IRI of the new dataset should be. If not provided, the system will create a unique one for you. The <span class="underline">Description</span> field populates the <code>dcterms:description</code> annotation of the new dataset record. The <span class="underline">Keywords</span> field will attach the entered values as keywords to the new dataset record. The <span class="underline">Repository</span> field allows you to specity the identifier of the repository registered within AVM where the dataset and all associated named graphs will be stored. The default option is the system repository and should be used in most cases. Finally, you can select which ontologies should be used as the basis for the data. Select an ontology from the searchable list of ontologies to add it to the dataset. To remove a selected ontology, click the x next to the ontology name. Clicking <b class="button">Cancel</b> will close the overlay. Clicking <b class="button">Submit</b> will create the dataset with the provided metadata.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2642,467 +2642,8 @@ anzo.password = 123</pre>
 <div class="paragraph">
 <p>For more advanced authorization functionality, AVM uses the an Attribute Based Access Control (ABAC) system called <a href="https://www.oasis-open.org/committees/xacml/">XACML</a>. Policies describing the attributes for allowing or denying individual access requests are managed by the <code>XACMLPolicyManager</code> service which is configured with the <code>com.mobi.security.policy.api.xacml.XACMLPolicyManager.cfg</code> file. The file contains an id of the repository to be used for storage, the location the XACML policy files should be stored in, and whether the policy file location should be created if it does not already exist. Apache Karaf will automatically detect any changes and reload the updated configurations.</p>
 </div>
-<div class="sect5">
-<h6 id="ldap_configuration">LDAP Configuration</h6>
 <div class="paragraph">
-<p>AVM supports LDAP integration into its security framework. In order to be able to log into the AVM application with the Users/Groups defined in your organization&#8217;s LDAP directory, you must create a file called <code>com.mobi.enterprise.ldap.impl.engine.LDAPEngine.cfg</code> with the following properties and put it in the <code>{AVM_HOME}/etc</code> directory. If a property is not required, you can delete the line from the config file. The list of possible fields for the config file are shown in the table below.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Required</th>
-<th class="tableblock halign-left valign-top">Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>repository.target</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Should always be <code>(id=system)</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.server</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The hostname of the LDAP server (ex: <code>localhost</code>).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.port</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The port of the LDAP server (ex: <code>10389</code>).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.timeout</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The number of seconds it will keep trying to reach the LDAP server before it gives up (ex: <code>30</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">30</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.ssl</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to connect to the LDAP engine with SSL (ex: <code>false</code>)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.disable-auth</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether direct authentication to the LDAP engine is disabled (ex: <code>false</code>)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.expiry</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The number of milliseconds before a LDAPUser should be retrieved (ex: <code>3600000</code>)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3600000</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.admin.dn</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The admin DN on your LDAP server (ex: <code>uid=admin,ou=system</code>)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.admin.password</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The admin password on your LDAP server (ex: <code>secret</code>)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.users.base</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The base DN at which to start looking for users on the LDAP server (ex: <code>ou=people,dc=example,dc=com</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.users.filter</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An optional LDAP filter for retrieved users. (ex: <code>(businessCategory=Managers)</code>)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.users.id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The field name on users that the AVM application will use as the username to log in (ex: <code>uid</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.users.firstName</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The field name on users whose value is the first name of the user (ex: <code>givenName</code>)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.users.lastName</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The field name on users whose value is the last name of the user (ex: <code>sn</code>)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.users.email</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The field name on users whose value is the email address of the user (ex: <code>mail</code>)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.users.membership</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The field name on users whose values are the groups they are a part of (ex: <code>memberOf</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.users.membership.search</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The format of the user membership field. Should be set to the field name on groups that the values of the user membership field uses. If this is not set, assume the values are full group DNs. (ex: <code>cn</code>)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.groups.base</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The base DN at which to start looking for groups on the LDAP server (ex: <code>ou=groups,dc=example,dc=com</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.groups.filter</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An optional LDAP filter for retrieved groups (ex: <code>(businessCategory=Managers)</code>)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.groups.id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The field name for groups' ids (ex: <code>dn</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.groups.name</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The field name for groups' names/titles (ex: <code>title</code>)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.groups.description</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The field name on groups whose value is the description of the group (ex: <code>description</code>)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.groups.membership</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The field name on groups whose values are the users that are a part of the group (ex: <code>member</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.groups.membership.search</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The format of the group membership field. Should be set to the field name on users that the values of the group membership field uses. If this is not set, assume the values are full user DNs. (ex: <code>uid</code>)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>An example file would look like this.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>repository.target = (id=system)
-ldap.server = localhost
-ldap.port = 10389
-ldap.timeout = 30
-ldap.admin.dn = uid=admin,ou=system
-ldap.admin.password = secret
-ldap.users.base = ou=people,dc=example,dc=com
-ldap.users.filter = (businessCategory=Superhero)
-ldap.users.id = uid
-ldap.users.firstName = givenName
-ldap.users.lastName = sn
-ldap.users.membership = memberOf
-ldap.groups.base = ou=groups,dc=example,dc=com
-ldap.groups.id = cn
-ldap.groups.name = cn
-ldap.groups.description = description
-ldap.groups.membership = member</pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="sso_configuration">SSO Configuration</h5>
-<div class="paragraph">
-<p>AVM can be configured to integrate with an SSO provider for authentication. LDAP must be configured in order for the SSO integration to work as this is how user information will be retrieved. To disable direct authentication against the LDAP directory, add <code>ldap.disable-auth = false</code> to the <code>com.mobi.enterprise.ldap.impl.engine.LDAPEngine.cfg</code> file. AVM supports SAML, OAuth 2.0, and OpenID SSO providers.</p>
-</div>
-<div class="sect5">
-<h6 id="saml_configuration">SAML Configuration</h6>
-<div class="paragraph">
-<p>In order to configure AVM to use SAML, you will need to create a file called <code>com.mobi.enterprise.auth.saml.api.SAMLConfigProvider.cfg</code> in the <code>{AVM_HOME}/etc</code> directory. The file must have the following fields.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<code>${karaf.etc}</code> is a reference to the <code>{AVM_DIST}/etc/</code> directory that the application will understand and replace.
-</td>
-</tr>
-</table>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The title for the SSO provider. This title will be used in the UI for triggering the SSO authentication in the format of “Login with <em>title</em>”.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>entityId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The SP EntityId. The SSO provider must be configured to expect requests with this SP EntityId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>certFile</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The file path to a file containing the X509 certificate for verifying the signature of SAML responses. Best practice is to put the file in the <code>{AVM_HOME}/etc</code> directory and make this value <code>${karaf.etc}/&lt;INSERT-FILE-NAME&gt;</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>keyFile</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The optional file path to a file containing the PKCS8 key for verifying the signature of SAML responses. Best practice is to put the file in the <code>{AVM_HOME}/etc</code> directory and make this value <code>${karaf.etc}/&lt;INSERT-FILE-NAME&gt;</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ssoUrl</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The URL for the SingleSignOnService from the IdP. This is where AVM will redirect to.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idAttribute</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the <code>Attribute</code> in the SAML response where the username can be found. Defaults to using the <code>&lt;UserId&gt;</code>.</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>An example file would look like this.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>title=Samling
-entityId=https://localhost:8445/avm/#/login
-certFile=${karaf.etc}/samling.cert
-keyFile=${karaf.etc}/samling_pkcs8.key
-ssoUrl=https://capriza.github.io/samling/samling.html
-idAttribute=ShortName
-ssoBinding=urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST</pre>
-</div>
-</div>
-</div>
-<div class="sect5">
-<h6 id="default_saml_token_duration">Default SAML Token Duration</h6>
-<div class="paragraph">
-<p>In order to configure the token duration for SAML logins, you must create a file called <code>com.mobi.enterprise.auth.rest.SAMLRest.cfg</code> with the following properties and put it in the <code>{AVM_DIST}/etc/</code> directory before starting the application, otherwise the token duration will use the default of one day. There is only one possible field for the config file as shown in the table below that is configurable and not required to set the token duration value.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Required</th>
-<th class="tableblock halign-left valign-top">Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">tokenDurationMins</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Token Duration time in minutes</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1440</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>An example file would look like this.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>### 1 day token duration
-tokenDurationMins = 1440</pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="oauthopenid_configuration">OAuth/OpenID Configuration</h5>
-<div class="paragraph">
-<p>In order to configure AVM to use OAuth or OpenID, you will need to create two files in the <code>{AVM_DIST}/etc</code> directory: <code>com.mobi.enterprise.auth.oauth.api.OAuthConfigProvider.cfg</code> and <code>com.mobi.enterprise.auth.oauth.impl.token.OAuthTokenLoginModuleProvider.cfg</code>. The latter must be an empty file. The former can be used to configure a generic OAuth 2.0 Provider or an OpenID Provider. For either, the file must have the following fields.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The title for the SSO provider. This title will be used in the UI for triggering the SSO authentication in the format of “Login with <em>title</em>”.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clientId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The ID for the AVM installation. The OAuth/OpenID provider must be configured to expect requests with this clientId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scope</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The OAuth scopes to include in the authentication request</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clientSecret</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The optional client secret to use in requests to the OAuth/OpenID provider.</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>userIdentifierClaim</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An optional property used to specify which claim in the returned JWT contains the user’s username. These values must match what is configured for the LDAP users id. Defaults to using the <code>sub</code> of the JWT</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>For OAuth 2.0, the file must also contain these fields.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grantType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The OAuth 2.0 grant type to use for authentication. AVM currently supports the CODE and IMPLICIT flows.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>redirectUrl</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The URL for the OAuth/OpenID provider. This is where AVM will redirect to.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tokenUrl</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The URL to hit to retrieve the token in the CODE flow.</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>keyFile</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The file path to a file containing the PKCS8 key for verifying the signature of JWT tokens. Best practice is to put the file in the <code>{AVM_DIST}/etc/</code> directory and make this value <code>${karaf.etc}/&lt;INSERT-FILE-NAME&gt;</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>An example file would look like this.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>title=Mock OAuth
-clientId=mobi
-scope=read,openid
-grantType=CODE
-redirectUrl=http://localhost:8080/authorize
-tokenUrl=http://localhost:8080/token
-keyFile=${karaf.etc}/NTs4oGbx1A-cROpjgUKdKtzTEkHUhhSwQ7xdhN6FdlQ_pub.pem</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For OpenID, the file must also contain these fields.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openidConfigHostname</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The hostname of the OpenID provider. The standard <code>/.well-known/openid-configuration</code> path will be appended to this value.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>An example file would look like this.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>title=Mock OAuth
-clientId=avm
-scope=read,openid
-openidConfigHostname=http://localhost:8080</pre>
-</div>
-</div>
-<div class="sect5">
-<h6 id="azure_ad_openid_setup">Azure AD OpenID Setup</h6>
-<div class="paragraph">
-<p>If you want to configure OpenID integration with Azure AD, there are a few extra steps that need to be taken due to the unique structure of the returned JWTs.</p>
-</div>
-<div class="paragraph">
-<p>The complementary LDAP configuration for an Azure AD OpenID provider must set the <code>userPrincipalName</code> as the <code>ldap.users.id</code> property in the <code>com.mobi.enterprise.ldap.impl.engine.LDAPEngine.cfg</code> as the Azure AD JWTs do not contain the typical samAccountName values.</p>
-</div>
-<div class="paragraph">
-<p>In addition, v2.0 of Azure AD adds an additional field to the header of the JWT after signing it, thus making the signature incapable of being verified by the algorithms returned from the JWKS endpoint. In order to stop Azure AD from adding this additional field, you can add a new custom scope to the App registration. The steps to do this are described in <a href="https://medium.com/@abhinavsonkar/making-azure-ad-oidc-compliant-5734b70c43ff">this article</a> under “Problem 1”.</p>
-</div>
+<p>In addition to the aforementioned files, AVM also supports LDAP and SSO integrations which are explained in <a href="#post_installation_configuration">Post-Installation Configuration</a>.</p>
 </div>
 </div>
 <div class="sect4">
@@ -3496,9 +3037,7 @@ compatibility, performance, and security.</p></td>
 <div class="title">Tip</div>
 </td>
 <td class="content">
-We recommend running AVM on the default port 8443 and using firewall
-configuration or a proxy server for SSL (port 443) termination and
-redirection. AVM does not run on non-SSL ports by default.
+We recommend running AVM on the default port 8443 and using firewall configuration or a proxy server for SSL (port 443) termination and redirection. AVM does not run on non-SSL ports by default.
 </td>
 </tr>
 </table>
@@ -3550,8 +3089,8 @@ redirection. AVM does not run on non-SSL ports by default.
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">5.2 - 5.3</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2.0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">6.0.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.5 - 1.7, 2.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6.0.3</p></td>
 </tr>
 </tbody>
 </table>
@@ -3569,14 +3108,12 @@ redirection. AVM does not run on non-SSL ports by default.
 <div class="ulist">
 <ul>
 <li>
-<p>The service account must have read and write permissions for the AVM installation directory. On Linux, this is typically
-<code>/opt/anzo/avm-distribution-&lt;version&gt;</code>.</p>
+<p>The service account must have read and write permissions for the AVM installation directory. On Linux, this is typically <code>/opt/anzo/avm-distribution-&lt;version&gt;</code>.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>On a standard RHEL/CentOS system, this can be created using the
-following command:</p>
+<p>On a standard RHEL/CentOS system, this can be created using the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3633,8 +3170,7 @@ exit</code></pre>
 <div class="title">Note</div>
 </td>
 <td class="content">
-These instructions are prepared for a standard RHEL/CentOS deployment
-server.
+These instructions are prepared for a standard RHEL/CentOS deployment server.
 </td>
 </tr>
 </table>
@@ -3674,7 +3210,7 @@ tar -xf $AVM_DIST.tar.gz</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">serverId = "{UUID}"</code></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">serverId = "{UUID}"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3734,43 +3270,43 @@ tar -xf $AVM_DIST.tar.gz</code></pre>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">anzo.hostname</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anzo.hostname</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The host name of the Anzo server.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">anzo.port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anzo.port</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The port for the Anzo server.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">anzo.ssl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anzo.ssl</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Whether to use SSL when connecting to the Anzo server. Most the time, this should be <code>true</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">anzo.username</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anzo.username</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The username of the account AVM should use when connecting to the Anzo server.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">anzo.password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anzo.password</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The password of the account AVM should use when connecting to the Anzo server.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">timeout.connect</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>timeout.connect</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The connection timeout in number of milliseconds when communicating with the Anzo server.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">10000</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">timeout.read</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>timeout.read</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The read timeout in number of milliseconds when communicating with the Anzo server.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">30000</p></td>
@@ -3782,7 +3318,7 @@ tar -xf $AVM_DIST.tar.gz</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">anzo.hostname = localhost
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">anzo.hostname = localhost
 anzo.port = 8443
 anzo.ssl = true
 anzo.username = sysadmin
@@ -3810,23 +3346,36 @@ anzo.password = 123</code></pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/administration-guide/avm-bundles.png" alt="AVM Plugins">
+<img src="images/administration-guide/avm-bundles.png" alt="avm bundles">
 </div>
+<div class="title">Figure 118. AVM Plugins</div>
 </div>
 <div class="paragraph">
 <p><code>STOP</code> and <code>START</code> the <code>AVM Ontology Loader</code> bundle.</p>
 </div>
-<div class="imageblock text-center"Plugin COnfiguration"">
+<div class="imageblock text-center">
 <div class="content">
 <img src="images/administration-guide/plugin-configuration.png" alt="plugin configuration" width="100%">
 </div>
+<div class="title">Figure 119. Plugin Configuration</div>
+</div>
+<div class="paragraph">
+<p>If you are unable to get a successful publish after stopping and starting the bundle, restart the Anzo server.</p>
+</div>
+<div class="paragraph">
+<p>For SKOS publishes to be successful, you must also ensure that the included Anzo Data Source definition references the appropriate NFS for your AnzoGraph installations. The Anzo Data Store is called <code>published_cvs</code> and the default Data Location <code>/opt/anzo_database/published_cvs</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/administration-guide/anzo-data-store.png" alt="anzo data store">
+</div>
+<div class="title">Figure 120. Anzo Data Store Configuration</div>
 </div>
 </div>
 <div class="sect4">
 <h5 id="change_the_default_java_heap_size">Change the Default Java Heap Size</h5>
 <div class="paragraph">
-<p>Set the max heap size in <code>$AVM_DIST/bin/setenv</code> (e.g.
-<code>JAVA_MAX_MEM=4G</code>). In version 1.6, to include the <code>JAVA_MAX_MEM</code> and <code>JAVA_MIN_MEM</code> variables in the AVM startup, add the following line beneath them in the <code>setenv</code> file.</p>
+<p>Set the max heap size in <code>$AVM_DIST/bin/setenv</code> (e.g. <code>JAVA_MAX_MEM=4G</code>). In version 1.6, to include the <code>JAVA_MAX_MEM</code> and <code>JAVA_MIN_MEM</code> variables in the AVM startup, add the following line beneath them in the <code>setenv</code> file.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3853,7 +3402,7 @@ All versions from 1.7 onwards have this line already added.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">org.osgi.service.http.port.secure = &lt;SSL_APPLICATION_PORT&gt;</code></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">org.osgi.service.http.port.secure = &lt;SSL_APPLICATION_PORT&gt;</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -3863,9 +3412,7 @@ All versions from 1.7 onwards have this line already added.
 <div class="title">Tip</div>
 </td>
 <td class="content">
-We recommend running AVM on the default port 8443 and using firewall
-configuration or a proxy server for SSL (port 443) termination and
-redirection. AVM does not run on non-SSL ports by default.
+We recommend running AVM on the default port 8443 and using firewall configuration or a proxy server for SSL (port 443) termination and redirection. AVM does not run on non-SSL ports by default.
 </td>
 </tr>
 </table>
@@ -3874,10 +3421,7 @@ redirection. AVM does not run on non-SSL ports by default.
 <div class="sect4">
 <h5 id="configure_custom_ssl_certificates">Configure Custom SSL Certificates</h5>
 <div class="paragraph">
-<p>AVM comes bundled with default self-signed SSL certificates stored in a
-<a href="https://www.sslshopper.com/article-most-common-java-keytool-keystore-commands.html">Java
-Keystore</a> file in <code>etc/keystore</code>. To provide your own SSL certificates,
-simply replace the default keystore file with your own:</p>
+<p>AVM comes bundled with default self-signed SSL certificates stored in a <a href="https://www.sslshopper.com/article-most-common-java-keytool-keystore-commands.html">Java Keystore</a> file in <code>etc/keystore</code>. To provide your own SSL certificates, simply replace the default keystore file with your own:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3885,9 +3429,7 @@ simply replace the default keystore file with your own:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>If there is a keystore password, it can be configured in the
-<code>$AVM_DIST/etc/org.ops4j.pax.web.cfg</code> file using the following
-configuration properties:</p>
+<p>If there is a keystore password, it can be configured in the <code>$AVM_DIST/etc/org.ops4j.pax.web.cfg</code> file using the following configuration properties:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -3928,9 +3470,7 @@ integrity check</p></td>
 <div class="sect4">
 <h5 id="installing_avm_as_a_service">Installing AVM as a Service</h5>
 <div class="paragraph">
-<p>We recommend that you configure AVM as a Linux service for starting
-AVM automatically as the service user. Follow the instructions below to
-implement the service on a standard RHEL/CentOS environment.</p>
+<p>We recommend that you configure AVM as a Linux service for starting AVM automatically as the service user. Follow the instructions below to implement the service on a standard RHEL/CentOS environment.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3959,11 +3499,10 @@ Be sure to correctly configure the file locations and user.
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create a file called <code>avm.service</code> in the <code>/usr/lib/systemd/system</code>
-directory. For example:</p>
+<p>Create a file called <code>avm.service</code> in the <code>/usr/lib/systemd/system</code> directory. For example:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[Unit]
+<pre class="highlightjs highlight"><code class="language-ini hljs" data-lang="ini">[Unit]
 Description=AVM Service.
 After=network.target
 StartLimitIntervalSec=30
@@ -3995,19 +3534,13 @@ systemctl enable avm</code></pre>
 </ol>
 </div>
 <div class="paragraph">
-<p>Once the service is enabled, AVM should be running. The AVM process
-will start and stop automatically with the server. Any time you start
-and stop AVM manually, run the following systemctl commands:
-<code>sudo systemctl stop avm</code> and <code>sudo systemctl start avm</code>.</p>
+<p>Once the service is enabled, AVM should be running. The AVM process will start and stop automatically with the server. Any time you start and stop AVM manually, run the following systemctl commands: <code>sudo systemctl stop avm</code> and <code>sudo systemctl start avm</code>.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="configure_default_authentication_token_jwt_duration">Configure Default Authentication Token (JWT) Duration</h5>
 <div class="paragraph">
-<p>In order to configure the token duration for non-SSO authentication, you
-must create a file called <code>com.mobi.jaas.SimpleTokenManager.cfg</code> with
-the property detailed below and put it in the <code>$AVM_DIST/etc/</code> directory before starting the application, otherwise the token
-duration will use the default of 24 hours.</p>
+<p>In order to configure the token duration for non-SSO authentication, you must create a file called <code>com.mobi.jaas.SimpleTokenManager.cfg</code> with the property detailed below and put it in the <code>$AVM_DIST/etc/</code> directory before starting the application, otherwise the token duration will use the default of 24 hours.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -4038,7 +3571,7 @@ duration will use the default of 24 hours.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### 1 day token duration
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">### 1 day token duration
 tokenDurationMins = 1440</code></pre>
 </div>
 </div>
@@ -4056,15 +3589,9 @@ tokenDurationMins = 1440</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="ldap_configuration_2">LDAP Configuration</h5>
+<h5 id="ldap_configuration">LDAP Configuration</h5>
 <div class="paragraph">
-<p>In order to log into the AVM application with the Users/Groups defined
-in your organization&#8217;s directory, you must create a file called
-<code>com.mobi.enterprise.ldap.impl.engine.LDAPEngine.cfg</code> with the following
-properties and put it in the <code>$AVM_DIST/etc/</code> directory before starting
-the application. If a property is not required, you can delete the line
-from the config file. The list of possible fields for the config file
-are shown in the table below.</p>
+<p>AVM supports LDAP integration into its security framework. In order to log into the AVM application with the Users/Groups defined in your organization&#8217;s directory, you must create a file called <code>com.mobi.enterprise.ldap.impl.engine.LDAPEngine.cfg</code> with the following properties and put it in the <code>$AVM_DIST/etc/</code> directory before starting the application. If a property is not required, you can delete the line from the config file. The list of possible fields for the config file are shown in the table below.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -4083,168 +3610,148 @@ are shown in the table below.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">repository.target</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>repository.target</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Should always be (id=system)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.server</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The hostname of the ldap server (ex: localhost)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.port</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The port of the LDAP server (ex: <code>10389</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.timeout</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The number of seconds it will keep trying to reach the
-LDAP server before it gives up (ex: <code>30</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.timeout</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The number of seconds it will keep trying to reach the LDAP server before it gives up (ex: <code>30</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">30</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.ssl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.ssl</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Whether to connect to the LDAP engine with SSL (ex: false)</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.disable-auth</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether direct authentication to the LDAP engine is
-disabled (ex: <code>false</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.disable-auth</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether direct authentication to the LDAP engine is disabled (ex: <code>false</code>)</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.expiry</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The number of milliseconds before a LDAPUser should be
-retrieved (ex: <code>3600000</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.expiry</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The number of milliseconds before a LDAPUser should be retrieved (ex: <code>3600000</code>)</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">3600000</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.admin.dn</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The admin DN on your LDAP server (ex:
-<code>uid=admin,ou=system</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.admin.dn</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The admin DN on your LDAP server (ex: <code>uid=admin,ou=system</code>)</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.admin.password</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The admin password on your LDAP server (ex:
-<code>secret</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.admin.password</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The admin password on your LDAP server (ex: <code>secret</code>)</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.users.base</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The base DN at which to start looking for users on the
-LDAP server (<code>ex: ou=people,dc=example,dc=com</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.users.base</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The base DN at which to start looking for users on the LDAP server (<code>ex: ou=people,dc=example,dc=com</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.users.filter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An optional LDAP filter for retrieved users. (ex:
-<code>(businessCategory=Managers)</code> )</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.users.id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The field name on users that the AVM
-application will use as the username to log in (ex: <code>uid</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.users.firstName</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The field name on users whose value is the first
-name of the user (ex: <code>givenName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.users.filter</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An optional LDAP filter for retrieved users. (ex: <code>(businessCategory=Managers)</code> )</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.users.lastName</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The field name on users whose value is the last
-name of the user (ex: <code>sn</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.users.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The field name on users that the AVM application will use as the username to log in (ex: <code>uid</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.users.firstName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The field name on users whose value is the first name of the user (ex: <code>givenName</code>)</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.users.email</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The field name on users whose value is the email
-address of the user (ex: <code>mail</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.users.lastName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The field name on users whose value is the last name of the user (ex: <code>sn</code>)</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.users.membership</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The field name on users whose values are the
-groups they are a part of (ex: <code>memberOf</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.users.membership.search</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The format of the user membership field.
-Should be set to the field name on groups that the values of the user
-membership field uses. If this is not set, assume the values are full
-group DNs. (ex: <code>cn</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.users.email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The field name on users whose value is the email address of the user (ex: <code>mail</code>)</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.groups.base</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The base DN at which to start looking for groups on
-the LDAP server (ex: <code>ou=groups,dc=example,dc=com</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.users.membership</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The field name on users whose values are the groups they are a part of (ex: <code>memberOf</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.groups.filter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An optional LDAP filter for retrieved groups (ex:
-<code>(businessCategory=Managers)</code> )</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.users.membership.search</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The format of the user membership field. Should be set to the field name on groups that the values of the user membership field uses. If this is not set, assume the values are full group DNs. (ex: <code>cn</code>)</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.groups.id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.groups.base</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The base DN at which to start looking for groups on the LDAP server (ex: <code>ou=groups,dc=example,dc=com</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.groups.filter</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An optional LDAP filter for retrieved groups (ex: <code>(businessCategory=Managers)</code> )</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.groups.id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The field name for groups' ids (ex: <code>dn</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.groups.name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.groups.name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The field name for groups' names/titles (ex: <code>title</code>)</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.groups.description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.groups.description</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The field name on groups whose value is the
 description of the group (ex: <code>description</code>)</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.groups.membership</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.groups.membership</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The field name on groups whose values are the
 users that are a part of the group (ex: <code>member</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ldap.groups.membership.search</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The format of the group membership
-field. Should be set to the field name on users that the values of the
-group membership field uses. If this is not set, assume the values are
-full user DNs. (ex: <code>uid</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The format of the group membership field. Should be set to the field name on users that the values of the group membership field uses. If this is not set, assume the values are full user DNs. (ex: <code>uid</code>)</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
@@ -4255,7 +3762,7 @@ full user DNs. (ex: <code>uid</code>)</p></td>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">repository.target = (id=system)
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">repository.target = (id=system)
 ldap.server = localhost
 ldap.port = 10389
 ldap.timeout = 30
@@ -4276,16 +3783,14 @@ ldap.groups.membership = member</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="sso_configuration_2">SSO Configuration</h5>
+<h5 id="sso_configuration">SSO Configuration</h5>
 <div class="paragraph">
 <p>AVM can be configured to integrate with an SSO provider for authentication. LDAP can be configured alongside the SSO provider to retrieve additional user details, but it is not required. If configured, it is recommended to disable direct authentication against the LDAP directory by adding <code>ldap.disable-auth = false</code> to the <code>com.mobi.enterprise.ldap.impl.engine.LDAPEngine.cfg</code> file. AVM supports SAML, OAuth 2.0, and OpenID SSO providers.</p>
 </div>
 <div class="sect5">
-<h6 id="saml_configuration_2">SAML Configuration</h6>
+<h6 id="saml_configuration">SAML Configuration</h6>
 <div class="paragraph">
-<p>In order to configure AVM to use SAML, you will need to create a file
-called <code>com.mobi.enterprise.auth.saml.api.SAMLConfigProvider.cfg</code> to the
-<code>$AVM_DIST/etc/</code> directory. The must have the following fields.</p>
+<p>In order to configure AVM to use SAML, you will need to create a file called <code>com.mobi.enterprise.auth.saml.api.SAMLConfigProvider.cfg</code> to the <code>$AVM_DIST/etc/</code> directory. The must have the following fields.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -4294,8 +3799,7 @@ called <code>com.mobi.enterprise.auth.saml.api.SAMLConfigProvider.cfg</code> to 
 <div class="title">Note</div>
 </td>
 <td class="content">
-<code>${karaf.etc}</code> is a reference to the <code>$AVM_DIST/etc/</code> directory that the
-application will understand and replace
+<code>${karaf.etc}</code> is a reference to the <code>$AVM_DIST/etc/</code> directory that the application will understand and replace
 </td>
 </tr>
 </table>
@@ -4327,63 +3831,63 @@ In order for the <code>certFile</code> to ba valid format, it must contain the a
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">title</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The title for the SSO provider. This title will be used in the UI for triggering the SSO authentication in the format of “Login with <em>title”</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">entityId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>entityId</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The SP EntityId. The SSO provider must be configured to expect requests with this SP EntityId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">certFile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>certFile</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The file path to a file containing the X509 certificate for verifying the signature of SAML responses. Best practice is to put the file in the <code>$AVM_DIST/etc/</code> directory and make this value <code>${karaf.etc}/&lt;INSERT-FILE-NAME&gt;</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">keyFile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>keyFile</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The optional file path to a file containing the PKCS8 key for verifying the signature of SAML responses. Best practice is to put the
 file in the <code>$AVM_DIST/etc/</code> directory and make this value <code>${karaf.etc}/&lt;INSERT-FILE-NAME&gt;</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ssoUrl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ssoUrl</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The URL for the SingleSignOnService from the IdP. This is where AVM will redirect to.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">idAttribute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idAttribute</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The name of the <code>Attribute</code> in the SAML response where the username can be found. Defaults to using the <code>&lt;UserId&gt;</code>.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ssoBinding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ssoBinding</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The full URN of the binding to be used for the SAML Requests. Defaults to <code>urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">standalone</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>standalone</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Whether the SAML configuration should be considered by itself or with a LDAP backend as well. Defaults to <code>false</code>. If <code>true</code>, the properties below are applied.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">firstNameAttribute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>firstNameAttribute</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">An optional property to specify the name of the attribute in the SAML responses that contains the first name of the authenticated user. Only applicable if <code>standalone</code>.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">lastNameAttribute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>lastNameAttribute</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">An optional property to specify the name of the attribute in the SAML responses that contains the last name of the authenticated user. Only applicable if <code>standalone</code>.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">emailAttribute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>emailAttribute</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">An optional property to specify the name of the attribute in the SAML responses that contains the email of the authenticated user. Only applicable if <code>standalone</code>.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">groupAttribute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>groupAttribute</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">An optional property to specify the name of the attribute in the SAML responses that contains the groups that the authenticated user is a part of. The values of this attribute will be used as the Group&#8217;s title in AVM. Only applicable if <code>standalone</code>.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
@@ -4394,7 +3898,7 @@ file in the <code>$AVM_DIST/etc/</code> directory and make this value <code>${ka
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">title=Samling
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">title=Samling
 entityId=https://localhost:8443/avm/#/login
 certFile=${karaf.etc}/samling.cert
 keyFile=${karaf.etc}/samling_pkcs8.key
@@ -4408,7 +3912,7 @@ ssoBinding=urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">title=Samling
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">title=Samling
 entityId=https://localhost:8443/avm/#/login
 certFile=${karaf.etc}/samling.cert
 keyFile=${karaf.etc}/samling_pkcs8.key
@@ -4424,15 +3928,9 @@ groupAttribute=Groups</code></pre>
 </div>
 </div>
 <div class="sect5">
-<h6 id="default_saml_token_duration_2">Default SAML Token Duration</h6>
+<h6 id="default_saml_token_duration">Default SAML Token Duration</h6>
 <div class="paragraph">
-<p>In order to configure the token duration for SAML logins, you must
-create a file called <code>com.mobi.enterprise.auth.rest.SAMLRest.cfg</code> with
-the following properties and put it in the <code>$AVM_DIST/etc/</code> directory
-before starting the application, otherwise the token duration will use
-the default of one day. There is only one possible field for the config
-file as shown in the table below that is configurable and not required
-to set the token duration value.</p>
+<p>In order to configure the token duration for SAML logins, you must create a file called <code>com.mobi.enterprise.auth.rest.SAMLRest.cfg</code> with the following properties and put it in the <code>$AVM_DIST/etc/</code> directory before starting the application, otherwise the token duration will use the default of one day. There is only one possible field for the config file as shown in the table below that is configurable and not required to set the token duration value.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -4463,13 +3961,13 @@ to set the token duration value.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### 1 day token duration
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">### 1 day token duration
 tokenDurationMins = 1440</code></pre>
 </div>
 </div>
 </div>
 <div class="sect5">
-<h6 id="oauthopenid_configuration_2">OAuth/OpenID Configuration</h6>
+<h6 id="oauthopenid_configuration">OAuth/OpenID Configuration</h6>
 <div class="paragraph">
 <p>In order to configure AVM to use OAuth or OpenID, you will need to create two files in the <code>$AVM_DIST/etc</code> directory: <code>com.mobi.enterprise.auth.oauth.api.OAuthConfigProvider.cfg</code> and <code>com.mobi.enterprise.auth.oauth.impl.token.OAuthTokenLoginModuleProvider.cfg</code>. The latter must be an empty file. The former can be used to configure a generic OAuth 2.0 Provider or an OpenID Provider. For either, the file must have the following fields.</p>
 </div>
@@ -4488,37 +3986,37 @@ tokenDurationMins = 1440</code></pre>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">title</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The title for the SSO provider. This title will be used in the UI for triggering the SSO authentication in the format of “Login with <em>title”</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">clientId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clientId</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The ID for the AVM installation. The OAuth/OpenID provider must be configured to expect requests with this clientId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">scope</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scope</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The OAuth scopes to include in the authentication request</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">clientSecret</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clientSecret</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The optional client secret to use in requests to the OAuth/OpenID provider.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">userIdentifierClaim</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>userIdentifierClaim</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">An optional property to specify which claim in the returned JWT contains the user&#8217;s username. These values must match what is configured for the LDAP users id. Defaults to using the <code>sub</code> of the JWT</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">standalone</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>standalone</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Whether the OAuth/OpenID configuration should be considered by itself or with a LDAP backend as well. Defaults to <code>false</code>. If <code>true</code>, the property below is applied.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">groupClaim</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>groupClaim</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">An optional property to specify which claim in the returned JWT contains the groups the user is a part of. The values of this attribute will be used as the Group&#8217;s title in AVM. Only applicable if <code>standalone</code>.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
@@ -4542,24 +4040,24 @@ tokenDurationMins = 1440</code></pre>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">grantType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grantType</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The OAuth 2.0 grant type to use for authentication. AVM currently supports the CODE and IMPLICIT flows.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">redirectUrl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>redirectUrl</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The URL for the OAuth/OpenID provider. This is where AVM will redirect to.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">tokenUrl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tokenUrl</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The URL to hit to retrieve the token in the CODE flow.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">keyFile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>keyFile</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The file path to a file containing the PKCS8 key for verifying the signature of JWT tokens. Best practice is to put the file in the <code>$AVM_DIST/etc/</code> directory and make this value <code>${karaf.etc}/&lt;INSERT-FILE-NAME&gt;</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 </tr>
 </tbody>
 </table>
@@ -4568,8 +4066,8 @@ tokenDurationMins = 1440</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">title=Mock OAuth
-clientId=mobi
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">title=Mock OAuth
+clientId=avm
 scope=read,openid
 grantType=CODE
 redirectUrl=http://localhost:8080/authorize
@@ -4595,9 +4093,9 @@ keyFile=${karaf.etc}/NTs4oGbx1A-cROpjgUKdKtzTEkHUhhSwQ7xdhN6FdlQ_pub.pem</code><
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">openidConfigHostname</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openidConfigHostname</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The hostname of the OpenID provider. The standard <code>/.well-known/openid-configuration</code> path will be appended to this value.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 </tr>
 </tbody>
 </table>
@@ -4606,7 +4104,7 @@ keyFile=${karaf.etc}/NTs4oGbx1A-cROpjgUKdKtzTEkHUhhSwQ7xdhN6FdlQ_pub.pem</code><
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">title=Mock OAuth
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">title=Mock OAuth
 clientId=avm
 scope=read,openid
 openidConfigHostname=http://localhost:8080</code></pre>
@@ -4614,7 +4112,7 @@ openidConfigHostname=http://localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect5">
-<h6 id="azure_ad_openid_setup_2">Azure AD OpenID Setup</h6>
+<h6 id="azure_ad_openid_setup">Azure AD OpenID Setup</h6>
 <div class="paragraph">
 <p>If you want to configure OpenID integration with Azure AD, there are a few extra steps that need to be taken due to the unique structure of the returned JWTs.</p>
 </div>
@@ -4629,15 +4127,11 @@ openidConfigHostname=http://localhost:8080</code></pre>
 <div class="sect4">
 <h5 id="password_encryption_configuration">Password Encryption Configuration</h5>
 <div class="paragraph">
-<p>AVM provides a way to automatically encrypt plaintext passwords stored
-within service configurations on startup and subsequent updates. The setup
-for this is very short. All you have to do is ensure that a file called
-<code>com.mobi.security.api.EncryptionService.cfg</code> exists in the <code>$AVM_DIST/etc</code>
-directory and contains the following fields:</p>
+<p>AVM provides a way to automatically encrypt plaintext passwords stored within service configurations on startup and subsequent updates. The setup for this is very short. All you have to do is ensure that a file called <code>com.mobi.security.api.EncryptionService.cfg</code> exists in the <code>$AVM_DIST/etc</code> directory and contains the following fields:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">enabled=true
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">enabled=true
 password=ENTER_A_UNIQUE_PASSWORD_HERE</code></pre>
 </div>
 </div>
@@ -4648,26 +4142,22 @@ password=ENTER_A_UNIQUE_PASSWORD_HERE</code></pre>
 <div class="title">Note</div>
 </td>
 <td class="content">
-This password is not the password you want to encrypt, rather it is a unique master
-password used for encrypt and decrypt operations.
+This password is not the password you want to encrypt, rather it is a unique master password used for encrypt and decrypt operations.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>This encryption config is present and enabled by default, meaning your passwords will be automatically encrypted.
-An alternate way of providing an encryption master password is via environment
-variable. To configure the use of an environment variable, use the following fields:</p>
+<p>This encryption config is present and enabled by default, meaning your passwords will be automatically encrypted. An alternate way of providing an encryption master password is via environment variable. To configure the use of an environment variable, use the following fields:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">enabled=true
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">enabled=true
 variable=MY_CHOSEN_ENVIRONMENT_VARIABLE</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If you use an environment variable, make sure before you start AVM that you have stored a
-unique password as the value for that environment variable.</p>
+<p>If you use an environment variable, make sure before you start AVM that you have stored a unique password as the value for that environment variable.</p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -4676,19 +4166,13 @@ unique password as the value for that environment variable.</p>
 <div class="title">Warning</div>
 </td>
 <td class="content">
-If there is a default password in the Encryption Config (i.e. <code>CHANGEME</code>) make sure
-you change it to a unique password before starting AVM, otherwise your passwords will be easy
-to decrypt.
+If there is a default password in the Encryption Config (i.e. <code>CHANGEME</code>) make sure you change it to a unique password before starting AVM, otherwise your passwords will be easy to decrypt.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Once the encryption config is added, start AVM and if an AVM service configuration includes
-a plaintext password, it will encrypt the value and update the configuration file. To
-change an encrypted value, simply replace it with the new plaintext value in the
-configuration file and after a few seconds it will be automatically re-encrypted and the
-file will be updated.</p>
+<p>Once the encryption config is added, start AVM and if an AVM service configuration includes a plaintext password, it will encrypt the value and update the configuration file. To change an encrypted value, simply replace it with the new plaintext value in the configuration file and after a few seconds it will be automatically re-encrypted and the file will be updated.</p>
 </div>
 <div class="sect5">
 <h6 id="services_that_use_encryption">Services that use Encryption</h6>
@@ -4708,18 +4192,18 @@ file will be updated.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LDAP</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">com.mobi.enterprise.ldap.impl.engine.LDAPEngine.cfg</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ldap.admin.password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>com.mobi.enterprise.ldap.impl.engine.LDAPEngine.cfg</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.admin.password</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">AnzoConfigProvider</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">com.mobi.enterprise.avm.connector.api.AnzoConfigProvider.cfg</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">anzo.password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>com.mobi.enterprise.avm.connector.api.AnzoConfigProvider.cfg</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anzo.password</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Email</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">com.mobi.email.api.EmailService.cfg</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">emailPassword</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>com.mobi.email.api.EmailService.cfg</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>emailPassword</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -5859,8 +5343,8 @@ Record Services when a user creates a new Record.
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 2.1<br>
-Last updated 2023-03-17 16:23:34 UTC
+Version 2.2<br>
+Last updated 2023-04-11 00:50:31 UTC
 </div>
 </div>
 <script src="../highlight/highlight.min.js"></script>

@@ -796,10 +796,10 @@ With the latest version of Karaf, the password properties in <code>$AVM_HOME/etc
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Run the following command to create a zipped backup of your old distribution., The name of the backup can be whatever you choose as long as it is a valid zip file name.</p>
+<p><strong>Make sure to perform this step before changing the system&#8217;s Java version.</strong> Run the following command to create a zipped backup of your old distribution. The name of the backup can be whatever you choose as long as it is a valid zip file name.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$MOBI_HOME/bin/client "mobi:backup -f /path/to/mobi-backup.zip"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$AVM_HOME/bin/client "mobi:backup -f /path/to/mobi-backup.zip"</code></pre>
 </div>
 </div>
 </li>
@@ -807,12 +807,12 @@ With the latest version of Karaf, the password properties in <code>$AVM_HOME/etc
 <p>Shut down your old installation.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$MOBI_HOME/bin/stop</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$AVM_HOME/bin/stop</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Install Java 17 on your system. On a standard RHEL/CentOS system, there is no package available via yum to install. So we suggest downloading the Oracle installer from here and running it manually using the follow commands:</p>
+<p>Install Java 17 on your system. On a standard RHEL/CentOS system, there is no package available to install via <code>yum</code>. So we suggest downloading the Oracle installer from here and running it manually using the following commands:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">wget https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm
@@ -828,13 +828,13 @@ sudo rpm -Uvh jdk-17_linux-x64_bin.rpm</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The output of the command should look like the following:</p>
+<p>The output of the command should look something like the following. The most important part to check is that the reported version number starts with "17":</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">java version "1.8.0_102"
-Java(TM) SE Runtime Environment (build 1.8.0_102-b14)
-Java HotSpot(TM) 64-Bit Server VM (build 25.102-b14, mixed mode)</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">java 17.0.4.1 2022-08-18 LTS
+Java(TM) SE Runtime Environment (build 17.0.4.1+1-LTS-2)
+Java HotSpot(TM) 64-Bit Server VM (build 17.0.4.1+1-LTS-2, mixed mode, sharing)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -850,11 +850,18 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.102-b14, mixed mode)</code></pre>
 <p>Update the <code>$JAVA_HOME</code> environment variable of the user running AVM to the new Java installation directory. After running the rpm above, the variable should look like <code>/usr/java/jdk-17.0.4.1</code></p>
 </li>
 <li>
-<p>Unpack and start up the new distribution.</p>
+<p>Unpack the new distribution.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tar -xf avm-distribution-2.0.1.tar.gz
-./avm-distribution-2.0.1/bin/start</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tar -xf avm-distribution-2.0.1.tar.gz</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Make sure your license file is copied into the <code>etc</code> directory of the new distribution. Then start the new distribution.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./avm-distribution-2.0.1/bin/start</code></pre>
 </div>
 </div>
 </li>
@@ -2051,7 +2058,7 @@ The "Query System Repo" policy will be rest to support updated SPARQL compliant 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-04-11 00:50:31 UTC
+Last updated 2023-04-27 17:08:12 UTC
 </div>
 </div>
 <script src="../highlight/highlight.min.js"></script>

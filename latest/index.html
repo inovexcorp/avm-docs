@@ -91,16 +91,6 @@
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#quick_start_guide">Quick Start Guide</a>
-<ul class="sectlevel2">
-<li><a href="#installing_from_the_distribution">Installing from the Distribution</a>
-<ul class="sectlevel3">
-<li><a href="#prerequisites">Prerequisites</a></li>
-<li><a href="#installation">Installation</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li><a href="#user_guide">User Guide</a>
 <ul class="sectlevel2">
 <li><a href="#catalog">Catalog</a>
@@ -383,9 +373,6 @@
 <p>AVM is a collaborative tool that extends the Anzo platform with powerful ontology and vocabulary editing and versioning capabilities, creating an environment for teams and communities to accelerate exploration and harmonization of complex data systems. AVM leverages <a href="https://www.w3.org/TR/owl2-overview/">OWL 2</a> and <a href="https://www.w3.org/2004/02/skos/">SKOS</a> for authoring ontologies and vocabularies, the <a href="https://www.w3.org/TR/sparql11-overview/">SPARQL</a> query language for data lookup, and a pluggable backend system for processing and handling graph data modeled using the Resource Description Framework (<a href="https://www.w3.org/RDF/">RDF</a>). AVM natively integrates with Anzo onboard and dataset capabilities for ingesting and publishing ontologies and vocabularies for blend and access across the platform.</p>
 </div>
 <div class="paragraph">
-<p><a href="#quick_start_guide">Quick Start Guide</a></p>
-</div>
-<div class="paragraph">
 <p><a href="#user_guide">User Guide</a></p>
 </div>
 <div class="paragraph">
@@ -393,71 +380,6 @@
 </div>
 <div class="paragraph">
 <p><a href="#developer_guide">Developer Guide</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="quick_start_guide">Quick Start Guide</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="installing_from_the_distribution">Installing from the Distribution</h3>
-<div class="sect3">
-<h4 id="prerequisites">Prerequisites</h4>
-<div class="paragraph">
-<p>AVM requires a Java SE 17 environment to run. Refer to <code><a href="http://www.oracle.com/technetwork/java/javase/" class="bare">http://www.oracle.com/technetwork/java/javase/</a></code> for details on how to download and install Java SE 1.17.</p>
-</div>
-<div class="paragraph">
-<p>Make sure your <code>JAVA_HOME</code> environment variable correctly points to your Java 17 installation directory. For example on a Mac, this would resemble <code>/Library/Java/JavaVirtualMachines/openjdk-17.jdk</code>. On Windows, this would resemble <code>C:\Program Files\Java\openjdk-17.jdk</code></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="installation">Installation</h4>
-<div class="paragraph">
-<p>Download the appropriate binary distribution provided by the AVM team.</p>
-</div>
-<div class="paragraph">
-<p>The AVM distribution comes packaged as a <code>.zip</code> file for Windows and a <code>tar.gz</code> file for Linux/OSX. Extract this file to a new directory on your system. For example, in <code>C:\AVM</code> - from now on this directory will be referenced as <code>$AVM_HOME</code>.</p>
-</div>
-<div class="paragraph">
-<p>Open a command line console and change the directory to <code>$AVM_HOME</code>. If you were provided a valid AVM license already, copy it into the <code>$AVM_HOME/etc</code> directory. If you were not provided a valid AVM license already, contact the Cambridge Semantics team.</p>
-</div>
-<div class="paragraph">
-<p>To start the AVM server, run the following command in Windows:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-powershell hljs" data-lang="powershell">&gt; cd %AVM_HOME%
-&gt; bin\start.bat</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>or for Linux/OSX:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ cd $AVM_HOME
-$ ./bin/start</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>All AVM prepackaged bundles, services, and required artifacts and dependencies will be automatically deployed by the runtime once started.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-You can check the status of the running server using the <code>bin/status</code> script or access the <a href="#avm_shell">AVM shell</a> using the <code>bin/client</code> script (that&#8217;s <code>bin\status.bat</code> and <code>bin\client.bat</code> for you Windows users). If you are having problems starting AVM, check the log files in <code>$AVM_HOME\data\log</code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The AVM web application should now be accessible at <code><a href="https://localhost:8443/avm/index.html" class="bare">https://localhost:8443/avm/index.html</a></code>. The default login credentials are <code>admin:admin</code>.</p>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -2576,7 +2498,19 @@ More Application Settings coming soon!
 <div class="sect2">
 <h3 id="configuration">Configuration</h3>
 <div class="paragraph">
-<p>All default configuration files for Apache Karaf and AVM are located inside the <code>$AVM_HOME/etc</code> directory.</p>
+<p>All default configuration files for Apache Karaf and AVM are located inside the <code>etc</code> directory of the AVM installation home.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+From now on, the installation directory for AVM will be referred to as <code>$AVM_HOME</code>.
+</td>
+</tr>
+</table>
 </div>
 <div class="sect3">
 <h4 id="avm">AVM</h4>
@@ -3813,23 +3747,19 @@ AVM customers will be individually provided with distributions and license files
 <td class="tableblock halign-left valign-top"><p class="tableblock">Available RAM</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 GB</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8 GB or more</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AVM needs enough RAM to load large
-ontology and data files and run AVM processes. The configurations
-provided refer to maximum Java heap size.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVM needs enough RAM to load large ontology and data files and run AVM processes. The configurations provided refer to maximum Java heap size.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Disk Space</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">10 GB</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">40 GB or more</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">By default, AVM stores all data and
-configurations in the extracted file location.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">By default, AVM stores all data and configurations in the extracted file location.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CPU</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 core</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 cores or more</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Multi-core configurations dramatically
-improve performance of the bundled application server and database.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Multi-core configurations dramatically improve performance of the bundled application server and database.</p></td>
 </tr>
 </tbody>
 </table>
@@ -3861,16 +3791,13 @@ improve performance of the bundled application server and database.</p></td>
 Windows 7<br>
 OSX</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">RHEL/CentOS 8</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AVM runs within standard Java runtimes; however, we
-recommend RHEL/CentOS operating systems for on-premise or cloud-based
-server environments.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVM runs within standard Java runtimes; however, we recommend RHEL/CentOS operating systems for on-premise or cloud-based server environments.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Java</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.17</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.17 (latest)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The latest versions of Java 17 include security
-and performance updates.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The latest versions of Java 17 include security and performance updates.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Web Browser</p></td>
@@ -3986,7 +3913,7 @@ We recommend running AVM on the default port 8443 and using firewall configurati
 <div class="ulist">
 <ul>
 <li>
-<p>The service account must have read and write permissions for the AVM installation directory. On Linux, this is typically <code>/opt/anzo/avm-distribution-&lt;version&gt;</code>.</p>
+<p>The service account must have read and write permissions for the AVM installation directory (i.e. <code>$AVM_HOME</code>). On Linux, this is typically <code>/opt/anzo/avm-distribution-&lt;version&gt;</code>.</p>
 </li>
 </ul>
 </div>
@@ -4002,13 +3929,7 @@ We recommend running AVM on the default port 8443 and using firewall configurati
 <div class="sect4">
 <h5 id="install_java_17">Install Java 17</h5>
 <div class="paragraph">
-<p>AVM requires the latest version of Java 1.17 to operate. On a standard RHEL/CentOS system, there is no package available via <code>yum</code> to install. So we suggest Downloading the Oracle installer from <a href="https://www.oracle.com/java/technologies/downloads/#java17">here</a> and running it manually using the following commands:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">wget https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm
-sudo rpm -Uvh jdk-17_linux-x64_bin.rpm</code></pre>
-</div>
+<p>AVM requires the latest version of Java 1.17 to operate. Refer to <a href="http://www.oracle.com/technetwork/java/javase/" class="bare">http://www.oracle.com/technetwork/java/javase/</a> for details on how to download and install Java SE 1.17.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -4017,18 +3938,18 @@ sudo rpm -Uvh jdk-17_linux-x64_bin.rpm</code></pre>
 <div class="title">Note</div>
 </td>
 <td class="content">
-If you are using a Red Hat system, you can install Java 17 with <code>sudo yum install java-17-openjdk</code>
+If you are using a Red Hat system, you can install Java 17 with <code>sudo yum install java-17-openjdk</code>. On a standard RHEL/CentOS system, there is no package available via <code>yum</code> to install. We suggest Downloading the Oracle installer from <a href="https://www.oracle.com/java/technologies/downloads/#java17">here</a> and running <code>sudo rpm -Uvh jdk-17_linux-x64_bin.rpm</code> to install.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The <code>JAVA_HOME</code> environment variable must be set for the user running AVM. On a standard RHEL/CentOS system (after running the rpm above) this can be set using the following commands:</p>
+<p>The <code>JAVA_HOME</code> environment variable must be set for the user running AVM. On a Red Hat system, the path looks something like <code>/usr/lib/jvm/java-17-openjdk</code>. On a standard RHEL/CentOS system (after running the rpm above), the path looks something like <code>/usr/java/jdk-17.0.4.1</code>. Either way, the variable can be set using the following commands:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo su - anzo
-echo 'export JAVA_HOME=/usr/java/jdk-17.0.4.1' &gt;&gt; ~/.bashrc
+echo 'export JAVA_HOME=/path/to/java/home' &gt;&gt; ~/.bashrc
 exit</code></pre>
 </div>
 </div>
@@ -4039,7 +3960,7 @@ exit</code></pre>
 <div class="sect4">
 <h5 id="collect_the_server_id">Collect the Server ID</h5>
 <div class="paragraph">
-<p>After the pre-installation configuration steps, follow the instructions below to collect your AVM Server ID. These instructions assume that you have copied the AVM distribution to the server.</p>
+<p>After the pre-installation configuration steps, follow the instructions below to collect your AVM Server ID. These instructions assume that you have copied the AVM distribution to the server. The AVM distribution comes packaged as a <code>.zip</code> file for Windows and a <code>tar.gz</code> file for Linux/OSX.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -4113,6 +4034,33 @@ tar -xf $AVM_HOME.tar.gz</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd latest
 ./bin/start</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>All AVM prepackaged bundles, services, and required artifacts and dependencies will be automatically deployed by the runtime once started. The AVM web application should now be accessible at <code><a href="https://localhost:8443/avm/index.html" class="bare">https://localhost:8443/avm/index.html</a></code> (or substitute <code>localhost</code> with the hostname/IP address of the machine running the process dependant on firewall configurations). The default login credentials are <code>admin:admin</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Due to the self-signed SSL certificate that AVM comes with, your browser will likely show you a certificate warning when first loaded. This is safe to proceed past. See <a href="#configure_custom_ssl_certificates">Configure Custom SSL Certificates</a> for more details.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+You can check the status of the running server using the <code>bin/status</code> script or access the <a href="#avm_shell">AVM shell</a> using the <code>bin/client</code> script. If you are having problems starting AVM, check the log files in <code>$AVM_HOME/data/log</code>.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>To stop the AVM server, run the following command:</p>
@@ -4224,7 +4172,10 @@ We recommend running AVM on the default port 8443 and using firewall configurati
 <div class="sect4">
 <h5 id="configure_custom_ssl_certificates">Configure Custom SSL Certificates</h5>
 <div class="paragraph">
-<p>AVM comes bundled with default self-signed SSL certificates stored in a <a href="https://www.sslshopper.com/article-most-common-java-keytool-keystore-commands.html">Java Keystore</a> file in <code>etc/keystore</code>. To provide your own SSL certificates, simply replace the default keystore file with your own:</p>
+<p>AVM comes bundled with default self-signed SSL certificates stored in a <a href="https://www.sslshopper.com/article-most-common-java-keytool-keystore-commands.html">Java Keystore</a> file in <code>$AVM_HOME/etc/keystore</code>. <strong>This self-signed certificate is why your browser will most likely show you a certificate warning when browsing to the web application.</strong></p>
+</div>
+<div class="paragraph">
+<p>To provide your own SSL certificates, simply replace the default keystore file with your own:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -4264,7 +4215,7 @@ integrity check</p></td>
 <div class="title">Note</div>
 </td>
 <td class="content">
-.p12 and .jks files should both be supported
+<code>.p12</code> and <code>.jks</code> files should both be supported
 </td>
 </tr>
 </table>
@@ -5588,7 +5539,7 @@ Unlike System Policies, these policies do not need to be reloaded after editing.
 <div id="footer">
 <div id="footer-text">
 Version 2.3<br>
-Last updated 2023-07-10 15:15:25 UTC
+Last updated 2023-08-09 18:07:25 UTC
 </div>
 </div>
 <script src="../highlight/highlight.min.js"></script>

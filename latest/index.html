@@ -85,7 +85,7 @@
 </div><div id="header">
 <h1>Anzo Vocabulary Manager User Manual</h1>
 <div class="details">
-<span id="revnumber">version 2.4</span>
+<span id="revnumber">version 2.5</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -137,8 +137,8 @@
 </ul>
 </li>
 <li><a href="#synchronize">Synchronize</a></li>
-<li><a href="#publish">Publish</a></li>
 <li><a href="#link">Link</a></li>
+<li><a href="#publish">Publish</a></li>
 <li><a href="#shapes_editor_beta">Shapes Editor (BETA)</a>
 <ul class="sectlevel3">
 <li><a href="#creating_new_shapes_graphs">Creating New Shapes Graphs</a></li>
@@ -157,6 +157,7 @@
 <ul class="sectlevel3">
 <li><a href="#create_a_merge_request">Create a Merge Request</a></li>
 <li><a href="#accepting_a_merge_request">Accepting a Merge Request</a></li>
+<li><a href="#closing_a_merge_request">Closing a Merge Request</a></li>
 </ul>
 </li>
 <li><a href="#mapping_tool">Mapping Tool</a>
@@ -395,6 +396,21 @@
 </li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a href="#publish_framework_examples">Appendix E: Publish Framework Examples</a>
+<ul class="sectlevel2">
+<li><a href="#anzo_skos_publish_example">Anzo SKOS Publish Example</a>
+<ul class="sectlevel3">
+<li><a href="#rest_request">REST Request</a></li>
+</ul>
+</li>
+<li><a href="#anzo_owl_publish_example">Anzo OWL Publish Example</a>
+<ul class="sectlevel3">
+<li><a href="#rest_request_2">REST Request</a></li>
+</ul>
+</li>
+<li><a href="#anzo_config_selector">Anzo Config Selector</a></li>
 </ul>
 </li>
 </ul>
@@ -873,7 +889,7 @@ The <b class="button">Hide deprecated entities</b> filter will remove all indivi
 Clicking on an item in the list will load that individual&#8217;s information into the other sections in this tab.</p>
 </div>
 <div class="paragraph">
-<p>The title of the selected individual, its IRI, and its type(s) are displayed at the top of the tab along with buttons to delete the individual and view its change history (see <a href="#entity_history">Entity History</a>). The IRI can be copied quickly by clicking on it. The section to the center and right of the tab allow you to add, remove, and edit Data, Object, and Annotation Properties for the selected individual. The options for Data and Object Properties are populated from the ontology and its imports. The user entered values in both the annotation and datatype property overlays are validated against the type field of the overlay. Imported individuals cannot be edited.</p>
+<p>The title of the selected individual, its IRI, and its type(s) are displayed at the top of the tab along with buttons to delete the individual and view its change history (see <a href="#entity_history">Entity History</a>). The IRI can be copied quickly by clicking on it. The section to the center and right of the tab allow you to add, remove, and edit Data, Object, and Annotation Properties for the selected individual. The options for Data and Object Properties are populated from the ontology and its imports. Furthermore, the Object Property Overlay also pre-filters the list of values based on the range of the property selected. The user entered values in both the annotation and datatype property overlays are validated against the type field of the overlay. Imported individuals cannot be edited.</p>
 </div>
 <div class="paragraph">
 <p>The types of an individual are editable by clicking the pencil icon at the end of the types list. The overlay allows you to add and remove types from the ontology and its imports. The "Named Individual" type is required.</p>
@@ -1367,7 +1383,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="title">Figure 55. The Synchronization Tool</div>
 </div>
 <div class="paragraph">
-<p>The initial view of the Synchronization tool shows a list of all the Graphmart Configurations in AVM. Each configuration is displayed with a title, the Anzo Graphmart name, the current Graphmart status (on, off, or not found), the status of the latest sync of the Graphmart, how many vocabularies were discovered in the latest sync, and an action menu. If the connection to Anzo failed, each item of the list of Graphmarts will have a question mark indication. To create a new Graphmart Configuration, click the "Create Graphmart Configuration" button in the top right. Enter a title for your new configuration and select a Graphmart from the provided dropdown. Each Graphmart is listed with its current activation status, but a configuration can still be created for an inactive Graphmart.</p>
+<p>The initial view of the Synchronization tool shows a list of all the Graphmart Configurations in AVM. Each configuration is displayed with a title, the Anzo Graphmart name, the current Graphmart status (on, off, or not found), the status of the latest sync of the Graphmart, how many vocabularies were discovered in the latest sync, and an action menu. The Graphmart status is dependent on the selected Anzo Configuration at the top. If the connection to Anzo failed, the Graphmart status of each item of the list will display a question mark. To create a new Graphmart Configuration, click the "Create Graphmart Configuration" button in the top right. Enter a title for your new configuration and select a Graphmart from the provided dropdown. Each Graphmart is listed with its current activation status, but a configuration can still be created for an inactive Graphmart.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1427,100 +1443,6 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 </div>
 </div>
 <div class="sect2">
-<h3 id="publish">Publish</h3>
-<div class="paragraph">
-<p>The Publish Page in AVM allows you to push Ontology Records found in AVM to Anzo as either referential datasets or models. Users can then consume specific versions of vocabularies as referential datasets in further processing in Anzo, such as linking with other data sources, unstructured processes, and Hi-Res Analytics.
-To reach the Publish Page, click on the link found under Ontology Editor in the left menu.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/publishing/publish_landing.png" alt="publish landing">
-</div>
-<div class="title">Figure 59. The Publish Page</div>
-</div>
-<div class="paragraph">
-<p>The initial view of the Publish Page shows a list of all the current Ontology Records in AVM. Each record is displayed with a title, the ontology IRI, and the provenance data of the latest publish successfully completed. To publish an ontology to Anzo, click the checkbox found on the corresponding Ontology Record and click the publish button, prompting a configuration modal to appear. This modal displays a list of all registered publish services.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/publishing/publish_overlay.png" alt="publish overlay">
-</div>
-<div class="title">Figure 60. The publish modal</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/publishing/publish_modal_options.png" alt="publish modal options">
-</div>
-<div class="title">Figure 61. The publish modal with registered services.</div>
-</div>
-<div class="paragraph">
-<p>The publish configuration modal provides options for how to customize what data is published to the Anzo Catalog. The modal allows you to select whether to publish the concept hierarchy, the class hierarchy or both as SKOS vocabulary concepts.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/publishing/publish_modal_skos.png" alt="publish modal skos">
-</div>
-<div class="title">Figure 62. SKOS Publish to Anzo</div>
-</div>
-<div class="paragraph">
-<p>Additionally, AVM users can publish vocabularies and ontologies to either an ANZO model or dataset.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/publishing/publish_modal_owl.png" alt="publish modal owl">
-</div>
-<div class="title">Figure 63. OWL Publish to Anzo</div>
-</div>
-<div class="paragraph">
-<p>After selecting either the entity types or target location, click <b class="button">Submit</b>, and AVM will trigger Anzo to query the version of the ontology at the head commit of the MASTER branch, bringing in the published data for consumption.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-When publishing the concept hierarchy, all individuals who are instances of SKOS Concept and of a subclass of SKOS Concept will be included.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Warning</div>
-</td>
-<td class="content">
-When publishing large ontologies, it’s recommended to publish as an ANZO dataset rather than an ANZO model as the ANZO Model Editor does not support ontologies at that scale.
-</td>
-</tr>
-</table>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/publishing/published_dataset.png" alt="published dataset">
-</div>
-<div class="title">Figure 64. A published vocabulary dataset in the Anzo SDL interface.</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/publishing/published_model.png" alt="published model">
-</div>
-<div class="title">Figure 65. A published vocabulary model in the Anzo SDL interface.</div>
-</div>
-<div class="paragraph">
-<p>To view more details about the publish history of a particular Ontology Record, click on the record in the Publish Landing Page. The Publish History page displays each publish executed for the ontology as well as relevant metadata including the user who published, the head commit at the time of publishing, and the time of the publish.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/publishing/publish_records.png" alt="publish records">
-</div>
-<div class="title">Figure 66. Record of all publishes for an ontology</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="link">Link</h3>
 <div class="paragraph">
 <p>The AVM Vocabulary Linking Tool allows you to create semantic links between terms found in two different vocabularies. The tool uses the <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein algorithm</a> by default to determine the similarity of labels between terms</p>
@@ -1532,7 +1454,7 @@ When publishing large ontologies, it’s recommended to publish as an ANZO datas
 <div class="content">
 <img src="images/vocabulary-linking/full_tool_initial_view.png" alt="The Vocabulary Linking Tool">
 </div>
-<div class="title">Figure 67. The Vocabulary Linking Tool</div>
+<div class="title">Figure 59. The Vocabulary Linking Tool</div>
 </div>
 <div class="paragraph">
 <p>The initial view of the Vocabulary Linking Tool shows a form on the left for selecting the vocabularies and a space for matched terms to be displayed. To select a vocabulary, you must select the Ontology Record and a Branch. All selected semantic relations you wish to add will be committed to the selected branches for both vocabularies.</p>
@@ -1544,7 +1466,7 @@ When publishing large ontologies, it’s recommended to publish as an ANZO datas
 <div class="content">
 <img src="images/vocabulary-linking/config_modal.png" alt="The vocabulary linking configuration modal" width="50%">
 </div>
-<div class="title">Figure 68. The vocabulary linking configuration modal</div>
+<div class="title">Figure 60. The vocabulary linking configuration modal</div>
 </div>
 <div class="paragraph">
 <p>After you have selected 2 different ontologies, click on <b class="button">Analyze</b> and the right section of the view will update with the matched terms in a paginated list.</p>
@@ -1553,7 +1475,7 @@ When publishing large ontologies, it’s recommended to publish as an ANZO datas
 <div class="content">
 <img src="images/vocabulary-linking/linking_results.png" alt="Example vocabulary linking results">
 </div>
-<div class="title">Figure 69. Example vocabulary linking results</div>
+<div class="title">Figure 61. Example vocabulary linking results</div>
 </div>
 <div class="paragraph">
 <p>The top of the results section shows a checkbox for selecting or deselecting all the results in addition to two dropdowns. One is for filtering the results based on whether terms have already been semantically linked. The other is for sorting the results based on the highest matched percentage of all the labels of each matched term pair.</p>
@@ -1565,13 +1487,13 @@ When publishing large ontologies, it’s recommended to publish as an ANZO datas
 <div class="content">
 <img src="images/vocabulary-linking/matched_pair.png" alt="Example matched vocabulary terms">
 </div>
-<div class="title">Figure 70. Example pair of matched vocabulary terms</div>
+<div class="title">Figure 62. Example pair of matched vocabulary terms</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/vocabulary-linking/previously_linked.png" alt="Previsouly linked vocabulary matches">
 </div>
-<div class="title">Figure 71. Matched vocabulary terms that are already linked</div>
+<div class="title">Figure 63. Matched vocabulary terms that are already linked</div>
 </div>
 <div class="paragraph">
 <p>To mark which terms you wish to link, select which relation you wish to use from the select in the expanded section and check the box next to the pair. The options are “Exact Match”, “Close Match”, or “Related”.  Use the following as a reference for what each type of relation means:</p>
@@ -1607,7 +1529,103 @@ When publishing large ontologies, it’s recommended to publish as an ANZO datas
 <div class="content">
 <img src="images/vocabulary-linking/success.png" alt="Successful linking" width="50%">
 </div>
-<div class="title">Figure 72. A success message linking vocabularies</div>
+<div class="title">Figure 64. A success message linking vocabularies</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="publish">Publish</h3>
+<div class="paragraph">
+<p>The Publish Page in AVM allows you to push Ontology Records found in AVM to Anzo as either referential datasets or models. Users can then consume specific versions of vocabularies as referential datasets in further processing in Anzo, such as linking with other data sources, unstructured processes, and Hi-Res Analytics. The publish capability is extensible and custom publish targets can be easily added via the Extensible Publishing Framework.</p>
+</div>
+<div class="paragraph">
+<p>To reach the Publish Page, click on the link found under Ontology Editor in the left menu.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/publish_landing.png" alt="publish landing">
+</div>
+<div class="title">Figure 65. The Publish Page</div>
+</div>
+<div class="paragraph">
+<p>The initial view of the Publish Page shows a list of all the current Ontology Records in AVM. Each record is displayed with a title, the ontology IRI, and the provenance data of the latest publish successfully completed. To publish an ontology to Anzo, click the checkbox found on the corresponding Ontology Record and click the publish button, prompting a configuration modal to appear. This modal displays a list of all registered publish services. Each publish service comes with its own configuration options to customize how the model or vocabulary is sent to the external system.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/publish_overlay.png" alt="publish overlay">
+</div>
+<div class="title">Figure 66. The publish modal</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/publish_modal_options.png" alt="publish modal options">
+</div>
+<div class="title">Figure 67. The publish modal with registered services.</div>
+</div>
+<div class="paragraph">
+<p>AVM comes with two registered Anzo Publish Services to customize what data is published to the Anzo Catalog. Both allow you to specify which configured Anzo instance to publish to. The "Publish to Anzo as SKOS Concepts" service allows AVM users to select whether to publish the concept hierarchy, the class hierarchy or both as SKOS vocabulary concepts.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/publish_modal_skos.png" alt="publish modal skos">
+</div>
+<div class="title">Figure 68. SKOS Publish to Anzo</div>
+</div>
+<div class="paragraph">
+<p>The "Publish to Anzo as OWL Dataset/Model" service allows AVM users to publish the entire contents of an Ontology Record to either an Anzo model or dataset.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/publish_modal_owl.png" alt="publish modal owl">
+</div>
+<div class="title">Figure 69. OWL Publish to Anzo</div>
+</div>
+<div class="paragraph">
+<p>After selecting either the entity types or target location, click <b class="button">Submit</b>, and AVM will trigger Anzo to query the version of the ontology/vocabulary at the head commit of the MASTER branch, bringing in the published data for consumption.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+When publishing the concept hierarchy, all individuals who are instances of SKOS Concept and of a subclass of SKOS Concept will be included.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+When publishing large ontologies, it&#8217;s recommended to publish as an Anzo dataset rather than an Anzo model as the Anzo Model Editor does not support ontologies at that scale.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/published_dataset.png" alt="published dataset">
+</div>
+<div class="title">Figure 70. A published vocabulary dataset in the Anzo SDL interface.</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/published_model.png" alt="published model">
+</div>
+<div class="title">Figure 71. A published vocabulary model in the Anzo SDL interface.</div>
+</div>
+<div class="paragraph">
+<p>To view more details about the publish history of a particular Ontology Record, click on the record in the Publish Landing Page. The Publish History page displays each publish executed for the ontology as well as relevant metadata including the user who published, the head commit at the time of publishing, and the time of the publish.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/publish_records.png" alt="publish records">
+</div>
+<div class="title">Figure 72. Record of all publishes for an ontology</div>
 </div>
 </div>
 <div class="sect2">
@@ -1788,7 +1806,7 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 <div class="title">Figure 82. The Merge Requests module</div>
 </div>
 <div class="paragraph">
-<p>The initial view of the Merge Requests module displays a list of all currently open merge requests. The list can be searched and sorted by the issued date and title, and the list can also be filtered by multiple parameters: the request status, the creator, the assignees, or the attached Record. The search bar, sort options, and the <a href="#create_a_merge_request">create a merge request</a> button are in the page&#8217;s top right corner. Each merge request in the list displays a preview of the request metadata, an icon representing the type of Versioned RDF Record associated with the request, and a button to delete the request. Clicking on a merge request in the list displays the individual merge request.</p>
+<p>The initial view of the Merge Requests module displays a list of all currently open merge requests. The list can be searched and sorted by the issued date and title, and the list can also be filtered by multiple parameters: the request status, the creator, the assignees, or the attached Record. The search bar, sort options, and the <a href="#create_a_merge_request">create a merge request</a> button are in the page&#8217;s top right corner. Each merge request in the list displays a preview of the request metadata, an icon representing the type of Versioned RDF Record associated with the request, a button to close the request, and a button to delete the request. Clicking on a merge request in the list displays the individual merge request.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1800,7 +1818,7 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 <p>The individual merge request view displays all information regarding the merge request. The top displays more metadata about the request including the request&#8217;s description and whether the source branch will be removed once the request is accepted. Below the metadata are a series of tabs containing the discussion on the request, the changes between the source and target branch, and commits that will be added from the source to the target branch. The bottom of the view contains a button to delete the request, a button to accept the request if it not already accepted, and a button to go back to the main list of merge requests.</p>
 </div>
 <div class="paragraph">
-<p>The discussion tab allows users to comment and discuss the changes within the request to facilitate more collaboration in a distributed environment. You can create new comments to start new threads of communication or you can reply to existing comments and further the discussion. Comments can only be removed by the creators of the comment.</p>
+<p>The discussion tab allows users to comment and discuss the changes within the request to facilitate more collaboration in a distributed environment. You can create new comments to start new threads of communication or you can reply to existing comments and further the discussion. Comments can also be edited and deleted by the user who created the comment.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1883,6 +1901,18 @@ If the record a request is attached to is deleted, that request is removed. If t
 <p>If a merge request is accepted, the merge will be preformed from the source into the target and the request will be moved into an Accepted state. All accepted merge requests are saved within the application for provenance.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="closing_a_merge_request">Closing a Merge Request</h4>
+<div class="paragraph">
+<p>A merge request can be closed so that the history of the proposed changes and the discussion can be kept, but the merge will not be performed. Users can still make comments on a closed merge request, but it cannot be edited or reopened.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/merge-requests/closed_mr.png" alt="closed mr">
+</div>
+<div class="title">Figure 89. A Closed Merge Request</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="mapping_tool">Mapping Tool</h3>
@@ -1896,7 +1926,7 @@ If the record a request is attached to is deleted, that request is removed. If t
 <div class="content">
 <img src="images/mapping-tool/full_mapping_tool_initial_view.png" alt="full mapping tool initial view">
 </div>
-<div class="title">Figure 89. Mapping Tool button</div>
+<div class="title">Figure 90. Mapping Tool button</div>
 </div>
 <div class="paragraph">
 <p>To use the Mapping Tool to map data, an ontology must be in the AVM repository, but it does not have to be opened to access it. If there are no available ontologies, you will not be able to map delimited data. To upload an ontology go to the <a href="#ontology_editor">Ontology Editor</a> and follow the steps for uploading ontologies or creating a new ontology.</p>
@@ -1913,7 +1943,7 @@ If the record a request is attached to is deleted, that request is removed. If t
 <div class="content">
 <img src="images/mapping-tool/create_mapping_overlay.png" alt="create mapping overlay" width="50%">
 </div>
-<div class="title">Figure 90. Create Mapping Overlay</div>
+<div class="title">Figure 91. Create Mapping Overlay</div>
 </div>
 <div class="paragraph">
 <p>Clicking <b class="button">Submit</b> brings you to the File Upload Page to continue the process of creating a mapping. You must upload a delimited file to use as a standard for the mapping. You can also check whether or not the file contains a header row and select the separator character if the file is CSV. The accepted file formats are <code>.csv</code>, <code>.tsv</code>, <code>.xls</code>, and <code>.xlsx</code>. Selecting a file in the form on the left loads a preview of the first 50 rows and columns of the delimited file into the table on the right. Clicking <b class="button">Continue</b> brings you to the Edit Mapping Page.</p>
@@ -1922,7 +1952,7 @@ If the record a request is attached to is deleted, that request is removed. If t
 <div class="content">
 <img src="images/mapping-tool/file_upload_create.png" alt="file upload create">
 </div>
-<div class="title">Figure 91. File Upload Page for Creating a Mapping</div>
+<div class="title">Figure 92. File Upload Page for Creating a Mapping</div>
 </div>
 <div class="paragraph">
 <p>The Edit Mapping Page contains three tabs: Edit, Preview, and Commits. The Edit tab contains a section for displaying the currently selected source ontology, the list of class mappings, and a list of property mappings for a particular class. For every row in the delimited data, an instance of a mapped class will be made according to each class mapping. Each created class instance will have a set of properties as defined by the property mappings associated with each class mapping. The values of data properties will have assigned datatypes based on the range of the mapped data property unless otherwise specified. The Preview tab allows you to map the first 10 rows of the selected delimited file using the current state of the mapping in a variety of different RDF serializations. Just like <a href="#ontology_editor">ontologies</a>, mappings are versioned with commits which can be viewed in the Commits tab.</p>
@@ -1943,7 +1973,7 @@ To learn about the structure of a mapping, refer to the <a href="#avm_mappings">
 <div class="content">
 <img src="images/mapping-tool/edit_mapping_edit.png" alt="edit mapping edit">
 </div>
-<div class="title">Figure 92. Edit Mapping Page Edit Tab</div>
+<div class="title">Figure 93. Edit Mapping Page Edit Tab</div>
 </div>
 <div class="paragraph">
 <p>When creating a mapping, the first thing you will see is the <a href="#source_ontology_overlay">Source Ontology Overlay</a>. This setting can always be changed by clicking the pencil button next to the ontology name in the Edit form. The <span class="underline">Class</span> section contains a select box with all the class mappings, a button to delete a specific class mapping, and a button to create a new class mapping. Clicking <b class="button">Add Class</b> opens an overlay where you can select a class in the imports closure of the source ontology that has not been deprecated.</p>
@@ -1977,19 +2007,19 @@ To learn about the structure of a mapping, refer to the <a href="#avm_mappings">
 <div class="content">
 <img src="images/mapping-tool/create_property_mapping_overlay_data.png" alt="create property mapping overlay data" width="50%">
 </div>
-<div class="title">Figure 93. Create Property Mapping Overlay for a Data/Annotation Property</div>
+<div class="title">Figure 94. Create Property Mapping Overlay for a Data/Annotation Property</div>
 </div>
 <div class="imageblock text-center">
 <div class="content">
 <img src="images/mapping-tool/create_property_mapping_overlay_object.png" alt="create property mapping overlay object" width="50%">
 </div>
-<div class="title">Figure 94. Create Property Mapping Overlay for an Object Property</div>
+<div class="title">Figure 95. Create Property Mapping Overlay for an Object Property</div>
 </div>
 <div class="imageblock text-center">
 <div class="content">
 <img src="images/mapping-tool/language_selection.png" alt="language selection" width="50%">
 </div>
-<div class="title">Figure 95. Language Selection for a Data/Annotation Property</div>
+<div class="title">Figure 96. Language Selection for a Data/Annotation Property</div>
 </div>
 <div class="paragraph">
 <p>Clicking the main <b class="button">Save</b> button at the bottom of either the Edit or Preview tab saves the current state of the mapping and brings you back to the Mapping Select Page. Clicking on the arrow to the right of the <b class="button">Save</b> button provides you options for running the mapping in addition to saving it. These options are downloading the mapped data, uploading the mapped data into a data within a AVM repository, or committing the mapped data to a specific branch of an ontology. Each option will bring up an appropriate overlay for choosing a RDF format and file name, a dataset, or an ontology and branch respectively. Clicking <b class="button">Submit</b> in an overlay will save the current state of the mapping and run it.</p>
@@ -2022,25 +2052,25 @@ For more information about running a mapping into an ontology, refer to <a href=
 <div class="content">
 <img src="images/mapping-tool/save_run_options.png" alt="save run options">
 </div>
-<div class="title">Figure 96. Options for saving and running a mapping</div>
+<div class="title">Figure 97. Options for saving and running a mapping</div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="editing_a_mapping">Editing a Mapping</h4>
 <div class="paragraph">
-<p>To edit a mapping, click <b class="button">Edit</b> on the Mapping Select Page. The application performs a quick check to see if the source ontology or its imported ontologies changed in such a way that the mapping is no longer valid. If this check does not pass, an overlay is displayed informing you of the error. If it passes, you are brought to the File Upload Page where you must upload a delimited file to use as a standard for the mapping. If the delimited file you choose does not contain enough columns for the mapping’s data property mappings, a list of the missing columns are displayed under the file select. However, you can still edit the mapping as long as those data properties are fixed. From there, editing the mapping works the same as <a href="#creating_a_mapping">creating a mapping</a>.</p>
+<p>To edit a mapping, click <b class="button">Edit</b> on the Mapping Select Page. The application performs a quick check to see if the source ontology or its imported ontologies changed in such a way that the mapping is no longer valid. If this check does not pass, an overlay is displayed informing you of the error and giving you the option to continue and have the tool automatically remove incompatible mappings. If you continue or the check passes, you are brought to the File Upload Page where you must upload a delimited file to use as a standard for the mapping. If the delimited file you choose does not contain enough columns for the mapping&#8217;s data property mappings, a list of the missing columns are displayed under the file select. However, you can still edit the mapping as long as those data properties are fixed. From there, editing the mapping works the same as <a href="#creating_a_mapping">creating a mapping</a>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/mapping-tool/file_upload_edit.png" alt="file upload edit">
 </div>
-<div class="title">Figure 97. File Upload Page for Editing a Mapping</div>
+<div class="title">Figure 98. File Upload Page for Editing a Mapping</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/mapping-tool/file_upload_edit_missing_columns.png" alt="file upload edit missing columns">
 </div>
-<div class="title">Figure 98. File Upload Page for Editing a Mapping with missing columns</div>
+<div class="title">Figure 99. File Upload Page for Editing a Mapping with missing columns</div>
 </div>
 </div>
 <div class="sect3">
@@ -2052,7 +2082,7 @@ For more information about running a mapping into an ontology, refer to <a href=
 <div class="sect3">
 <h4 id="running_a_mapping">Running a Mapping</h4>
 <div class="paragraph">
-<p>To run a mapping against delimited data without editing it, click <b class="button">Run</b> on the Mapping Select Page. The application performs a quick check to see if the source ontology or its imported ontologies changed in such a way that the mapping is no longer valid. If this check does not pass, an overlay is displayed informing you of the error. If it passes, you are brought to the File Upload Page where you must upload a delimited file to be used when generating RDF data. You can also check whether or not the file contains a header row and select the separator character if the file is CSV. The accepted file formats are <code>.csv</code>, <code>.tsv</code>, <code>.xls</code>, and <code>.xlsx</code>. The classes and properties that will be created using the mapping are displayed under the file select. The columns that must be present in the delimited file are highlighted in the table on the right. Selecting a file in the form on the left loads a preview of the first 50 rows and columns of the delimited file into the table. If the delimited file you choose does not contain enough columns for the mapping’s data property mappings, the properties that are missing columns turn red and you will not be able to run the mapping.</p>
+<p>To run a mapping against delimited data without editing it, click <b class="button">Run</b> on the Mapping Select Page. The application performs a quick check to see if the source ontology or its imported ontologies changed in such a way that the mapping is no longer valid. If this check does not pass, an overlay is displayed informing you of the error and giving you the option to continue and have the tool automatically remove incompatible mappings. If you continue or the check passes, you are brought to the File Upload Page where you must upload a delimited file to be used when generating RDF data. You can also check whether or not the file contains a header row and select the separator character if the file is CSV. The accepted file formats are <code>.csv</code>, <code>.tsv</code>, <code>.xls</code>, and <code>.xlsx</code>. The classes and properties that will be created using the mapping are displayed under the file select. The columns that must be present in the delimited file are highlighted in the table on the right. Selecting a file in the form on the left loads a preview of the first 50 rows and columns of the delimited file into the table. If the delimited file you choose does not contain enough columns for the mapping&#8217;s data property mappings, the properties that are missing columns turn red and you will not be able to run the mapping.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -2070,13 +2100,13 @@ To learn about datasets in AVM, refer to the <a href="#datasets_manager">Dataset
 <div class="content">
 <img src="images/mapping-tool/file_upload_run.png" alt="file upload run">
 </div>
-<div class="title">Figure 99. File Upload Page for Running a Mapping</div>
+<div class="title">Figure 100. File Upload Page for Running a Mapping</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/mapping-tool/file_upload_run_missing_columns.png" alt="file upload run missing columns">
 </div>
-<div class="title">Figure 100. File Upload Page for Running a Mapping with missing columns</div>
+<div class="title">Figure 101. File Upload Page for Running a Mapping with missing columns</div>
 </div>
 <div class="paragraph">
 <p>Clicking <b class="button">Run Mapping</b> will provide you with options for downloading the mapped data, uploading the mapped data into a data within a AVM repository, or committing the mapped data to a specific branch of an ontology. Each option will bring up an appropriate overlay for choosing a RDF format and file name, a dataset, or an ontology and branch respectively.</p>
@@ -2097,7 +2127,7 @@ For more information about running a mapping into an ontology, refer to <a href=
 <div class="content">
 <img src="images/mapping-tool/run_options.png" alt="run options">
 </div>
-<div class="title">Figure 101. Options for saving and running a mapping</div>
+<div class="title">Figure 102. Options for saving and running a mapping</div>
 </div>
 </div>
 <div class="sect3">
@@ -2111,7 +2141,7 @@ For more information about running a mapping into an ontology, refer to <a href=
 <div class="content">
 <img src="images/mapping-tool/source_ontology_overlay.png" alt="source ontology overlay" width="50%">
 </div>
-<div class="title">Figure 102. Source Ontology Overlay</div>
+<div class="title">Figure 103. Source Ontology Overlay</div>
 </div>
 <div class="paragraph">
 <p>The left side of the overlay contains a searchable list of all the ontologies in the local AVM repository and a select for the version of the ontology to use. For most ontologies, this will only contain the "Latest" value. However, if an ontology was previously selected for a mapping and that ontology has changed since then, there will be an option for the "Saved" version of the ontology. The right side of the overlay displays information about the ontology from its record in the <a href="#catalog">Catalog</a> and a sample of the classes in that ontology. Setting the source ontology will remove any class and property mappings in the mapping that are incompatible. The criteria for incompatible mappings are as follows:</p>
@@ -2178,7 +2208,7 @@ For more information about running a mapping into an ontology, refer to <a href=
 <div class="content">
 <img src="images/datasets-manager/full_datasets_manager_initial_view.png" alt="full datasets manager initial view">
 </div>
-<div class="title">Figure 103. The Datasets Manager</div>
+<div class="title">Figure 104. The Datasets Manager</div>
 </div>
 <div class="paragraph">
 <p>The page displays a searchable paginated list of all the datasets within the local AVM repository. Each dataset in the list displays a preview of the dataset metadata and a dropdown menu with upload data, edit, clear, and delete buttons. Deleting a dataset deletes the dataset, catalog record, and all associated data graphs. Clearing a dataset removes all associated data graphs except the system default named graph. Clearing a dataset does not remove the dataset or the catalog record. Editing a dataset allows to you to change some information about the dataset. The <b class="button">Upload Data</b> button allows you to upload graph data to the dataset from a file.</p>
@@ -2192,7 +2222,7 @@ For more information about running a mapping into an ontology, refer to <a href=
 <div class="content">
 <img src="images/datasets-manager/new_dataset_overlay.png" alt="new dataset overlay" width="50%">
 </div>
-<div class="title">Figure 104. New Dataset Overlay</div>
+<div class="title">Figure 105. New Dataset Overlay</div>
 </div>
 <div class="paragraph">
 <p>The Create New Dataset overlay contains several sections. The <span class="underline">Title</span> field populates the <code>dcterms:title</code> annotation of the new dataset record. The <span class="underline">Dataset IRI</span> field allows you to specify what the IRI of the new dataset should be. If not provided, the system will create a unique one for you. The <span class="underline">Description</span> field populates the <code>dcterms:description</code> annotation of the new dataset record. The <span class="underline">Keywords</span> field will attach the entered values as keywords to the new dataset record. The <span class="underline">Repository</span> field allows you to specity the identifier of the repository registered within AVM where the dataset and all associated named graphs will be stored. The default option is the system repository and should be used in most cases. Finally, you can select which ontologies should be used as the basis for the data. Select an ontology from the searchable list of ontologies to add it to the dataset. To remove a selected ontology, click the x next to the ontology name. Clicking <b class="button">Cancel</b> will close the overlay. Clicking <b class="button">Submit</b> will create the dataset with the provided metadata.</p>
@@ -2216,7 +2246,7 @@ The ability to create new repositories in AVM is coming soon!
 <div class="content">
 <img src="images/datasets-manager/edit_dataset_overlay.png" alt="edit dataset overlay" width="50%">
 </div>
-<div class="title">Figure 105. Edit Dataset Overlay</div>
+<div class="title">Figure 106. Edit Dataset Overlay</div>
 </div>
 <div class="paragraph">
 <p>The Edit Dataset overlay allows you to modify information about the dataset. The <span class="underline">Title</span> field modifies the value of the <code>dcterms:title</code> annotation of the dataset record. The <span class="underline">Description</span> field modifies the value of the <code>dcterms:description</code> annotation of the dataset record. The <span class="underline">Keywords</span> field allows you to add/remove keywords attached to the dataset record. The ontologies area allows you to modify the ontologies associated with the dataset record; just as during creation. Clicking <b class="button">Update</b> will update the dataset record with the new metadata.</p>
@@ -2271,7 +2301,7 @@ The ability to save, publish, share and reuse SPARQL queries as part of applicat
 <div class="content">
 <img src="images/discover/full_discover_page_initial_view.png" alt="full discover page initial view">
 </div>
-<div class="title">Figure 106. The Discover Page</div>
+<div class="title">Figure 107. The Discover Page</div>
 </div>
 <div class="sect3">
 <h4 id="explore">Explore</h4>
@@ -2282,7 +2312,7 @@ The ability to save, publish, share and reuse SPARQL queries as part of applicat
 <div class="content">
 <img src="images/discover/explore_classes.png" alt="explore classes">
 </div>
-<div class="title">Figure 107. Explore tab with classes</div>
+<div class="title">Figure 108. Explore tab with classes</div>
 </div>
 <div class="paragraph">
 <p>The Explore tab opens with a view of all the classes found within the selected dataset and a button to create a new instance. Each card displays the label and a brief description about a class, the number of instances defined as that class, a few of those instances, and a button to explore the instances themselves. Clicking <b class="button">Explore Data</b> opens the instances view.</p>
@@ -2291,7 +2321,7 @@ The ability to save, publish, share and reuse SPARQL queries as part of applicat
 <div class="content">
 <img src="images/discover/explore_instances.png" alt="explore instances">
 </div>
-<div class="title">Figure 108. Explore Tab with instances</div>
+<div class="title">Figure 109. Explore Tab with instances</div>
 </div>
 <div class="paragraph">
 <p>The instances view contains a paginated list of all the instances defined as a particular class. Each card displays the label, brief description about an instance, a button to explore the instance itself, and a button to delete the instance. The label is determined based on the values of the <code>rdfs:label</code>, <code>dc:title</code>, or <code>dcterms:title</code> properties on the instance. The description is based on the values of the <code>rdfs:comment</code>, <code>dc:description</code>, or <code>dcterms:description</code> properties on the instance. You can navigate back to the classes view using the breadcrumb trail in the top left. Clicking <b class="button">View <em>Class Name</em></b> opens the single instance view. Clicking <b class="button">Create <em>Class Name</em></b> opens the single instance editor. If the particular class has been deprecated in the ontology, you will not be able to create a new instance.</p>
@@ -2300,7 +2330,7 @@ The ability to save, publish, share and reuse SPARQL queries as part of applicat
 <div class="content">
 <img src="images/discover/explore_single_instance.png" alt="explore single instance">
 </div>
-<div class="title">Figure 109. Explore Tab with single instance</div>
+<div class="title">Figure 110. Explore Tab with single instance</div>
 </div>
 <div class="paragraph">
 <p>The single instance view displays the IRI, label, brief description, and list of all properties associated with the selected instance. Each property will only show one value by default; however, you can view more values, if there are any, by clicking the "Show More" link for that property. The instance view can also display any assertions on a reification of a property value statement by clicking on the small downward arrow on the right side of a property value. Clicking <b class="button">Edit</b> opens the single instance editor.</p>
@@ -2309,7 +2339,7 @@ The ability to save, publish, share and reuse SPARQL queries as part of applicat
 <div class="content">
 <img src="images/discover/explore_single_instance_editor.png" alt="explore single instance editor">
 </div>
-<div class="title">Figure 110. Explore Tab with single instance editor</div>
+<div class="title">Figure 111. Explore Tab with single instance editor</div>
 </div>
 <div class="paragraph">
 <p>The single instance editor displays the IRI and a list of all properties associated with the selected instance in an editable format. The IRI can be edited by clicking the pencil button next to the IRI which will open the <a href="#edit_iri_overlay">Edit IRI Overlay</a>. If the instance being edited does not have all the required properties set, as described by cardinality restrictions in the ontology, the instance cannot be saved. To add a another property value, type in the provided input and press the <kbd>ENTER</kbd> key. To remove a property value, click on the "X" button of the associated chip. To view a complete property value and add assertions to its reification, click on the associated chip.</p>
@@ -2339,7 +2369,7 @@ Editing the instance IRI might break relationships within the dataset.
 <div class="content">
 <img src="images/discover/discover_query_editor_overview.png" alt="discover query editor overview">
 </div>
-<div class="title">Figure 111. Query tab</div>
+<div class="title">Figure 112. Query tab</div>
 </div>
 <div class="paragraph">
 <p>The Query tab provides a SPARQL query editor powered by the <a href="https://triply.cc/docs/yasgui/">YASGUI</a> SPARQL library. The top section of the page contains the query editor (powered by <a href="https://triply.cc/docs/yasgui-api#yasqe">YASQE</a>), a Dataset field and a <b class="button">Submit</b> button. The <span class="underline">Dataset</span> field contains a list of all available <a href="#datasets_manager">datasets</a> within the AVM repository. Selecting a dataset limits the query to search through the data within the selected dataset. Clicking <b class="button">Submit</b> executes the entered query against the AVM repository, optionally limited by the selected dataset, and updates the bottom section with the results.</p>
@@ -2351,7 +2381,7 @@ Editing the instance IRI might break relationships within the dataset.
 <div class="content">
 <img src="images/discover/discover_construct_query.png" alt="discover construct query">
 </div>
-<div class="title">Figure 112. Construct query</div>
+<div class="title">Figure 113. Construct query</div>
 </div>
 </div>
 </div>
@@ -2361,13 +2391,13 @@ Editing the instance IRI might break relationships within the dataset.
 <p>The My Account page of AVM provides users with a way to configure their own account and customize various aspects of the application to suit their needs.</p>
 </div>
 <div class="paragraph">
-<p>To reach the My Account page, click on the display of your username in the left menu.</p>
+<p>To reach the My Account page, click on the display of your username/name in the left menu.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
 <img src="images/my-account/my_account_link.png" alt="my account link" width="50%">
 </div>
-<div class="title">Figure 113. My Account link</div>
+<div class="title">Figure 114. My Account link</div>
 </div>
 <div class="paragraph">
 <p>The My Account page contains four main tabs for configuring your account:</p>
@@ -2397,7 +2427,7 @@ Editing the instance IRI might break relationships within the dataset.
 <div class="content">
 <img src="images/my-account/profile_tab.png" alt="profile tab">
 </div>
-<div class="title">Figure 114. Profile Tab</div>
+<div class="title">Figure 115. Profile Tab</div>
 </div>
 </div>
 <div class="sect3">
@@ -2409,7 +2439,7 @@ Editing the instance IRI might break relationships within the dataset.
 <div class="content">
 <img src="images/my-account/groups_tab.png" alt="groups tab">
 </div>
-<div class="title">Figure 115. Groups Tab</div>
+<div class="title">Figure 116. Groups Tab</div>
 </div>
 </div>
 <div class="sect3">
@@ -2421,7 +2451,7 @@ Editing the instance IRI might break relationships within the dataset.
 <div class="content">
 <img src="images/my-account/password_tab.png" alt="password tab">
 </div>
-<div class="title">Figure 116. Password Tab</div>
+<div class="title">Figure 117. Password Tab</div>
 </div>
 </div>
 <div class="sect3">
@@ -2433,7 +2463,7 @@ Editing the instance IRI might break relationships within the dataset.
 <div class="content">
 <img src="images/my-account/preferences_tab.png" alt="preferences tab">
 </div>
-<div class="title">Figure 117. Preferences Tab</div>
+<div class="title">Figure 118. Preferences Tab</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2461,7 +2491,7 @@ Default preferences coming soon!
 <div class="content">
 <img src="images/user-management/administration_link.png" alt="administration link" width="50%">
 </div>
-<div class="title">Figure 118. Administration link</div>
+<div class="title">Figure 119. Administration link</div>
 </div>
 <div class="paragraph">
 <p>There are six main tabs of the Administration page:</p>
@@ -2497,7 +2527,7 @@ Default preferences coming soon!
 <div class="content">
 <img src="images/user-management/users_tab.png" alt="users tab">
 </div>
-<div class="title">Figure 119. Users Tab</div>
+<div class="title">Figure 120. Users Tab</div>
 </div>
 <div class="paragraph">
 <p>The left side of the tab contains a list of all the users in AVM. Each user is displayed using their first and last names, if available, or their username. If a user is an administrator, whether by having the admin role or by being a part of a group with the admin role, an indicator will be next to their username in the list. At the top of the list is a search bar that will filter the list of users based on their first name, last name, or username. Clicking on a user will load that user&#8217;s information into the right side of the section.</p>
@@ -2527,7 +2557,7 @@ The default Admin user can not be deleted.
 <div class="content">
 <img src="images/user-management/create_user_overlay.png" alt="create user overlay" width="50%">
 </div>
-<div class="title">Figure 120. Create User Overlay</div>
+<div class="title">Figure 121. Create User Overlay</div>
 </div>
 </div>
 <div class="sect3">
@@ -2539,7 +2569,7 @@ The default Admin user can not be deleted.
 <div class="content">
 <img src="images/user-management/groups_tab.png" alt="groups tab">
 </div>
-<div class="title">Figure 121. Groups Tab</div>
+<div class="title">Figure 122. Groups Tab</div>
 </div>
 <div class="paragraph">
 <p>The left side of the tab contains a list of all the groups in AVM. Next to each group title is an indicator of how many users are within that group. At the top of the list is a search bar that will filter the list of groups based on their title. Clicking on a group title will load that group&#8217;s information into the right side of the section.</p>
@@ -2557,7 +2587,7 @@ The default Admin user can not be deleted.
 <div class="content">
 <img src="images/user-management/create_group_overlay.png" alt="create group overlay" width="50%">
 </div>
-<div class="title">Figure 122. Create group overlay</div>
+<div class="title">Figure 123. Create group overlay</div>
 </div>
 </div>
 <div class="sect3">
@@ -2581,7 +2611,7 @@ More permissions coming soon!
 <div class="content">
 <img src="images/user-management/permissions_tab.png" alt="permissions tab">
 </div>
-<div class="title">Figure 123. Permissions Tab</div>
+<div class="title">Figure 124. Permissions Tab</div>
 </div>
 </div>
 <div class="sect3">
@@ -2613,16 +2643,22 @@ More Application Settings coming soon!
 <div class="content">
 <img src="images/user-management/application_settings_tab.png" alt="application settings tab">
 </div>
-<div class="title">Figure 124. Application Settings Tab</div>
+<div class="title">Figure 125. Application Settings Tab</div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="anzo_configurations">Anzo Configurations</h4>
 <div class="paragraph">
-<p>The Anzo Configurations tab enables runtime updates to the Anzo installation that AVM will utilize for all external connections.</p>
+<p>The Anzo Configurations tab enables runtime updates to the configured Anzo servers that AVM will utilize for all external connections. AVM supports multiple Anzo configurations that can be utilized within the individual modules.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/user-management/anzo-configuration-tab.png" alt="anzo configuration tab">
+</div>
+<div class="title">Figure 126. Anzo Configurations Tab</div>
 </div>
 <div class="paragraph">
-<p>Currently, there are these <strong>required</strong> and non-required fields that appear as text inputs:</p>
+<p>The left side of the page has a selector for anzo configurations with a button to add a new configuration. The right side has a form for setting the fields for the selected configuration. Currently, there are these <strong>required</strong> and non-required fields that appear as text inputs:</p>
 </div>
 <div class="paragraph">
 <p><strong>Hostname</strong> - The hostname of the configured Anzo server.</p>
@@ -2640,22 +2676,16 @@ More Application Settings coming soon!
 <p><strong>Username</strong> - The username for the configured Anzo server.</p>
 </div>
 <div class="paragraph">
-<p>Connect - The connect timeout in milliseconds(ms) for communicating with the configured Anzo server. The default value is 60000.</p>
+<p><strong>Connect</strong> - The connect timeout in milliseconds(ms) for communicating with the configured Anzo server. The default value is 60000.</p>
 </div>
 <div class="paragraph">
-<p>Read - The read timeout in milliseconds(ms) for communicating with the configured Anzo server. The default value is 30000.</p>
+<p><strong>Read</strong> - The read timeout in milliseconds(ms) for communicating with the configured Anzo server. The default value is 30000.</p>
 </div>
 <div class="paragraph">
-<p>After applying your configuration changes, you can click <b class="button">Save</b> which will save the changes you have made to the configuration. It will prompt you with a success or failure toast, and the application will now apply those settings when performing operations.</p>
+<p>After applying your configuration changes, you can click <b class="button">Save</b> which will save the changes you have made to the configuration. It will prompt you with a success or failure toast, and the application will now apply those settings when performing operations with that Anzo configuration.</p>
 </div>
 <div class="paragraph">
 <p>For more details on Anzo Configurations, take a look at the <a href="#anzo_connection_configuration">Anzo Connection Configuration</a> section.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/user-management/anzo-configuration-tab.png" alt="anzo configuration tab">
-</div>
-<div class="title">Figure 125. Anzo Configurations Tab</div>
 </div>
 </div>
 <div class="sect3">
@@ -2667,7 +2697,7 @@ More Application Settings coming soon!
 <div class="content">
 <img src="images/user-management/licensing_tab.png" alt="licensing tab">
 </div>
-<div class="title">Figure 126. Application Settings Tab</div>
+<div class="title">Figure 127. Application Settings Tab</div>
 </div>
 </div>
 </div>
@@ -2757,7 +2787,7 @@ dataDir=path/to/directory</pre>
 <div class="sect4">
 <h5 id="anzo_connection_configuration">Anzo Connection Configuration</h5>
 <div class="paragraph">
-<p>To enable Synchronize and Publish between Anzo and AVM, you must configure AVM with connection details about the Anzo server. To do this, create a file called <code>com.mobi.enterprise.avm.connector.api.AnzoConfigProvider.cfg</code> in the <code>$AVM_HOME/etc/</code> directory. The file must have the following fields.</p>
+<p>To enable Synchronize and Publish between Anzo and AVM, you must configure AVM with connection details about an Anzo server. More than one Anzo connection can be configured at a time. The platform comes with a default <code>dev</code> configuration that can be updated located in <code>com.mobi.enterprise.avm.connector.api.anzo-dev.cfg</code> in the <code>$AVM_HOME/etc/</code> directory. To add another configuration, create a file named <code>com.mobi.enterprise.avm.connector.api.anzo-{identifier}.cfg</code> in the same directory. All Anzo configuration files must have the following fields.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -2775,6 +2805,12 @@ dataDir=path/to/directory</pre>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The identifier for the Anzo server within AVM. Must match what is in the file name.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>anzo.hostname</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The host name of the Anzo server.</p></td>
@@ -2824,7 +2860,8 @@ dataDir=path/to/directory</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">anzo.hostname = localhost
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">id = dev
+anzo.hostname = localhost
 anzo.port = 8443
 anzo.ssl = true
 anzo.username = sysadmin
@@ -3606,13 +3643,13 @@ backgroundColor=white</code></pre>
 <div class="content">
 <img src="images/configuration/login-banner.png" alt="login banner">
 </div>
-<div class="title">Figure 127. AVM Login Screen with a banner</div>
+<div class="title">Figure 128. AVM Login Screen with a banner</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/configuration/home-banner.png" alt="home banner">
 </div>
-<div class="title">Figure 128. AVM Home Page with a banner</div>
+<div class="title">Figure 129. AVM Home Page with a banner</div>
 </div>
 <div class="sect5">
 <h6 id="multi_line_html_template">Multi-Line HTML Template</h6>
@@ -4070,7 +4107,7 @@ We recommend running AVM on the default port 8443 and using firewall configurati
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">5.2 - 5.3</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.5 - 1.7, 2.0 - 2.4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.5 - 1.7, 2.0 - 2.5</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">6.0.5</p></td>
 </tr>
 </tbody>
@@ -4275,7 +4312,7 @@ You can check the status of the running server using the <code>bin/status</code>
 <div class="content">
 <img src="images/administration-guide/avm-bundles.png" alt="avm bundles">
 </div>
-<div class="title">Figure 129. AVM Plugins</div>
+<div class="title">Figure 130. AVM Plugins</div>
 </div>
 <div class="paragraph">
 <p><code>STOP</code> and <code>START</code> the <code>AVM Ontology Loader</code> bundle.</p>
@@ -4284,7 +4321,7 @@ You can check the status of the running server using the <code>bin/status</code>
 <div class="content">
 <img src="images/administration-guide/plugin-configuration.png" alt="plugin configuration" width="100%">
 </div>
-<div class="title">Figure 130. Plugin Configuration</div>
+<div class="title">Figure 131. Plugin Configuration</div>
 </div>
 <div class="paragraph">
 <p>If you are unable to get a successful publish after stopping and starting the bundle, restart the Anzo server.</p>
@@ -4296,7 +4333,7 @@ You can check the status of the running server using the <code>bin/status</code>
 <div class="content">
 <img src="images/administration-guide/anzo-data-store.png" alt="anzo data store">
 </div>
-<div class="title">Figure 131. Anzo Data Store Configuration</div>
+<div class="title">Figure 132. Anzo Data Store Configuration</div>
 </div>
 </div>
 <div class="sect4">
@@ -4634,7 +4671,7 @@ options to alter the generated files.</p>
 <div class="content">
 <img src="images/developer-guide/XML_input_file.png" alt="XML Input File">
 </div>
-<div class="title">Figure 132. XML Example File</div>
+<div class="title">Figure 133. XML Example File</div>
 </div>
 <div class="paragraph">
 <p>When generating the ontology, each element is simultaneously treated as a class and object property if it has child elements and is regarded as a datatype property if it does not. The output will resemble a file similar to the one below.</p>
@@ -4643,7 +4680,7 @@ options to alter the generated files.</p>
 <div class="content">
 <img src="images/developer-guide/XML_ont_file.png" alt="XML Ontology Output File">
 </div>
-<div class="title">Figure 133. XML Example Ontology File</div>
+<div class="title">Figure 134. XML Example Ontology File</div>
 </div>
 <div class="paragraph">
 <p>The generated data file is composed of elements that have been deemed a class and that have literal values attached to it. Each instance is given a unique IRI based on the namespace of the ontology with a trailing UUID attached at the end.</p>
@@ -4652,7 +4689,7 @@ options to alter the generated files.</p>
 <div class="content">
 <img src="images/developer-guide/XML_data_file.png" alt="XML Data Output File">
 </div>
-<div class="title">Figure 134. XML Example Data File</div>
+<div class="title">Figure 135. XML Example Data File</div>
 </div>
 </div>
 <div class="sect4">
@@ -4664,7 +4701,7 @@ options to alter the generated files.</p>
 <div class="content">
 <img src="images/developer-guide/JSON_file_input.png" alt="JSON Input File">
 </div>
-<div class="title">Figure 135. JSON Example File</div>
+<div class="title">Figure 136. JSON Example File</div>
 </div>
 <div class="paragraph">
 <p>An output ontology is then generated using the passed in IRI or a UUID as the namespace. Classes and object properties relating these classes are created based on the keys present in the input file.</p>
@@ -4673,7 +4710,7 @@ options to alter the generated files.</p>
 <div class="content">
 <img src="images/developer-guide/JSON_ont_output.png" alt="JSON Ontology Output File">
 </div>
-<div class="title">Figure 136. JSON Example Ontology File</div>
+<div class="title">Figure 137. JSON Example Ontology File</div>
 </div>
 <div class="paragraph">
 <p>The generated data file is created by utilizing the literal values of each key object. For each instance of a JSON object there is in the input file an RDF entity is created with the same namespace as the ontology.</p>
@@ -4682,7 +4719,7 @@ options to alter the generated files.</p>
 <div class="content">
 <img src="images/developer-guide/JSON_data_output.png" alt="JSON Data Output File">
 </div>
-<div class="title">Figure 137. JSON Example Data File</div>
+<div class="title">Figure 138. JSON Example Data File</div>
 </div>
 </div>
 <div class="sect4">
@@ -4694,7 +4731,7 @@ options to alter the generated files.</p>
 <div class="content">
 <img src="images/developer-guide/CSV_input_file.png" alt="CSV Input File">
 </div>
-<div class="title">Figure 138. CSV Example File</div>
+<div class="title">Figure 139. CSV Example File</div>
 </div>
 <div class="paragraph">
 <p>Each column header is treated as a different datatype property, with the translator parsing a certain number of rows to determine the range of the property.</p>
@@ -4703,7 +4740,7 @@ options to alter the generated files.</p>
 <div class="content">
 <img src="images/developer-guide/CSV_ont_output.png" alt="CSV Ontology Output File">
 </div>
-<div class="title">Figure 139. CSV Example Ontology File</div>
+<div class="title">Figure 140. CSV Example Ontology File</div>
 </div>
 <div class="paragraph">
 <p>When creating the instance data, each row within the file is treated as an instance of the class with the cell values being the object of the triples generated by the datatype properties.</p>
@@ -4712,7 +4749,7 @@ options to alter the generated files.</p>
 <div class="content">
 <img src="images/developer-guide/CSV_data_output.png" alt="CSV Data Output File">
 </div>
-<div class="title">Figure 140. CSV Example Data File</div>
+<div class="title">Figure 141. CSV Example Data File</div>
 </div>
 </div>
 </div>
@@ -6455,7 +6492,7 @@ A UI module for creating and maintaining Workflows is coming soon!
 <div class="content">
 <img src="images/workflows/provenance_rdf.png" alt="provenance rdf">
 </div>
-<div class="title">Figure 141. RDF Structure of Workflow Provenance</div>
+<div class="title">Figure 142. RDF Structure of Workflow Provenance</div>
 </div>
 <div class="ulist">
 <ul>
@@ -7440,11 +7477,229 @@ public ActionDefinition createDefinition(NewAction action) {
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="publish_framework_examples">Appendix E: Publish Framework Examples</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AVM comes with an extensible framework for publishing ontologies and vocabularies to external systems. This framework utilizes SHACL to configure the publish services and validate publish requests. AVM comes with two publish services configured to publish an ontology/vocabulary to an Anzo model or Anzo dataset.</p>
+</div>
+<div class="sect2">
+<h3 id="anzo_skos_publish_example">Anzo SKOS Publish Example</h3>
+<div class="paragraph">
+<p>AVM has the capability to publish ontology/vocabulary data to an Anzo dataset as SKOS Concepts. Below is the Anzo SKOS publish SHACL configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt;.
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;.
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;.
+@prefix dct: &lt;http://purl.org/dc/terms/&gt;.
+@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt;.
+@prefix setting: &lt;http://mobi.com/ontologies/setting#&gt;.
+@prefix webForm: &lt;https://mobi.solutions/ontologies/form#&gt;.
+@prefix : &lt;http://mobi.com/ontologies/publish/anzo/skos#&gt;.
+@prefix anzoConfig: &lt;http://mobi.com/ontologies/publish/anzo#&gt;.
+@base &lt;http://mobi.com/ontologies/publish/anzo/skos&gt;.
+
+:AnzoSkosPublishService a setting:PublishService;
+    setting:publishType "Publish to Anzo as SKOS Concepts" ;
+    setting:concurrency "-1"^^xsd:nonNegativeInteger .
+
+:ClassesConceptsNodeShape a owl:Class, sh:NodeShape;
+    rdfs:subClassOf setting:PublishSetting;
+    dct:description "Publish to Anzo as SKOS Concepts" ;
+    sh:property :ClassesConceptsPropertyShape;
+    sh:property anzoConfig:AnzoConfigIdPropertyShape;
+    setting:inGroup :PublishSkosGroup ;
+    sh:targetClass :AnzoSkosPublish .
+
+:ClassesConceptsPropertyShape a sh:PropertyShape;
+    sh:path setting:hasDataValue;
+    sh:datatype xsd:string;
+    sh:in ("Concepts" "Classes") ;
+    sh:defaultValue "Concepts" ;
+    sh:minCount 1 ;
+    sh:maxCount 2 ;
+    webForm:usesFormField webForm:CheckboxInput .
+
+:PublishSkosGroup a setting:PublishGroup ;
+    rdfs:label "Publish Skos"@en .</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This configuration defines the Anzo SKOS publish service (<code>setting:PublishService</code>) the associated inputs (<code>sh:PropertyShape</code>), the valid values for the input (<code>sh:in</code>), and the number of inputs for a given field (<code>sh:minCount</code> and <code>sh:maxCount</code>). The configuration also defines form fields creating the web form in the <a href="#publish">Publishing tool</a> publish modal via the <code>webForm:usesFormField</code> predicate.</p>
+</div>
+<div class="paragraph">
+<p>The <code>:ClassesConceptsPropertyShape</code> defines a required field that allows users publishing ontologies/vocabularies to select whether to publish OWL Classes, SKOS Concepts, or both as SKOS concepts to an Anzo dataset.</p>
+</div>
+<div class="sect3">
+<h4 id="rest_request">REST Request</h4>
+<div class="paragraph">
+<p>The publish framework has a generic endpoint as the entrypoint for all publish activities. The endpoint is a POST endpoint that takes the ontology/vocabulary <code>recordId</code> and an optional <code>commitId</code> to publish as query params. The body of the request is a JSON-LD model, <code>jsonModel</code>, that defines the inputs for the publish as defined by the publish service configuration.</p>
+</div>
+<div class="paragraph">
+<p>Below is an example request to publish a record to a configured Anzo instance:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/postman_publish_skos.png" alt="postman publish skos">
+</div>
+<div class="title">Figure 143. Anzo SKOS Postman Request</div>
+</div>
+<div class="paragraph">
+<p>The body of the request represented in turtle is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@prefix ns0: &lt;http://mobi.com/config#&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix ns1: &lt;http://mobi.com/ontologies/setting#&gt; .
+
+&lt;http://mobi.com/ontologies/publish/anzo/skos#ClassesConceptsNodeShape1706242418991&gt;
+  a &lt;http://mobi.com/ontologies/publish/anzo/skos#AnzoSkosPublish&gt; ; # An instance of the publish service to execute
+  ns0:hasId "dev"^^xsd:string ; # The Anzo config (instance) to publish to (See below)
+  ns1:hasDataValue "Concepts"^^xsd:string, "Classes"^^xsd:string . # Publish both Concepts and Classes to an Anzo dataset as SKOS Concepts
+
+&lt;http://mobi.com/ontologies/publish/anzo/skos#AnzoSkosPublishService&gt;
+  a ns1:PublishService ; # The publish service to execute
+  ns1:concurrency "-1"^^xsd:nonNegativeInteger ; # Not required
+  ns1:publishType "Publish to Anzo as SKOS Concepts"^^xsd:string . # Not required</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This request is for a publish of the ontology record <code>https://mobi.com/records#607850ec-86fe-4e17-b47c-36765b946fbb</code> at the HEAD commit (since the <code>commitId</code> query param is omitted). The body of the request defines what publish service type to execute and the inputs for the associated publish service. See comments in turtle for explanation of fields.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="anzo_owl_publish_example">Anzo OWL Publish Example</h3>
+<div class="paragraph">
+<p>AVM has the capability to publish ontology/vocabulary data to either an Anzo Model or an Anzo dataset. Below is the Anzo OWL publish SHACL configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt;.
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;.
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;.
+@prefix dct: &lt;http://purl.org/dc/terms/&gt;.
+@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt;.
+@prefix setting: &lt;http://mobi.com/ontologies/setting#&gt;.
+@prefix webForm: &lt;https://mobi.solutions/ontologies/form#&gt;.
+@prefix : &lt;http://mobi.com/ontologies/publish/anzo/owl#&gt;.
+@prefix anzoConfig: &lt;http://mobi.com/ontologies/publish/anzo#&gt;.
+@base &lt;http://mobi.com/ontologies/publish/anzo/owl&gt;.
+
+:AnzoOwlPublishService a setting:PublishService;
+    setting:publishType "Publish to Anzo as OWL Dataset/Model" ;
+    setting:concurrency "-1"^^xsd:nonNegativeInteger .
+
+:DatasetModelNodeShape a owl:Class, sh:NodeShape;
+    rdfs:subClassOf setting:PublishSetting;
+    dct:description "Publish to Anzo as OWL Dataset/Model" ;
+    sh:property :DatasetModelPropertyShape;
+    sh:property anzoConfig:AnzoConfigIdPropertyShape;
+    setting:inGroup :PublishOwlGroup ;
+    sh:targetClass :AnzoOwlPublish .
+
+:DatasetModelPropertyShape a sh:PropertyShape;
+    sh:path setting:hasDataValue;
+    sh:datatype xsd:string;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:in ("As Model" "As Dataset") ;
+    sh:defaultValue "As Model" ;
+    webForm:usesFormField webForm:RadioInput .
+
+:PublishOwlGroup a setting:PublishGroup ;
+    rdfs:label "Publish Owl"@en .</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This configuration defines the Anzo OWL publish service (<code>setting:PublishService</code>) the associated inputs (<code>sh:PropertyShape</code>), the valid values for the input (<code>sh:in</code>), and the number of inputs for a given field (<code>sh:minCount</code> and <code>sh:maxCount</code>). The configuration also defines form fields creating the web form in the <a href="#publish">Publishing tool</a> publish modal via the <code>webForm:usesFormField</code> predicate.</p>
+</div>
+<div class="paragraph">
+<p>The <code>:DatasetModelPropertyShape</code> defines a required field that allows users publishing ontologies/vocabularies to select whether to publish ontology/vocabulary data as an Anzo Model or an Anzo Dataset.</p>
+</div>
+<div class="sect3">
+<h4 id="rest_request_2">REST Request</h4>
+<div class="paragraph">
+<p>The publish framework has a generic endpoint as the entrypoint for all publish activities. The endpoint is a POST endpoint that takes the ontology/vocabulary <code>recordId</code> and an optional <code>commitId</code> to publish as query params. The body of the request is a JSON-LD model, <code>jsonModel</code>, that defines the inputs for the publish as defined by the publish service configuration.</p>
+</div>
+<div class="paragraph">
+<p>Below is an example request to publish a record to a configured Anzo instance:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/postman_publish_owl.png" alt="postman publish owl">
+</div>
+<div class="title">Figure 144. Anzo OWL Postman Request</div>
+</div>
+<div class="paragraph">
+<p>The body of the request represented in turtle is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@prefix ns0: &lt;http://mobi.com/config#&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix ns1: &lt;http://mobi.com/ontologies/setting#&gt; .
+
+&lt;http://mobi.com/ontologies/publish/anzo/owl#DatasetModelNodeShape1706242679029&gt;
+  a &lt;http://mobi.com/ontologies/publish/anzo/owl#AnzoOwlPublish&gt; ; # An instance of the publish service to execute
+  ns0:hasId "dev"^^xsd:string ; # The Anzo config (instance) to publish to (See below)
+  ns1:hasDataValue "As Model"^^xsd:string . # Publish to an Anzo model. If this value was "As Dataset", it would publish to an Anzo Dataset
+
+&lt;http://mobi.com/ontologies/publish/anzo/owl#AnzoOwlPublishService&gt;
+  a ns1:PublishService ; # The publish service to execute
+  ns1:concurrency "-1"^^xsd:nonNegativeInteger ; # Not required
+  ns1:publishType "Publish to Anzo as OWL Dataset/Model"^^xsd:string . # Not required</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This request is for a publish of the ontology record <code>https://mobi.com/records#607850ec-86fe-4e17-b47c-36765b946fbb</code> at the HEAD commit (since the <code>commitId</code> query param is omitted). The body of the request defines what publish service type to execute and the inputs for the associated publish service. See comments in turtle for explanation of fields.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="anzo_config_selector">Anzo Config Selector</h3>
+<div class="paragraph">
+<p>Both Anzo publish services utilize a common SHACL shape for specifying which Anzo instance to publish to.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;.
+@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt;.
+@prefix webForm: &lt;https://mobi.solutions/ontologies/form#&gt;.
+@prefix : &lt;http://mobi.com/ontologies/publish/anzo#&gt;.
+@prefix config: &lt;http://mobi.com/config#&gt;.
+@base &lt;http://mobi.com/ontologies/publish/anzo&gt;.
+
+:AnzoConfigIdPropertyShape a sh:PropertyShape;
+    sh:path config:hasId;
+    sh:datatype xsd:string;
+    sh:name "Publishing Config"^^xsd:string ;
+    sh:minCount 0 ;
+    sh:maxCount 1 ;
+    webForm:usesFormField webForm:DropdownInput ;
+    webForm:sparqlSelectQuery """
+    			SELECT DISTINCT ?value
+                WHERE {
+                    ?s a &lt;http://mobi.com/config#AnzoConfiguration&gt; .
+                    ?s &lt;http://mobi.com/config#hasId&gt; ?value .
+                }
+    			""" .</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This property shape defines a dropdown input that requires a value to specify which Anzo instance to publish to.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 2.4<br>
-Last updated 2023-10-10 18:38:07 UTC
+Version 2.5<br>
+Last updated 2024-02-04 19:42:07 UTC
 </div>
 </div>
 <script src="../highlight/highlight.min.js"></script>

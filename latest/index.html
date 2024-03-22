@@ -4151,7 +4151,19 @@ We recommend running AVM on the default port 8443 and using firewall configurati
 <div class="title">Note</div>
 </td>
 <td class="content">
-If you are using a Red Hat system, you can install Java 17 with <code>sudo yum install java-17-openjdk</code>. On a standard RHEL/CentOS system, there is no package available via <code>yum</code> to install. We suggest Downloading the Oracle installer from <a href="https://www.oracle.com/java/technologies/downloads/#java17">here</a> and running <code>sudo rpm -Uvh jdk-17_linux-x64_bin.rpm</code> to install.
+If you are using a Red Hat system, you can install Java 17 with <code>sudo yum install java-17-openjdk</code> prior to version 8 and <code>sudo dnf install java-17-openjdk-devel</code> on versions 8+.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+On a standard RHEL/CentOS system, there is no package available via <code>yum</code> to install. We suggest Downloading the Oracle installer from <a href="https://www.oracle.com/java/technologies/downloads/#java17">here</a> and running <code>sudo rpm -Uvh jdk-17_linux-x64_bin.rpm</code> to install.
 </td>
 </tr>
 </table>
@@ -7699,7 +7711,7 @@ public ActionDefinition createDefinition(NewAction action) {
 <div id="footer">
 <div id="footer-text">
 Version 2.5<br>
-Last updated 2024-02-26 15:38:09 UTC
+Last updated 2024-02-04 19:42:07 UTC
 </div>
 </div>
 <script src="../highlight/highlight.min.js"></script>

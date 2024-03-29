@@ -4435,8 +4435,7 @@ We recommend running AVM on the default port 8443 and using firewall configurati
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>org.ops4j.pax.web.ssl.keystore.password</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The password used for keystore
-integrity check</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The password used for keystore integrity check</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>org.ops4j.pax.web.ssl.key.password</strong></p></td>
@@ -4456,6 +4455,35 @@ integrity check</p></td>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>In addition to the keystore, AVM also comes bundled with a custom truststore at <code>$AVM_HOME/etc/truststore</code> to store any SSL certificates required for connecting to external systems. Common needs for this include SSO and Publishing capabilities. The truststore that AVM uses can be changed with the following properties in the <code>$AVM_HOME/etc/system.properties</code> file.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Configuration Property</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>javax.net.ssl.trustStorePassword</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The password used for truststore integrity check</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>javax.net.ssl.trustStore</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The path to the truststore AVM will utilize</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>javax.net.ssl.trustStoreType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of truststore specified, such as <code>jks</code></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect4">
 <h5 id="installing_avm_as_a_service">Installing AVM as a Service</h5>

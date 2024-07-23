@@ -3654,6 +3654,9 @@ emailAttribute=MBox
 groupAttribute=Groups</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>In SAML flows, the Identity Property (IdP) will often require the Reply URL, at minimum, so that the IdP will know where to return the authorized user details. For AVM, that Reply URL should be set to <code>$AVM_HOST/mobirest/auth/saml</code>.</p>
+</div>
 </div>
 <div class="sect5">
 <h6 id="default_saml_token_duration">Default SAML Token Duration</h6>
@@ -8640,7 +8643,7 @@ public ActionDefinition createDefinition(NewAction action) {
 <div id="footer">
 <div id="footer-text">
 Version 3.0<br>
-Last updated 2024-06-10 20:03:36 UTC
+Last updated 2024-06-08 20:45:37 UTC
 </div>
 </div>
 <script src="../highlight/highlight.min.js"></script>

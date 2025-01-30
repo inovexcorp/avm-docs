@@ -85,7 +85,7 @@
 </div><div id="header">
 <h1>Anzo Vocabulary Manager User Manual</h1>
 <div class="details">
-<span id="revnumber">version 3.1</span>
+<span id="revnumber">version 4.0</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -100,6 +100,7 @@
 <li><a href="#record_permissions">Record Permissions</a></li>
 </ul>
 </li>
+<li><a href="#entity-search">Entity Search</a></li>
 <li><a href="#ontology_editor">Ontology Editor</a>
 <ul class="sectlevel3">
 <li><a href="#creating_new_ontologies">Creating New Ontologies</a></li>
@@ -218,7 +219,7 @@
 <li><a href="#groups_2">Groups</a></li>
 <li><a href="#permissions">Permissions</a></li>
 <li><a href="#application_settings">Application Settings</a></li>
-<li><a href="#anzo_configurations">Anzo Configurations</a></li>
+<li><a href="#anzo_configuration">Anzo Configuration</a></li>
 <li><a href="#licensing">Licensing</a></li>
 <li><a href="#ldapsso">LDAP/SSO</a></li>
 </ul>
@@ -254,7 +255,6 @@
 <li><a href="#hardware_requirements">Hardware Requirements</a></li>
 <li><a href="#software_requirements">Software Requirements</a></li>
 <li><a href="#firewall_requirements">Firewall Requirements</a></li>
-<li><a href="#recommended_plugin_deployment_versions">Recommended Plugin Deployment Versions</a></li>
 </ul>
 </li>
 <li><a href="#installing_avm">Installing AVM</a>
@@ -273,7 +273,6 @@
 </li>
 <li><a href="#post_installation_configuration">Post-Installation Configuration</a>
 <ul class="sectlevel4">
-<li><a href="#configure_avm_for_anzo_publishing">Configure AVM for Anzo Publishing</a></li>
 <li><a href="#change_the_default_java_heap_size">Change the Default Java Heap Size</a></li>
 <li><a href="#set_the_host_name">Set the Host Name</a></li>
 <li><a href="#change_the_default_web_port">Change the Default Web Port</a></li>
@@ -283,7 +282,11 @@
 </li>
 </ul>
 </li>
-<li><a href="#upgrading_avm">Upgrading AVM</a></li>
+<li><a href="#upgrading_avm">Upgrading AVM</a>
+<ul class="sectlevel3">
+<li><a href="#upgrading_to_avm_4_x">Upgrading to AVM 4.x</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#developer_guide">Developer Guide</a>
@@ -457,7 +460,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Anzo Vocabulary Manager (AVM) is a graph data platform for teams and communities to collaboratively develop ontologies and vocabularies for seamless integration with the Anzo platform.</p>
+<p>Anzo Vocabulary Manager (AVM) is a graph data platform for teams and communities to collaboratively develop semantic artifacts such as models, reference data, and validation constraints for seamless integration with the Anzo platform.</p>
 </div>
 </div>
 </div>
@@ -482,12 +485,15 @@
 <h2 id="user_guide">User Guide</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The AVM web application currently has ten main modules:</p>
+<p>The AVM web application currently has eleven main modules:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>the <a href="#catalog">Catalog</a></p>
+<p>the <a href="#catalog">Catalog</a>,</p>
+</li>
+<li>
+<p>the <a href="#entity-search">Entity Search</a>,</p>
 </li>
 <li>
 <p>the <a href="#ontology_editor">Ontology Editor</a>,</p>
@@ -499,13 +505,13 @@
 <p>the <a href="#publish">Publishing tool</a>,</p>
 </li>
 <li>
-<p>the <a href="#vocabulary-linking">Linking tool</a></p>
+<p>the <a href="#vocabulary-linking">Linking tool</a>,</p>
 </li>
 <li>
-<p>the <a href="#shapes_editor_beta">Shapes Editor (BETA)</a></p>
+<p>the <a href="#shapes_editor_beta">Shapes Editor (BETA)</a>,</p>
 </li>
 <li>
-<p>the <a href="#merge_requests">Merge Requests module</a></p>
+<p>the <a href="#merge_requests">Merge Requests module</a>,</p>
 </li>
 <li>
 <p>the <a href="#mapping_tool">Mapping Tool</a>,</p>
@@ -581,15 +587,10 @@
 <div class="title">Figure 4. The Catalog Landing Page</div>
 </div>
 <div class="paragraph">
-<p>The landing page of the Catalog displays a paginated list of all the Records in the Local Catalog that can be searched, sorted, and filtered.
-The filters on the left contain all possible types of Records, any user who has created a record, and all possible user keywords.
-The search bar allows you to perform a text search through all the Record metadata.</p>
+<p>The landing page of the Catalog displays a paginated list of all the Records in the Local Catalog that can be searched, sorted, and filtered. The filters on the left contain all possible types of Records, any user who has created a record, and all possible user keywords.  The selected options in each filter group can be reset and all selected filter options will appear beneath the search bar. The search bar allows you to perform a text search through all the Record metadata.</p>
 </div>
 <div class="paragraph">
-<p>Each Record in the list is displayed as a card with the Record title, type with related icon, date last modified, description, and keywords.
-Clicking on the title of the Record will copy its unique identifier (IRI).
-The footer of each Record card shows the username of its creator and a button to open that Record in its respective module (ontologies in the <a href="#ontology_editor">Ontology Editor</a>, etc.).
-Clicking on the Record card will open it in the <a href="#record_view">Record View</a>.</p>
+<p>Each Record in the list is displayed as a card with the Record title, type with related icon, last modified date, description, and keywords. Clicking on the title of the Record will copy its unique identifier (IRI). The footer of each Record card shows the username of its creator, a button to <b class="button">Open</b> that Record in its respective module (ontologies in the <a href="#ontology_editor">Ontology Editor</a>, etc.) and a button to <b class="button">View</b> the Record card in the <a href="#record_view">Record View</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -616,7 +617,7 @@ Clicking on the Record card will open it in the <a href="#record_view">Record Vi
 <div class="sect3">
 <h4 id="record_permissions">Record Permissions</h4>
 <div class="paragraph">
-<p>The Record Permissions page enables you to specify which users and groups can perform various actions against a record, such as viewing, deleting, modifying, and managing. <strong>Modify</strong> refers to the ability to affect the data represented by the record while <strong>Manage</strong> refers to the ability to edit the Record metadata. Versioned RDF Records like Ontologies and Mappings will also provide the ability to restrict who can modify the MASTER branch. Each type of Record has its own default permissions that get set uploaded or created.</p>
+<p>The Record Permissions page enables you to specify which users and groups can perform various actions against a record, such as viewing, deleting, modifying, and managing. <strong>Modify</strong> refers to the ability to affect the data represented by the record while <strong>Manage</strong> refers to the ability to edit the Record metadata. Versioned RDF Records like ontologies and mappings will also provide the ability to restrict who can modify the MASTER branch. Each type of Record has its own default permissions that get set uploaded or created.</p>
 </div>
 <div class="paragraph">
 <p>Permissions can be set to allow all authenticated users (the Everyone slider) or limit access to specific users and groups. To set the permission to a user or group, unselect the Everyone permission, find a user or group in the search box underneath the appropriate box, and select it. To remove a user or group from the permission, click the X button next to the username or group title. After you have finished making the changes you want, make sure to click the save button in the bottom right.  You can also click on the back button if you want to go back to the Record View.</p>
@@ -633,27 +634,69 @@ Clicking on the Record card will open it in the <a href="#record_view">Record Vi
 </div>
 </div>
 <div class="sect2">
-<h3 id="ontology_editor">Ontology Editor</h3>
+<h3 id="entity-search">Entity Search</h3>
 <div class="paragraph">
-<p>The AVM web-based ontology editor provides a Distributed Ontology Management System (DOMS) for local and community development of Web Ontology Language (<a href="https://www.w3.org/TR/owl2-overview/">OWL</a>) ontologies and Simple Knowledge Organization System (<a href="https://www.w3.org/2004/02/skos/">SKOS</a>) vocabularies. The DOMS features a knowledge capture, collaboration, access policy management, ontology reuse, and extensibility.</p>
+<p>The AVM Entity Search tool enables you to find relevant constructs related to your topic of interest across all records in the Catalog, reducing duplication and enhancing collaboration and extensibility across your enterprise.</p>
 </div>
 <div class="paragraph">
-<p>To reach the ontology editor, click on the link in the left menu.</p>
+<p>To reach the Entity Search tool, click on the link in the left menu.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/entity-search/full_entity_search_initial_view.png" alt="full entity search initial view">
+</div>
+<div class="title">Figure 7. The Entity Search Landing Page</div>
+</div>
+<div class="paragraph">
+<p>The Entity Search tool provides a filterable, sortable, paginated search across the latest MASTER branch data of all Versioned RDF Records in the Mobi Catalog. This includes Ontology Records, Shapes Graph Records, and more. The tool will always search through the compiled data of the head of the MASTER branch of each individual record, ensuring accurate and up to date results.</p>
+</div>
+<div class="paragraph">
+<p>To view search results, search text must be entered in the search bar at the top of the right side of the page. Entered search text will be matched on all properties with literal values. The filters on the left contain all possible types of Versioned RDF Records and all possible user keywords. The selected options in each filter group can be reset and all selected filter options will appear beneath the search bar.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/entity-search/search_results.png" alt="search results">
+</div>
+<div class="title">Figure 8. Entity Search Results</div>
+</div>
+<div class="paragraph">
+<p>Each search result represents an entity (i.e. a subject in the triple sense) within a Versioned RDF Record and is represented with its IRI, calculated entity name, type(s), description, parent record, and matching annotation values to the search text. The Parent Record is represented with an record type icon, its title, and keywords. The Matching Annotations are displayed with the property name, IRI, and matching highlighted value. The footer of each search result card contains a button to <b class="button">Open</b> that entity in its Parent Record in its respective module (ontologies in the <a href="#ontology-editor-guide">Ontology Editor</a>, etc.) and a button to <b class="button">View</b> the Parent Record card in the <a href="#record_view">Catalog Record View</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The state of the most recent search will be kept when navigating away and back to the tool and will be refreshed once interacted with (i.e. search submitted, filter changes, pagination control clicked).
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ontology_editor">Ontology Editor</h3>
+<div class="paragraph">
+<p>The AVM web-based Ontology Editor provides a Distributed Ontology Management System (DOMS) for local and community development of Web Ontology Language (<a href="https://www.w3.org/TR/owl2-overview/">OWL</a>) ontologies and Simple Knowledge Organization System (<a href="https://www.w3.org/2004/02/skos/">SKOS</a>) vocabularies. The DOMS features a knowledge capture, collaboration, access policy management, ontology reuse, and extensibility.</p>
+</div>
+<div class="paragraph">
+<p>To reach the Ontology Editor, click on the link in the left menu.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ontology-editor/full_editor_initial_view.png" alt="full editor initial view">
 </div>
-<div class="title">Figure 7. The Ontology Editor</div>
+<div class="title">Figure 9. The Ontology Editor</div>
 </div>
 <div class="paragraph">
-<p>The main Ontology Editor page includes the same top action-bar as the <a href="#shapes-editor-guide">Shapes Editor</a> where all the actions related to opening and versioning the ontology record are located. From the action-bar, users can create, filter, and open different ontology records, branches, and tags as well as create branches/tags, merge branches, upload/download the ontology data, and make a new commit.</p>
+<p>The main Ontology Editor page includes the same top action-bar as the <a href="#shapes-editor-guide">Shapes Editor</a> where all the actions related to opening and versioning the Ontology Record are located. From the action-bar, users can create, filter, and open different Ontology Records, branches, and tags as well as create branches/tags, merge branches, upload/download the ontology data, and make a new commit.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
 <img src="images/ontology-editor/action_bar.png" alt="action bar" width="100%">
 </div>
-<div class="title">Figure 8. Ontology Editor Action-Bar</div>
+<div class="title">Figure 10. Ontology Editor Action-Bar</div>
 </div>
 <div class="paragraph">
 <p>The starting point for any action on the page when you first navigate to the editor is the records dropdown. From here, you can create new ontologies, open existing ones, delete ontologies you have permission to do so, and download the latest version from the head commit of the MASTER branch. Clicking on an ontology will open it in the editor. You can open more than one ontology open at a time for parallel development.</p>
@@ -662,13 +705,10 @@ Clicking on the Record card will open it in the <a href="#record_view">Record Vi
 <div class="content">
 <img src="images/ontology-editor/records_dropdown.png" alt="records dropdown" width="50%">
 </div>
-<div class="title">Figure 9. Ontology Editor Record Select</div>
+<div class="title">Figure 11. Ontology Editor Record Select</div>
 </div>
 <div class="paragraph">
 <p>When opening an ontology, the editor will load the previous branch and commit you were viewing. If you have not previously opened the ontology or the branch you were viewing no longer exists, the editor will load the HEAD commit of the ontology&#8217;s MASTER branch. For an explanation of commits and branches see the section on <a href="#ontology_versioning">Ontology Versioning</a>.</p>
-</div>
-<div class="paragraph">
-<p>The initial view of the Ontology Editor shows the Ontologies page. The center of the page contains a paginated list of all ontologies in the local AVM repository. Each ontology in the list displays ontology metadata and an action menu. The action menu allows you to download or delete the ontology. Downloading the ontology from this location will download the HEAD commit of the MASTER branch. Deleting an ontology from this location will delete the ontology and associated ontology record and change history from the local catalog. Clicking an ontology will open it in the editor. You can open more than one ontology open at a time for parallel development.</p>
 </div>
 <div class="paragraph">
 <p>From this screen you can also filter the ontology list, <a href="#creating_new_ontologies">create new ontologies</a>, or
@@ -683,10 +723,10 @@ Clicking on the Record card will open it in the <a href="#record_view">Record Vi
 <div class="content">
 <img src="images/ontology-editor/new_ontology_form.png" alt="new ontology form" width="50%">
 </div>
-<div class="title">Figure 10. New Ontology Form</div>
+<div class="title">Figure 12. New Ontology Form</div>
 </div>
 <div class="paragraph">
-<p>The <span class="underline">Ontology IRI</span> is the unique identifier for the new ontology. The editor pre-populates this field with a configurable default namespace and a local name generated from the <span class="underline">Title</span> field. You can always override this behavior. The <span class="underline">Title</span> field populates the <code>dcterms:title</code> annotations of both the new ontology record and the ontology object within the new ontology. The <span class="underline">Description</span> field populates the <code>dcterms:description</code> annotations of both the new ontology record and the ontology object within the new ontology. The <span class="underline">Keywords</span> field will attach the entered values as keywords to the new ontology record. When the dialog is submitted, the new ontology will automatically be opened into the editor.</p>
+<p>The <span class="underline">Ontology IRI</span> is the unique identifier for the new ontology. The editor pre-populates this field with a configurable default namespace and a local name generated from the <span class="underline">Title</span> field. You can always override this behavior. The <span class="underline">Title</span> field populates the <code>dcterms:title</code> annotations of both the new Ontology Record and the ontology object within the new ontology. The <span class="underline">Description</span> field populates the <code>dcterms:description</code> annotations of both the new Ontology Record and the ontology object within the new ontology. The <span class="underline">Keywords</span> field will attach the entered values as keywords to the new Ontology Record. When the dialog is submitted, the new ontology will automatically be opened into the editor.</p>
 </div>
 </div>
 <div class="sect3">
@@ -707,13 +747,13 @@ Supported ontology file types are <code>.owl</code>, <code>.ttl</code>, <code>.x
 </table>
 </div>
 <div class="paragraph">
-<p>Once the file(s) are selected, a dialog will prompt you for metadata entry for the ontology record (title, description, keywords). This metadata is used to describe the ontology in the local catalog. By default, the editor will set the <span class="underline">Title</span> to the file name. Metadata for each ontology file can be entered and submitted separately, or default metadata can be entered for all records using the <b class="button">Submit All</b> button. The <span class="underline">Title</span> field populates the <code>dcterms:title</code> annotation of the new ontology record. The <span class="underline">Description</span> field populates the <code>dcterms:description</code> annotation of the new ontology record. The <span class="underline">Keywords</span> field will attach the entered values as keywords to the new ontology record.</p>
+<p>Once the file(s) are selected, a dialog will prompt you for metadata entry for the Ontology Record (title, description, keywords). This metadata is used to describe the ontology in the local catalog. By default, the editor will set the <span class="underline">Title</span> to the file name. Metadata for each ontology file can be entered and submitted separately, or default metadata can be entered for all records using the <b class="button">Submit All</b> button. The <span class="underline">Title</span> field populates the <code>dcterms:title</code> annotation of the new Ontology Record. The <span class="underline">Description</span> field populates the <code>dcterms:description</code> annotation of the new Ontology Record. The <span class="underline">Keywords</span> field will attach the entered values as keywords to the new Ontology Record.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
 <img src="images/ontology-editor/upload_metadata_form.png" alt="upload metadata form" width="50%">
 </div>
-<div class="title">Figure 11. Upload Ontology Form</div>
+<div class="title">Figure 13. Upload Ontology Form</div>
 </div>
 <div class="paragraph">
 <p>The status of each upload is recorded in the Upload Log which can be opened by clicking the button next to the records dropdown. Any errors will be detailed for each file. The file extension is used to guess the appropriate RDF Format to parse the file contents. If a parsing error occurs, the snackbar will display the error message relevant to guessed RDF Format.</p>
@@ -722,7 +762,7 @@ Supported ontology file types are <code>.owl</code>, <code>.ttl</code>, <code>.x
 <div class="content">
 <img src="images/ontology-editor/upload_log_button.png" alt="upload log button" width="50%">
 </div>
-<div class="title">Figure 12. Upload Log Button</div>
+<div class="title">Figure 14. Upload Log Button</div>
 </div>
 </div>
 <div class="sect3">
@@ -749,7 +789,7 @@ To learn more about OWL ontologies, see the <a href="https://www.w3.org/TR/2012/
 <div class="content">
 <img src="images/ontology-editor/full_editor_ontology_view.png" alt="full editor ontology view">
 </div>
-<div class="title">Figure 13. Ontology Editor</div>
+<div class="title">Figure 15. Ontology Editor</div>
 </div>
 <div class="paragraph">
 <p>This section will describe the tools related to ontology development activities. These include:</p>
@@ -800,7 +840,7 @@ To learn more about OWL ontologies, see the <a href="https://www.w3.org/TR/2012/
 <div class="content">
 <img src="images/ontology-editor/ontology_editor_tab_project.png" alt="ontology editor tab project">
 </div>
-<div class="title">Figure 14. Ontology Editor Project Tab</div>
+<div class="title">Figure 16. Ontology Editor Project Tab</div>
 </div>
 <div class="paragraph">
 <p>The top of this tab contains the title of the ontology and its IRI. The IRI shown is the Version IRI, Ontology IRI, or a blank node identifier. The IRI can be copied quickly by clicking on it.</p>
@@ -836,7 +876,7 @@ The serialized ontology is a representation of data stored in the repository and
 <div class="content">
 <img src="images/ontology-editor/ontology_editor_tab_overview.png" alt="ontology editor tab overview">
 </div>
-<div class="title">Figure 15. Ontology Editor Overview Tab</div>
+<div class="title">Figure 17. Ontology Editor Overview Tab</div>
 </div>
 <div class="paragraph">
 <p>The left side of this tab contains the list of all classes and their associated properties, including imports. Any properties that have no <code>rdfs:domain</code> are grouped into a folder in the hierarchy called "Properties". You can expand a class to view its properties by clicking the "+" icon or double-clicking the class name. Properties are displayed with a symbol representing the data type of the range property. If an entity has been changed and those changes have not been committed, it will appear bold and an indicator will be shown on the right of the entity name. Imported classes and properties will appear grey and italicized. The list also includes a search bar that will filter the list to classes/properties with annotations or local names containing your search query and the ability to apply one or more filters. The <b class="button">Hide unused imports</b> filter will remove all imported entities from the list that are not used by any of the entities defined in the ontology. The <b class="button">Hide deprecated entities</b> filter will remove all entities annotated with the owl:deprecated property. Clicking on an item in the tree will load that entity&#8217;s information into the other sections in this tab.</p>
@@ -872,7 +912,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/ontology_editor_tab_classes.png" alt="ontology editor tab classes">
 </div>
-<div class="title">Figure 16. Ontology Editor Classes Tab</div>
+<div class="title">Figure 18. Ontology Editor Classes Tab</div>
 </div>
 <div class="paragraph">
 <p>The left side of the tab contains a hierarchical view of the classes, including imports, nested according to their <code>rdfs:subClassOf</code> property. That is, a class&#8217;s children are classes which are defined as subclasses of the particular class. Since classes can be defined as a subclass of multiple classes, they may appear several times within the hierarchy. If a class has been changed and those changes have not been committed, it will appear bold and an indicator will be shown on the right of the class name. Imported classes will appear grey and italicized. The list also includes a search bar that will filter the list to classes with annotations or local names containing your search query and the ability to apply one or more filters. The <b class="button">Hide unused imports</b> filter will remove all imported entities from the list that are not used by any of the entities defined in the ontology. The <b class="button">Hide deprecated entities</b> filter will remove all classes annotated with the owl:deprecated property. Clicking on an item in the hierarchy will load that class&#8217;s information into the other sections in this tab. Double clicking on a class with children will toggle the display of the children.</p>
@@ -893,7 +933,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/ontology_editor_tab_properties.png" alt="ontology editor tab properties">
 </div>
-<div class="title">Figure 17. Ontology Editor Properties Tab</div>
+<div class="title">Figure 19. Ontology Editor Properties Tab</div>
 </div>
 <div class="paragraph">
 <p>The left side of the tab contains a hierarchical view of the data, object, and annotation properties, including imports. The data, object, and annotation properties are grouped into three separate folders within the hierarchy that will open and close when clicked. Properties are nested according to their <code>rdfs:subPropertyOf</code> property. That is, a property&#8217;s children are properties which are defined as subproperties of the particular property. Properties are displayed with a symbol representing the data type of the range property. If a property has been changed and those changes have not been committed, it will appear bold and an indicator will be shown on the right of the property name.  Imported properties will appear grey and italicized. The list also includes a search bar that will filter the list to properties with annotations or local names containing your search query and the ability to apply one or more filters. The <b class="button">Hide unused imports</b> filter will remove all imported properties from the list that are not used by any of the entities defined in the ontology. The <b class="button">Hide deprecated entities</b> filter will remove all properties annotated with the owl:deprecated property. Clicking on an item in the hierarchy will load that property&#8217;s information into the other sections in this tab. Double clicking on a property with children will toggle the display of the children.</p>
@@ -908,7 +948,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/object_property_tab.png" alt="object property tab">
 </div>
-<div class="title">Figure 18. Object Property View</div>
+<div class="title">Figure 20. Object Property View</div>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -935,7 +975,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/ontology_editor_tab_individuals.png" alt="ontology editor tab individuals">
 </div>
-<div class="title">Figure 19. Ontology Editor Individuals Tab</div>
+<div class="title">Figure 21. Ontology Editor Individuals Tab</div>
 </div>
 <div class="paragraph">
 <p>The left side of the tab contains a view of all individuals, including imports, nested under their classes based on the <code>rdfs:subClassOf</code> property. If an individual has been changed and those changes have not been committed, it will appear bold and an indicator will be shown on the right of the individual name. Imported individuals will appear grey and italicized. The list also includes a search bar that will filter the list to individuals with annotations or local names containing your search query and the ability to apply one or more filters. The <b class="button">Hide unused imports</b> filter will remove all imported individuals from the list that are not used by any of the entities defined in the ontology. The <b class="button">Hide deprecated entities</b> filter will remove all individuals annotated with the owl:deprecated property. Clicking on an item in the list will load that individual&#8217;s information into the other sections in this tab.</p>
@@ -950,7 +990,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/edit_individual_types.png" alt="edit individual types" width="50%">
 </div>
-<div class="title">Figure 20. Edit Individual Types Overlay</div>
+<div class="title">Figure 22. Edit Individual Types Overlay</div>
 </div>
 </div>
 <div class="sect4">
@@ -962,7 +1002,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/ontology_editor_tab_schemes.png" alt="ontology editor tab schemes">
 </div>
-<div class="title">Figure 21. Ontology Editor Schemes Tab</div>
+<div class="title">Figure 23. Ontology Editor Schemes Tab</div>
 </div>
 <div class="paragraph">
 <p>The left side of the tab contains a hierarchical view of the concept schemes, including imports. The top level items are the concept schemes, or subclasses of <code>skos:ConceptScheme</code>, and their children are all concepts, or subclasses of <code>skos:Concept</code>, within that scheme. This could be defined through the <code>skos:hasTopConcept</code>, <code>skos:topConceptOf</code>, or <code>skos:inScheme</code> properties. If a concept scheme or concept has been changed and those changes have not been committed, it will appear bold and an indicator will be shown on the right of its name. Imported concept schemes and concepts will appear grey and italicized. The list also includes a search bar that will filter the list to concepts/schemes with annotations or local names containing your search query and the ability to apply one or more filters. The <b class="button">Hide unused imports</b> filter will remove all imported schemes from the list that are not used by any of the entities defined in the ontology. The <b class="button">Hide deprecated entities</b> filter will remove all schemes annotated with the owl:deprecated property. Clicking on an item in the hierarchy will load that concept scheme&#8217;s or concept&#8217;s information in the other sections in this tab. Double clicking on a concept scheme with children will toggle the display of the children.</p>
@@ -983,7 +1023,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/ontology_editor_tab_concepts.png" alt="ontology editor tab concepts">
 </div>
-<div class="title">Figure 22. Ontology Editor Concepts Tab</div>
+<div class="title">Figure 24. Ontology Editor Concepts Tab</div>
 </div>
 <div class="paragraph">
 <p>The left side of the tab contains a hierarchical view of the concepts, including imports. The concept hierarchy is determined using all of the SKOS broader and narrower properties. If a concept scheme or concept has been changed and those changes have not been committed, it will appear bold and an indicator will be shown on the right of its name. Imported concepts will appear grey and italicized. The list also includes a search bar that will filter the list to concepts with annotations or local names containing your search query and the ability to apply one or more filters. The <b class="button">Hide unused imports</b> filter will remove all imported concepts from the list that are not used by any of the entities defined in the ontology. The <b class="button">Hide deprecated entities</b> filter will remove all concepts annotated with the owl:deprecated property. Clicking on an item in the hierarchy will load that concept&#8217;s information in the other sections in this tab. Double clicking on a concept with children will toggle the display of the children.</p>
@@ -1004,7 +1044,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/search_tab_dropdown.png" alt="search tab dropdown">
 </div>
-<div class="title">Figure 23. Search Tab Dropdown</div>
+<div class="title">Figure 25. Search Tab Dropdown</div>
 </div>
 <div class="sect5">
 <h6 id="find_view">Find View</h6>
@@ -1015,7 +1055,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/ontology_editor_tab_search.png" alt="ontology editor tab search">
 </div>
-<div class="title">Figure 24. Ontology Editor Search Tab</div>
+<div class="title">Figure 26. Ontology Editor Search Tab</div>
 </div>
 <div class="paragraph">
 <p>The left side of the Find view contains a simple search bar and a list of search results. To perform a search, type a string into the search bar and press the <kbd>ENTER</kbd> key. The results are separated by type headers which are collapsible. Each result is displayed with its display name. Properties are displayed with a symbol representing the data type of the range property. Clicking on a result will load that entity&#8217;s information into the right section of this tab. The right section displays the entity&#8217;s display name, IRI, types, and properties. The parts of the property values that match the search text will be highlighted. The right section also includes a <b class="button">Go To</b> button that will open the entity in the appropriate tab. Double clicking on an entity in the list will also open that entity in the appropriate tab.</p>
@@ -1024,13 +1064,13 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="sect5">
 <h6 id="query_view">Query View</h6>
 <div class="paragraph">
-<p>The Query view allows you to perform a SPARQL query against the opened ontology. Similar to the <a href="#query">Discover Query Page</a>, the ontology Query view provides a SPARQL query editor powered by the <a href="https://triply.cc/docs/yasgui/">YASGUI</a> SPARQL library. The top section of the page contains the query editor (powered by <a href="https://triply.cc/docs/yasgui-api#yasqe">YASQE</a>), a toggle of whether to include data from the entire imports closure, and a <b class="button">Submit</b> button. Clicking <b class="button">Submit</b> executes the entered query against the ontology and updates the bottom section with the results.</p>
+<p>The Query view allows you to perform a SPARQL query against the opened ontology. Similar to the <a href="#query">Discover Query Page</a>, the Ontology Query view provides a SPARQL query editor powered by the <a href="https://triply.cc/docs/yasgui/">YASGUI</a> SPARQL library. The top section of the page contains the query editor (powered by <a href="https://triply.cc/docs/yasgui-api#yasqe">YASQE</a>), a toggle of whether to include data from the entire imports closure, and a <b class="button">Submit</b> button. Clicking <b class="button">Submit</b> executes the entered query against the ontology and updates the bottom section with the results.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ontology-editor/search_tab_query.png" alt="search tab query">
 </div>
-<div class="title">Figure 25. Query View</div>
+<div class="title">Figure 27. Query View</div>
 </div>
 <div class="paragraph">
 <p>The bottom section displays the results of the most recently submitted SPARQL query (powered by <a href="https://triply.cc/docs/yasgui-api#yasr">YASR</a>). The section has separate tabs for rendering the query result set depending on the type of SPARQL query submitted. SELECT query results are displayed under the Table tab where the headers of the table are the variables specified in the SPARQL query. The Table comes with features such as filtering, page size, sorting and pagination. CONSTRUCT query results can be displayed under the Turtle, JSON-LD and RDF/XML tabs. The query results are limited to 500 triples/rows for rendering, but the entire result set can be downloaded using the button in the upper right corner of the bottom section.</p>
@@ -1039,7 +1079,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/search_tab_query_construct.png" alt="search tab query construct">
 </div>
-<div class="title">Figure 26. Construct Query</div>
+<div class="title">Figure 28. Construct Query</div>
 </div>
 </div>
 </div>
@@ -1052,25 +1092,25 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/visualization/pizza_graph.png" alt="pizza graph">
 </div>
-<div class="title">Figure 27. Pizza Ontology Graph</div>
+<div class="title">Figure 29. Pizza Ontology Graph</div>
 </div>
 <div class="paragraph">
-<p>The ontology visualization feature enables users to easily understand data within an Ontology by allowing them to navigate across the classes and their relationships. The feature allows users to zoom, pan, select, drag, hover, and click nodes and links.</p>
+<p>The Ontology Visualization feature enables users to easily understand data within an ontology by allowing them to navigate across the classes and their relationships. The feature allows users to zoom, pan, select, drag, hover, and click nodes and links.</p>
 </div>
 <div class="paragraph">
-<p>The number of classes displayed is limited to 500. Any in progress changes you have will not be rendered until they are committed. After initial graph calculation, the state of the graph will persist while users keep the Ontology open. The graph will only be re-rendered when there is a new commit.</p>
+<p>The number of classes displayed is limited to 500. Any in progress changes you have will not be rendered until they are committed. After initial graph calculation, the state of the graph will persist while users keep the ontology open. The graph will only be re-rendered when there is a new commit.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ontology-editor/visualization/warning_commit_inprogress.png" alt="warning commit inprogress">
 </div>
-<div class="title">Figure 28. Uncommitted changes state</div>
+<div class="title">Figure 30. Uncommitted changes state</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ontology-editor/visualization/warning_over_node_limit.png" alt="warning over node limit">
 </div>
-<div class="title">Figure 29. Over the limit state</div>
+<div class="title">Figure 31. Over the limit state</div>
 </div>
 <div class="paragraph">
 <p>The side panel of the Visualization tab displays a searchable list of all the classes in the import closure (i.e. direct and imported) grouped by parent ontology. The checkboxes next to each class indicate whether a class is currently shown in the visualization and can be toggled to customize the displayed graph. Selecting the checkbox next to a class will update the graph by adding a new node with the class name, subclass relationships with other displayed classes, and object properties with other displayed classes. Deselecting the checkbox next to a class will remove these three things. Selecting a class in the side panel will highlight the node in the graph if displayed. Selecting a node in the graph will also highlight in the side panel. The side panel also includes a "Filter" dropdown with three options to help find the classes of interest in the list.</p>
@@ -1092,7 +1132,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/visualization/sidebard_imported_open.png" alt="sidebard imported open">
 </div>
-<div class="title">Figure 30. Side Panel: classes grouped by parent ontology</div>
+<div class="title">Figure 32. Side Panel: classes grouped by parent ontology</div>
 </div>
 <div class="paragraph">
 <p>The side panel can be hidden or shown with a button.</p>
@@ -1101,30 +1141,30 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/visualization/sidepanel_close_button.png" alt="sidepanel close button">
 </div>
-<div class="title">Figure 31. Side Panel Close Button</div>
+<div class="title">Figure 33. Side Panel Close Button</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ontology-editor/visualization/sidepanel_open_button.png" alt="sidepanel open button">
 </div>
-<div class="title">Figure 32. Side Panel Open Button</div>
+<div class="title">Figure 34. Side Panel Open Button</div>
 </div>
 <div class="sect5">
 <h6 id="imported_ontologies_in_the_visual_graph">Imported Ontologies in the Visual Graph</h6>
 <div class="paragraph">
-<p>The rendered graph will include every ontology within the imports closure. The classes in the graph are rendered with different colors based on which ontology within the imports closure they belong to. If a change to an imported Ontology is made, the changes will not be rendered until a manual refresh is triggered which will reset the Ontology cache or until a new commit is made.</p>
+<p>The rendered graph will include every ontology within the imports closure. The classes in the graph are rendered with different colors based on which ontology within the imports closure they belong to. If a change to an imported ontology is made, the changes will not be rendered until a manual refresh is triggered which will reset the ontology cache or until a new commit is made.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ontology-editor/visualization/imported_ontology.png" alt="imported ontology">
 </div>
-<div class="title">Figure 33. Imported Ontologies</div>
+<div class="title">Figure 35. Imported Ontologies</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ontology-editor/visualization/update_imports.png" alt="update imports">
 </div>
-<div class="title">Figure 34. Refresh import</div>
+<div class="title">Figure 36. Refresh import</div>
 </div>
 </div>
 </div>
@@ -1162,7 +1202,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/branches_dropdown.png" alt="branches dropdown" width="40%">
 </div>
-<div class="title">Figure 35. Branches Dropdown</div>
+<div class="title">Figure 37. Branches Dropdown</div>
 </div>
 <div class="paragraph">
 <p>To edit the metadata of a branch or tag that is not checked out, click the pencil icon next to it in the dropdown menu. You cannot edit the MASTER branch of an ontology. To delete a branch or tag, click on the delete icon next to the branch/tag in the dropdown menu. If a branch is deleted, all commits on that branch that are not part of another branch will be removed, as well as the branch itself. If a tag is deleted, the commit is not removed. Note that these actions cannot be undone.</p>
@@ -1177,7 +1217,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/upload_changes_button.png" alt="upload changes button">
 </div>
-<div class="title">Figure 36. Upload Changes button</div>
+<div class="title">Figure 38. Upload Changes button</div>
 </div>
 </div>
 <div class="sect4">
@@ -1192,7 +1232,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/ontology_editor_changes_page.png" alt="ontology editor changes page">
 </div>
-<div class="title">Figure 37. Changes Page</div>
+<div class="title">Figure 39. Changes Page</div>
 </div>
 <div class="paragraph">
 <p>The commit history graph displays of all the commits made in the history of the branch you are currently viewing. The username of the creator, ID, message, and date for each commit are displayed within the graph. The graph displays each commit connected to its parent commits continuing backwards until the initial commit. The graph displays any Tags and Branches associated with visible commits. To view more information about a particular commit in the history, such as the added and deleted statements, click on its hash id to open an informational modal. The graph also includes commit dots for "checking out" a commit in the history. Clicking the Commit dot will open the ontology at that commit in read-only mode.</p>
@@ -1207,7 +1247,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/commit_button.png" alt="commit button">
 </div>
-<div class="title">Figure 38. Commit Button</div>
+<div class="title">Figure 40. Commit Button</div>
 </div>
 <div class="paragraph">
 <p>Commits cannot be made when a Tag or Commit is checked out or you are behind the HEAD of the current Branch. If you are behind the HEAD of the current branch, an indicator wil be shown in the top action-bar with a button to checkout the latest commit.</p>
@@ -1216,7 +1256,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/pull_latest_changes.png" alt="pull latest changes">
 </div>
-<div class="title">Figure 39. Pull in Latest Changes Indicator</div>
+<div class="title">Figure 41. Pull in Latest Changes Indicator</div>
 </div>
 </div>
 <div class="sect4">
@@ -1228,7 +1268,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/merge_branches_button.png" alt="merge branches button">
 </div>
-<div class="title">Figure 40. Merge Branches button</div>
+<div class="title">Figure 42. Merge Branches button</div>
 </div>
 <div class="paragraph">
 <p>The merge view displays the name of the current (source) branch, a select box for the branch (target) you want to merge into, and a checkbox for whether you want the source branch to be deleted after it is merged. The view also shows an aggregated view of all changes made in the source branch that will be merged into the target branch along with a list of all the commits that will be added to the target branch from the source branch.</p>
@@ -1237,7 +1277,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/merge_view.png" alt="merge view">
 </div>
-<div class="title">Figure 41. Merge Branches View</div>
+<div class="title">Figure 43. Merge Branches View</div>
 </div>
 <div class="paragraph">
 <p>Clicking <b class="button">Submit</b> will attempt to perform the merge. If there are no conflicts between the changes on both branches, a new commit will be created merging the two branches, and a success message will appear in the top right corner of the screen.</p>
@@ -1249,7 +1289,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/merge_conflicts_main.png" alt="merge conflicts main">
 </div>
-<div class="title">Figure 42. List of All Merge Conflicts</div>
+<div class="title">Figure 44. List of All Merge Conflicts</div>
 </div>
 <div class="paragraph">
 <p>When resolving a conflict, the tool displays the changes to the entity from both branches. To resolve the conflict, select the version of the entity you wish to keep. You can either click the <b class="button">Back to List</b> button to go back to the list of all the conflicts or the <b class="button">Previous</b> or <b class="button">Next</b> buttons to iterate through the list of conflicts.</p>
@@ -1270,7 +1310,7 @@ Currently the editor only supports accepting entire changes. Improvements to giv
 <div class="content">
 <img src="images/ontology-editor/merge_conflicts_resolution.png" alt="merge conflicts resolution">
 </div>
-<div class="title">Figure 43. Merge Conflict Resolution View.</div>
+<div class="title">Figure 45. Merge Conflict Resolution View.</div>
 </div>
 <div class="paragraph">
 <p>Once all conflicts have been resolved, the <b class="button">Submit with Resolutions</b> button will become active and you can complete the merge operation. Completing the merge will create a new commit that incorporates your conflict resolutions into the target branch, and displays a success message in the upper right corner of the screen.</p>
@@ -1285,7 +1325,7 @@ Currently the editor only supports accepting entire changes. Improvements to giv
 <div class="content">
 <img src="images/ontology-editor/entity_history.png" alt="entity history">
 </div>
-<div class="title">Figure 44. Entity History view</div>
+<div class="title">Figure 46. Entity History view</div>
 </div>
 </div>
 </div>
@@ -1300,7 +1340,7 @@ Currently the editor only supports accepting entire changes. Improvements to giv
 <div class="content">
 <img src="images/ontology-editor/edit_iri_overlay.png" alt="edit iri overlay">
 </div>
-<div class="title">Figure 45. Edit IRI overlay</div>
+<div class="title">Figure 47. Edit IRI overlay</div>
 </div>
 </div>
 <div class="sect4">
@@ -1312,7 +1352,7 @@ Currently the editor only supports accepting entire changes. Improvements to giv
 <div class="content">
 <img src="images/ontology-editor/axiom_value_editor.png" alt="axiom value editor" width="50%">
 </div>
-<div class="title">Figure 46. Axiom Overlay Editor with an example</div>
+<div class="title">Figure 48. Axiom Overlay Editor with an example</div>
 </div>
 </div>
 <div class="sect4">
@@ -1336,7 +1376,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/property_value_display.png" alt="property value display">
 </div>
-<div class="title">Figure 47. A property value display with multiple values</div>
+<div class="title">Figure 49. A property value display with multiple values</div>
 </div>
 </div>
 <div class="sect4">
@@ -1348,13 +1388,13 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/ontology-editor/create_entity_button.png" alt="create entity button">
 </div>
-<div class="title">Figure 48. Create Entity button</div>
+<div class="title">Figure 50. Create Entity button</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ontology-editor/new_snackbar.png" alt="new snackbar">
 </div>
-<div class="title">Figure 49. New Entity snackbar</div>
+<div class="title">Figure 51. New Entity snackbar</div>
 </div>
 </div>
 <div class="sect4">
@@ -1439,7 +1479,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="sect2">
 <h3 id="synchronize">Synchronize</h3>
 <div class="paragraph">
-<p>The Synchronization tool in AVM allows you to pull vocabularies from a Graphmart in AnzoGraph and create OntologyRecords in AVM for enhanced versioning and approval workflows. In order to synchronize a Graphmart, you must create a Graphmart Configuration within AVM.</p>
+<p>The Synchronization tool in AVM allows you to pull vocabularies from a Graphmart in AnzoGraph and create Ontology Records in AVM for enhanced versioning and approval workflows. In order to synchronize a Graphmart, you must create a Graphmart Configuration within AVM.</p>
 </div>
 <div class="paragraph">
 <p>To reach the Synchronization tool, click on the link in the left menu.</p>
@@ -1448,7 +1488,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/synchronization/full_tool_initial_view.png" alt="The Synchronization Tool">
 </div>
-<div class="title">Figure 50. The Synchronization Tool</div>
+<div class="title">Figure 52. The Synchronization Tool</div>
 </div>
 <div class="paragraph">
 <p>The initial view of the Synchronization tool shows a list of all the Graphmart Configurations in AVM. Each configuration is displayed with a title, the Anzo Graphmart name, the current Graphmart status (on, off, or not found), the status of the latest sync of the Graphmart, how many vocabularies were discovered in the latest sync, and an action menu. The Graphmart status is dependent on the selected Anzo Configuration at the top. If the connection to Anzo failed, the Graphmart status of each item of the list will display a question mark. To create a new Graphmart Configuration, click the "Create Graphmart Configuration" button in the top right. Enter a title for your new configuration and select a Graphmart from the provided dropdown. Each Graphmart is listed with its current activation status, but a configuration can still be created for an inactive Graphmart.</p>
@@ -1457,7 +1497,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/synchronization/config_modal.png" alt="Graphmart Configuration Modal">
 </div>
-<div class="title">Figure 51. The modal to create a new Graphmart Configuration</div>
+<div class="title">Figure 53. The modal to create a new Graphmart Configuration</div>
 </div>
 <div class="paragraph">
 <p>To view more information about a Graphmart Configuration, click on the item in the list. A new view will open with the full synchronization history of the Graphmart.</p>
@@ -1466,7 +1506,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/synchronization/sync_history.png" alt="Sync History View">
 </div>
-<div class="title">Figure 52. The sync history view of a Graphmart Configuration</div>
+<div class="title">Figure 54. The sync history view of a Graphmart Configuration</div>
 </div>
 <div class="paragraph">
 <p>At the top is a button to go back to the list of Graphmart Configurations, the title of the Graphmart Configuration, the Graphmart URI, the Anzo Graphmart name, the current Graphmart status (on, off, or not found) and buttons to Sync and Delete. Below that is an expandable list of all the past synchronizations performed with the selected Graphmart Configuration. For each item, it displays the start and end time, the current status, the number of vocabularies that were discovered, and the number of vocabularies updated. If you expand an item in the list, a table will be shown with the title of each vocabulary discovered and whether it was created or updated.</p>
@@ -1507,7 +1547,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/synchronization/commit_history.png" alt="Synced Commit History">
 </div>
-<div class="title">Figure 53. Example commit history of a synced vocabulary</div>
+<div class="title">Figure 55. Example commit history of a synced vocabulary</div>
 </div>
 </div>
 <div class="sect2">
@@ -1522,7 +1562,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/vocabulary-linking/full_tool_initial_view.png" alt="The Vocabulary Linking Tool">
 </div>
-<div class="title">Figure 54. The Vocabulary Linking Tool</div>
+<div class="title">Figure 56. The Vocabulary Linking Tool</div>
 </div>
 <div class="paragraph">
 <p>The initial view of the Vocabulary Linking Tool shows a form on the left for selecting the vocabularies and a space for matched terms to be displayed. To select a vocabulary, you must select the Ontology Record and a Branch. All selected semantic relations you wish to add will be committed to the selected branches for both vocabularies.</p>
@@ -1534,7 +1574,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/vocabulary-linking/config_modal.png" alt="The vocabulary linking configuration modal" width="50%">
 </div>
-<div class="title">Figure 55. The vocabulary linking configuration modal</div>
+<div class="title">Figure 57. The vocabulary linking configuration modal</div>
 </div>
 <div class="paragraph">
 <p>After you have selected 2 different ontologies, click on <b class="button">Analyze</b> and the right section of the view will update with the matched terms in a paginated list.</p>
@@ -1543,7 +1583,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/vocabulary-linking/linking_results.png" alt="Example vocabulary linking results">
 </div>
-<div class="title">Figure 56. Example vocabulary linking results</div>
+<div class="title">Figure 58. Example vocabulary linking results</div>
 </div>
 <div class="paragraph">
 <p>The top of the results section shows a checkbox for selecting or deselecting all the results in addition to two dropdowns. One is for filtering the results based on whether terms have already been semantically linked. The other is for sorting the results based on the highest matched percentage of all the labels of each matched term pair.</p>
@@ -1555,13 +1595,13 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/vocabulary-linking/matched_pair.png" alt="Example matched vocabulary terms">
 </div>
-<div class="title">Figure 57. Example pair of matched vocabulary terms</div>
+<div class="title">Figure 59. Example pair of matched vocabulary terms</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/vocabulary-linking/previously_linked.png" alt="Previsouly linked vocabulary matches">
 </div>
-<div class="title">Figure 58. Matched vocabulary terms that are already linked</div>
+<div class="title">Figure 60. Matched vocabulary terms that are already linked</div>
 </div>
 <div class="paragraph">
 <p>To mark which terms you wish to link, select which relation you wish to use from the select in the expanded section and check the box next to the pair. The options are “Exact Match”, “Close Match”, or “Related”.  Use the following as a reference for what each type of relation means:</p>
@@ -1597,13 +1637,13 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/vocabulary-linking/success.png" alt="Successful linking" width="50%">
 </div>
-<div class="title">Figure 59. A success message linking vocabularies</div>
+<div class="title">Figure 61. A success message linking vocabularies</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="publish">Publish</h3>
 <div class="paragraph">
-<p>The Publish Page in AVM allows you to push versioned RDF data to external systems including Anzo. Ontology Record data can be pushed as either models used as the foundation of all views into the Knowledge Graph or as referential datasets used for further processing, such as linking with other data sources, unstructured processes, and Hi-Res Analytics. The publish capability is extensible and custom publish targets can be easily added via the Extensible Publishing Framework.</p>
+<p>The Publish Page in AVM allows you to push versioned RDF data to external systems including Anzo. Ontology Record data can be pushed as either models used as the foundation of all views into the Knowledge Graph or as referential datasets used for further processing, such as linking with other data sources, unstructured processes, and Hi-Res Analytics. Shapes Graph Record data can be pushed as a dataset for use in SHACL based validation logic within Graphmarts. The publish capability is extensible and custom publish targets can be easily added via the Extensible Publishing Framework.</p>
 </div>
 <div class="paragraph">
 <p>To reach the Publish Page, click on the link in the left menu.</p>
@@ -1612,7 +1652,7 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/publishing/publish_landing.png" alt="publish landing">
 </div>
-<div class="title">Figure 60. The Publish Page</div>
+<div class="title">Figure 62. The Publish Page</div>
 </div>
 <div class="paragraph">
 <p>The initial view of the Publish Page shows a filterable, searchable, and paginated list of all the current Versioned RDF Records in AVM, including Ontology Record and Shapes Graph Records. Each Record is displayed with a title, an icon representing the type of Record, the identifier IRI for the latest data in the Record, and the provenance data of the latest publish successfully completed. To publish a Record to Anzo, click the checkbox found on the corresponding row and click the <b class="button">Publish Record</b> button, prompting a configuration modal to appear. This modal displays a list of all registered publish services compatible with the type of Record you selected. Each publish service comes with its own configuration options to customize how the data is sent to the external system.</p>
@@ -1621,34 +1661,19 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 <div class="content">
 <img src="images/publishing/publish_overlay.png" alt="publish overlay">
 </div>
-<div class="title">Figure 61. The publish modal</div>
+<div class="title">Figure 63. The publish modal</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/publishing/publish_modal_options.png" alt="publish modal options">
 </div>
-<div class="title">Figure 62. The publish modal with registered services.</div>
+<div class="title">Figure 64. The publish modal with registered services.</div>
 </div>
 <div class="paragraph">
-<p>AVM comes with two registered Anzo Publish Services to customize what data from an Ontology Record is published to the Anzo Catalog. Both allow you to specify which configured Anzo instance to publish to. The "Publish to Anzo as SKOS Concepts" service allows AVM users to select whether to publish the concept hierarchy, the class hierarchy or both as SKOS vocabulary concepts.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/publishing/publish_modal_skos.png" alt="publish modal skos">
-</div>
-<div class="title">Figure 63. SKOS Publish to Anzo</div>
+<p>AVM comes with three registered Anzo Publish Services for pushing ontologies, vocabularies, and shapes graphs to the Anzo Catalog. All allow you to specify which configured Anzo instance to publish to.</p>
 </div>
 <div class="paragraph">
-<p>The "Publish to Anzo as OWL Dataset/Model" service allows AVM users to publish the entire contents of an Ontology Record to either an Anzo model or dataset.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/publishing/publish_modal_owl.png" alt="publish modal owl">
-</div>
-<div class="title">Figure 64. OWL Publish to Anzo</div>
-</div>
-<div class="paragraph">
-<p>After selecting either the entity types or target location, click <b class="button">Submit</b>, and AVM will push the ontology/vocabulary data at the head commit of the MASTER branch to Anzo.</p>
+<p>The "Publish to Anzo as SKOS Concepts" service allows AVM users to select whether to publish the concept hierarchy, the class hierarchy or both as SKOS vocabulary concepts.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1661,6 +1686,15 @@ When publishing the concept hierarchy, all individuals who are instances of SKOS
 </td>
 </tr>
 </table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/publish_modal_skos.png" alt="publish modal skos">
+</div>
+<div class="title">Figure 65. SKOS Publish to Anzo</div>
+</div>
+<div class="paragraph">
+<p>The "Publish to Anzo as OWL Dataset/Model" service allows AVM users to publish the entire contents of an Ontology Record to either an Anzo model or dataset.</p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -1676,15 +1710,33 @@ When publishing large ontologies, it&#8217;s recommended to publish as an Anzo d
 </div>
 <div class="imageblock">
 <div class="content">
+<img src="images/publishing/publish_modal_owl.png" alt="publish modal owl">
+</div>
+<div class="title">Figure 66. OWL Publish to Anzo</div>
+</div>
+<div class="paragraph">
+<p>The "Publish Shapes Graph to Anzo" service allows Mobi users to create an Anzo dataset containing their shapes graph data for use in validation logic within Graphmarts.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/publish_modal_shacl.png" alt="publish modal shacl">
+</div>
+<div class="title">Figure 67. SHACL Publish to Anzo</div>
+</div>
+<div class="paragraph">
+<p>After selecting either the entity types or target location, click <b class="button">Submit</b>, and AVM will push the ontology/vocabulary data at the head commit of the MASTER branch to Anzo.</p>
+</div>
+<div class="imageblock">
+<div class="content">
 <img src="images/publishing/published_dataset.png" alt="published dataset">
 </div>
-<div class="title">Figure 65. A published vocabulary dataset in the Anzo SDL interface.</div>
+<div class="title">Figure 68. A published vocabulary dataset in the Anzo SDL interface.</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/publishing/published_model.png" alt="published model">
 </div>
-<div class="title">Figure 66. A published vocabulary model in the Anzo SDL interface.</div>
+<div class="title">Figure 69. A published ontology model in the Anzo SDL interface.</div>
 </div>
 <div class="paragraph">
 <p>To view more details about the publish history of a particular Versioned RDF Record, click on the Record in the Publish Landing Page. The Publish History page displays each publish executed for the Record as well as relevant metadata including the user who published, the head commit at the time of publishing, and the time of the publish.</p>
@@ -1693,13 +1745,13 @@ When publishing large ontologies, it&#8217;s recommended to publish as an Anzo d
 <div class="content">
 <img src="images/publishing/publish_records.png" alt="publish records">
 </div>
-<div class="title">Figure 67. Record of all publishes for an ontology</div>
+<div class="title">Figure 70. Record of all publishes for a record</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="shapes_editor_beta">Shapes Editor (BETA)</h3>
 <div class="paragraph">
-<p>The AVM web-based shapes graph editor is an innovative feature that provides users with a Distributed Management System for local and community development of (<a href="https://www.w3.org/TR/shacl/#shapes">SHACL Shapes</a>). The Shapes Editor features constraint capture, collaboration, shapes graph reuse, and extensibility.</p>
+<p>The AVM web-based Shapes Editor is an innovative feature that provides users with a Distributed Management System for local and community development of (<a href="https://www.w3.org/TR/shacl/#shapes">SHACL Shapes</a>). The Shapes Editor features constraint capture, collaboration, shapes graph reuse, and extensibility.</p>
 </div>
 <div class="paragraph">
 <p>To reach the Shapes Editor, click on the link in the left menu.</p>
@@ -1708,16 +1760,16 @@ When publishing large ontologies, it&#8217;s recommended to publish as an Anzo d
 <div class="content">
 <img src="images/shacl-editor/full_editor_initial_view.png" alt="full editor initial view">
 </div>
-<div class="title">Figure 68. The Shapes Editor</div>
+<div class="title">Figure 71. The Shapes Editor</div>
 </div>
 <div class="paragraph">
-<p>The main Shapes Editor page includes the same top action-bar as the <a href="#ontology_editor">Ontology Editor</a> where all the actions related to opening and versioning the shapes graph record are located. From the action-bar, users can create, filter, and open different shapes graph records, branches, and tags as well as create branches/tags, merge branches, upload/download the shapes graph data, and make a new commit.</p>
+<p>The main Shapes Editor page includes the same top action-bar as the <a href="#ontology_editor">Ontology Editor</a> where all the actions related to opening and versioning the Shapes Graph Record are located. From the action-bar, users can create, filter, and open different Shapes Graph Records, branches, and tags as well as create branches/tags, merge branches, upload/download the shapes graph data, and make a new commit.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
 <img src="images/shacl-editor/action_bar.png" alt="action bar" width="100%">
 </div>
-<div class="title">Figure 69. Shapes Editor Action Bar</div>
+<div class="title">Figure 72. Shapes Editor Action Bar</div>
 </div>
 <div class="paragraph">
 <p>The starting point for any action on the page when you first navigate to the editor is the records dropdown. From here, you can create new shapes graphs, open existing ones, delete shapes graphs you have permission to do so, and download the latest version from the head commit of the MASTER branch. Clicking on a shapes graph will open it in the editor. You can open more than one shapes graph open at a time for parallel development.</p>
@@ -1726,27 +1778,27 @@ When publishing large ontologies, it&#8217;s recommended to publish as an Anzo d
 <div class="content">
 <img src="images/shacl-editor/records_dropdown.png" alt="records dropdown" width="50%">
 </div>
-<div class="title">Figure 70. Shapes Editor Record Select</div>
+<div class="title">Figure 73. Shapes Editor Record Select</div>
 </div>
 <div class="paragraph">
-<p>When opening a shapes graph record, the editor will load the previous branch and/or commit you were viewing. If you have not previously opened the shapes graph or in the case that the branch you were viewing no longer exists, the editor will load the HEAD commit of the shape graph&#8217;s MASTER branch. For an explanation of commits and branches, see the section on <a href="#shapes_graph_versioning">Shapes Graph Versioning</a>.</p>
+<p>When opening a Shapes Graph Record, the editor will load the previous branch and/or commit you were viewing. If you have not previously opened the shapes graph or in the case that the branch you were viewing no longer exists, the editor will load the HEAD commit of the shape graph&#8217;s MASTER branch. For an explanation of commits and branches, see the section on <a href="#shapes_graph_versioning">Shapes Graph Versioning</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="creating_new_shapes_graphs">Creating New Shapes Graphs</h4>
 <div class="paragraph">
-<p>To create a shapes graph, click the <b class="button">New</b> button in the records dropdown. The creation dialog requires a title for the record and an IRI for the Shapes Graph. You can also optionally a description and keywords which will be used to describe the shapes graph record in the local catalog.</p>
+<p>To create a shapes graph, click the <b class="button">New</b> button in the records dropdown. The creation dialog requires a title for the record and an IRI for the shapes graph. You can also optionally a description and keywords which will be used to describe the Shapes Graph Record in the local catalog.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
 <img src="images/shacl-editor/create_shapes.png" alt="create shapes" width="50%">
 </div>
-<div class="title">Figure 71. New Shapes Record Form</div>
+<div class="title">Figure 74. New Shapes Record Form</div>
 </div>
 <div class="paragraph">
-<p>Shapes Graphs in Mobi will always include an OWL ontology object to capture high level information about the shapes graph, following best practices from the SHACL W3C specification (see <a href="https://www.w3.org/TR/shacl/#sparql-prefixes">this section</a> as an example).</p>
+<p>Shapes graphs in Mobi will always include an OWL ontology object to capture high level information about the shapes graph, following best practices from the SHACL W3C specification (see <a href="https://www.w3.org/TR/shacl/#sparql-prefixes">this section</a> as an example).</p>
 </div>
 <div class="paragraph">
-<p>The <span class="underline">Shapes Graph IRI</span> is the unique identifier for the new shapes graph. The editor pre-populates this field with a default namespace and a local name generated from the <span class="underline">Title</span> field.  You can always override this behavior. The <span class="underline">Title</span> field populates the <code>dcterms:title</code> annotations of both the new shapes graph record and the ontology object within the new record. The <span class="underline">Description</span> field populates the <code>dcterms:description</code> annotations of both the new shapes graph record and the ontology object within the new record. The <span class="underline">Keywords</span> field will attach the entered values as keywords to the new shapes graph record. When the dialog is submitted, the new shapes graph will automatically be opened into the editor.</p>
+<p>The <span class="underline">Shapes Graph IRI</span> is the unique identifier for the new shapes graph. The editor pre-populates this field with a default namespace and a local name generated from the <span class="underline">Title</span> field.  You can always override this behavior. The <span class="underline">Title</span> field populates the <code>dcterms:title</code> annotations of both the new Shapes Graph Record and the ontology object within the new record. The <span class="underline">Description</span> field populates the <code>dcterms:description</code> annotations of both the new Shapes Graph Record and the ontology object within the new record. The <span class="underline">Keywords</span> field will attach the entered values as keywords to the new Shapes Graph Record. When the dialog is submitted, the new shapes graph will automatically be opened into the editor.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1755,13 +1807,13 @@ When publishing large ontologies, it&#8217;s recommended to publish as an Anzo d
 <p>To upload an existing shapes graph, click the <b class="button">Upload</b> button in the records dropdown. This will bring up the browser&#8217;s native file browser to select one or more files containing initial shapes graph data (accepts all standard RDF formats).</p>
 </div>
 <div class="paragraph">
-<p>Once the file(s) are selected, a dialog will prompt you for metadata entry for the shapes graph record (title, description, keywords). This metadata is used to describe the shapes graph in the local catalog. By default, the editor will set the <span class="underline">Title</span> to the file name. Metadata for each shapes graph file can be entered and submitted separately, or default metadata can be entered for all records using the <b class="button">Submit All</b> button. The <span class="underline">Title</span> field populates the <code>dcterms:title</code> annotation of the new shapes graph record. The <span class="underline">Description</span> field populates the <code>dcterms:description</code> annotation of the new shapes graph record. The <span class="underline">Keywords</span> field will attach the entered values as keywords to the new shapes graph record.</p>
+<p>Once the file(s) are selected, a dialog will prompt you for metadata entry for the Shapes Graph Record (title, description, keywords). This metadata is used to describe the shapes graph in the local catalog. By default, the editor will set the <span class="underline">Title</span> to the file name. Metadata for each shapes graph file can be entered and submitted separately, or default metadata can be entered for all records using the <b class="button">Submit All</b> button. The <span class="underline">Title</span> field populates the <code>dcterms:title</code> annotation of the new Shapes Graph Record. The <span class="underline">Description</span> field populates the <code>dcterms:description</code> annotation of the new Shapes Graph Record. The <span class="underline">Keywords</span> field will attach the entered values as keywords to the new Shapes Graph Record.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
 <img src="images/shacl-editor/upload_shapes.png" alt="upload shapes" width="50%">
 </div>
-<div class="title">Figure 72. Upload Shapes Record Form</div>
+<div class="title">Figure 75. Upload Shapes Record Form</div>
 </div>
 <div class="paragraph">
 <p>The status of each upload is recorded in the Upload Log which can be opened by clicking the button next to the records dropdown. Any errors will be detailed for each file. The file extension is used to guess the appropriate RDF Format to parse the file contents. If a parsing error occurs, the snackbar will display the error message relevant to guessed RDF Format.</p>
@@ -1770,13 +1822,13 @@ When publishing large ontologies, it&#8217;s recommended to publish as an Anzo d
 <div class="content">
 <img src="images/shacl-editor/upload_log_button.png" alt="upload log button" width="50%">
 </div>
-<div class="title">Figure 73. Upload Log Button</div>
+<div class="title">Figure 76. Upload Log Button</div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="editing_a_shapes_graph">Editing a Shapes Graph</h4>
 <div class="paragraph">
-<p>Once a shapes graph record has been opened, the overview page displays a list of high-level information surrounding the shapes graph. This includes a shapes graph&#8217;s annotations, properties, imports, and a preview of the shapes graph serialized as RDF in <a href="https://www.w3.org/TR/turtle/">Turtle</a> syntax. Mobi will capture this high level information about a shapes graph with an OWL ontology object, following best practices from the SHACL W3C specification (see <a href="https://www.w3.org/TR/shacl/#sparql-prefixes">this section</a> as an example).</p>
+<p>Once a Shapes Graph Record has been opened, the overview page displays a list of high-level information surrounding the shapes graph. This includes a shapes graph&#8217;s annotations, properties, imports, and a preview of the shapes graph serialized as RDF in <a href="https://www.w3.org/TR/turtle/">Turtle</a> syntax. Mobi will capture this high level information about a shapes graph with an OWL ontology object, following best practices from the SHACL W3C specification (see <a href="https://www.w3.org/TR/shacl/#sparql-prefixes">this section</a> as an example).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1794,7 +1846,7 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 <div class="content">
 <img src="images/shacl-editor/shapes_details.png" alt="shapes details">
 </div>
-<div class="title">Figure 74. Shapes Record Details</div>
+<div class="title">Figure 77. Shapes Record Details</div>
 </div>
 </div>
 <div class="sect3">
@@ -1824,13 +1876,13 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 </tbody>
 </table>
 <div class="paragraph">
-<p>The branches dropdown provides a searchable list of branches and tags which can be checked out. To checkout a branch or tag, simply select the branch in the dropdown menu. Checking out a tag will open the ontology at the tagged commit in read-only mode. If you have checked out a commit from the commit history table, the commit will be in the dropdown list and show as selected. Note that the ability to check out a branch or tag will be disabled if you have any uncommitted changes on the current branch.</p>
+<p>The branches dropdown provides a searchable list of branches and tags which can be checked out. To checkout a branch or tag, simply select the branch in the dropdown menu. Checking out a tag will open the shapes graph at the tagged commit in read-only mode. If you have checked out a commit from the commit history table, the commit will be in the dropdown list and show as selected. Note that the ability to check out a branch or tag will be disabled if you have any uncommitted changes on the current branch.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
 <img src="images/shacl-editor/versioning_dropdown.png" alt="versioning dropdown" width="40%">
 </div>
-<div class="title">Figure 75. Branches Dropdown</div>
+<div class="title">Figure 78. Branches Dropdown</div>
 </div>
 <div class="paragraph">
 <p>To edit the metadata of a branch or tag that is not checked out, click the pencil icon next to it in the dropdown menu. You cannot edit the MASTER branch of a shapes graph. To delete a branch or tag, click on the delete icon next to the branch/tag in the dropdown menu. If a branch is deleted, all commits on that branch that are not part of another branch will be removed, as well as the branch itself. If a tag is deleted, the commit is not removed. Note that these actions cannot be undone.</p>
@@ -1845,13 +1897,13 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 <div class="content">
 <img src="images/shacl-editor/upload_changes_button.png" alt="upload changes button">
 </div>
-<div class="title">Figure 76. Upload Changes button</div>
+<div class="title">Figure 79. Upload Changes button</div>
 </div>
 </div>
 <div class="sect4">
 <h5 id="viewing_saved_changes_on_shapes_graphs">Viewing Saved Changes on Shapes Graphs</h5>
 <div class="paragraph">
-<p>Changes that have been uploaded to a shapes graph record are automatically saved and an indicator is shown in the action-bar. Users are able to reach the changes page by clicking the <b class="button">Show Changes</b> button found in the right-hand side of the action-bar.</p>
+<p>Changes that have been uploaded to a Shapes Graph Record are automatically saved and an indicator is shown in the action-bar. Users are able to reach the changes page by clicking the <b class="button">Show Changes</b> button found in the right-hand side of the action-bar.</p>
 </div>
 <div class="paragraph">
 <p>The changes page displays all saved and uncommitted changes in the opened shape graph. Saving changes without committing allows a user to edit an shape graph through a number of browser sessions before making any commits to the commit history. These changes are unique to the user, and are available to other users once a commit is performed. They are grouped by individual entity and display the triples on the entity grouped by property. When a “Show Full” toggle is active, the changes display is updated to include all the other triples on that changed entity. Clicking the <b class="button">Remove All Changes</b> button will clear all the changes uploaded into the shape graph, resetting to the state of the current commit.</p>
@@ -1860,7 +1912,7 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 <div class="content">
 <img src="images/shacl-editor/changes_page.png" alt="changes page">
 </div>
-<div class="title">Figure 77. Changes Page</div>
+<div class="title">Figure 80. Changes Page</div>
 </div>
 <div class="paragraph">
 <p>The commit history graph displays of all the commits made in the history of the branch you are currently viewing. The username of the creator, ID, message, and date for each commit are displayed within the graph. The graph displays each commit connected to its parent commits continuing backwards until the initial commit. The graph displays any Tags and Branches associated with visible commits. To view more information about a particular commit in the history, such as the added and deleted statements, click on its hash id to open an informational modal. The graph also includes commit dots for "checking out" a commit in the history. Clicking the Commit dot will open the shapes graph at that commit in read-only mode.</p>
@@ -1869,13 +1921,13 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 <div class="sect4">
 <h5 id="making_commits_to_shapes_graphs">Making Commits to Shapes Graphs</h5>
 <div class="paragraph">
-<p>After changes have been made to a Shapes Graph, they can be committed to the history, and thus viewable to others, by clicking the <b class="button">Commit</b> button in the top action-bar. This will bring up a dialog where you can enter a description of the changes that were made in the commit. The commit will be added to the current Branch that is checked out.</p>
+<p>After changes have been made to a shapes graph, they can be committed to the history, and thus viewable to others, by clicking the <b class="button">Commit</b> button in the top action-bar. This will bring up a dialog where you can enter a description of the changes that were made in the commit. The commit will be added to the current Branch that is checked out.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/shacl-editor/commit_button.png" alt="commit button">
 </div>
-<div class="title">Figure 78. Commit Button</div>
+<div class="title">Figure 81. Commit Button</div>
 </div>
 <div class="paragraph">
 <p>Commits cannot be made when a Tag or Commit is checked out or you are behind the HEAD of the current Branch. If you are behind the HEAD of the current branch, an indicator wil be shown in the top action-bar with a button to checkout the latest commit.</p>
@@ -1884,7 +1936,7 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 <div class="content">
 <img src="images/shacl-editor/pull_latest_changes.png" alt="pull latest changes">
 </div>
-<div class="title">Figure 79. Pull in Latest Changes Indicator</div>
+<div class="title">Figure 82. Pull in Latest Changes Indicator</div>
 </div>
 </div>
 <div class="sect4">
@@ -1896,7 +1948,7 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 <div class="content">
 <img src="images/shacl-editor/merge_branches_button.png" alt="merge branches button">
 </div>
-<div class="title">Figure 80. Merge Branches button</div>
+<div class="title">Figure 83. Merge Branches button</div>
 </div>
 <div class="paragraph">
 <p>The merge view displays the name of the current (source) branch, a select box for the branch (target) you want to merge into, and a checkbox for whether you want the source branch to be deleted after it is merged. The view also shows an aggregated view of all changes made in the source branch that will be merged into the target branch along with a list of all the commits that will be added to the target branch from the source branch.</p>
@@ -1905,7 +1957,7 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 <div class="content">
 <img src="images/shacl-editor/merge_page.png" alt="merge page">
 </div>
-<div class="title">Figure 81. Merge View</div>
+<div class="title">Figure 84. Merge View</div>
 </div>
 <div class="paragraph">
 <p>Clicking <b class="button">Submit</b> will attempt to perform the merge. If there are no conflicts between the changes on both branches, a new commit will be created merging the two branches, and a success message will appear in the top right corner of the screen.</p>
@@ -1917,7 +1969,7 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 <div class="content">
 <img src="images/shacl-editor/merge_conflicts_main.png" alt="merge conflicts main">
 </div>
-<div class="title">Figure 82. List of All Merge Conflicts</div>
+<div class="title">Figure 85. List of All Merge Conflicts</div>
 </div>
 <div class="paragraph">
 <p>When resolving a conflict, the tool displays the changes to the entity from both branches. To resolve the conflict, select the version of the entity you wish to keep. You can either click the <b class="button">Back to List</b> button to go back to the list of all the conflicts or the <b class="button">Previous</b> or <b class="button">Next</b> buttons to iterate through the list of conflicts.</p>
@@ -1938,7 +1990,7 @@ Currently the editor only supports accepting entire changes. Improvements to giv
 <div class="content">
 <img src="images/shacl-editor/merge_conflicts_resolution.png" alt="merge conflicts resolution">
 </div>
-<div class="title">Figure 83. Merge Conflict Resolution View</div>
+<div class="title">Figure 86. Merge Conflict Resolution View</div>
 </div>
 <div class="paragraph">
 <p>Once all conflicts have been resolved, the <b class="button">Submit with Resolutions</b> button will become active and you can complete the merge operation. Completing the merge will create a new commit that incorporates your conflict resolutions into the target branch, and displays a success message in the upper right corner of the screen.</p>
@@ -1958,16 +2010,19 @@ Currently the editor only supports accepting entire changes. Improvements to giv
 <div class="content">
 <img src="images/merge-requests/full_merge_requests_initial_view.png" alt="full merge requests initial view">
 </div>
-<div class="title">Figure 84. The Merge Requests module</div>
+<div class="title">Figure 87. The Merge Requests module</div>
 </div>
 <div class="paragraph">
-<p>The initial view of the Merge Requests module displays a list of all currently open merge requests. The list can be searched and sorted by the issued date and title, and the list can also be filtered by multiple parameters: the request status, the creator, the assignees, or the attached Record. The search bar, sort options, and the <a href="#create_a_merge_request">create a merge request</a> button are in the page&#8217;s top right corner. Each merge request in the list displays a preview of the request metadata, an icon representing the type of Versioned RDF Record associated with the request, a button to close the request, and a button to delete the request. Clicking on a merge request in the list displays the individual merge request.</p>
+<p>The initial view of the Merge Requests module displays a list of all currently open merge requests. The list can be searched and sorted by the issued date and title, and the list can also be filtered by multiple parameters: the request status, the creator, the assignees, or the attached Record. The selected options in each filter group can be reset and all selected filter options will appear beneath the search bar. The search bar, sort options, and the <a href="#create_a_merge_request">create a merge request</a> button are located in the top right corner of the page.</p>
+</div>
+<div class="paragraph">
+<p>Each merge request in the list displays a preview of the request metadata, an icon representing the type of Versioned RDF Record associated with the request, a button to close the request, and a button to delete the request. Clicking on a merge request in the list displays the individual merge request.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/merge-requests/individual_request.png" alt="individual request">
 </div>
-<div class="title">Figure 85. An Individual Merge Request</div>
+<div class="title">Figure 88. An Individual Merge Request</div>
 </div>
 <div class="paragraph">
 <p>The individual merge request view displays all information regarding the merge request. The top displays more metadata about the request including the request&#8217;s description and whether the source branch will be removed once the request is accepted. Below the metadata are a series of tabs containing the discussion on the request, the changes between the source and target branch, and commits that will be added from the source to the target branch. The bottom of the view contains a button to delete the request, a button to accept the request if it not already accepted, and a button to go back to the main list of merge requests.</p>
@@ -1997,7 +2052,7 @@ The comment editor supports GitHub flavored Markdown which you can find more inf
 <div class="content">
 <img src="images/merge-requests/edit_merge_request.png" alt="edit merge request" width="50%">
 </div>
-<div class="title">Figure 86. Editing Merge Request Metadata</div>
+<div class="title">Figure 89. Editing Merge Request Metadata</div>
 </div>
 <div class="sect3">
 <h4 id="create_a_merge_request">Create a Merge Request</h4>
@@ -2020,7 +2075,7 @@ If the record a request is attached to is deleted, that request is removed. If t
 <div class="content">
 <img src="images/merge-requests/step1.png" alt="step1">
 </div>
-<div class="title">Figure 87. Creating a Merge Request: Step 1 - Select a Record</div>
+<div class="title">Figure 90. Creating a Merge Request: Step 1 - Select a Record</div>
 </div>
 <div class="paragraph">
 <p>The second step of creating a merge request is to pick the "source" and "target" branch from the attached record. The source branch will be the branch in the first select box and the target branch will be in the second select box. Once both are selected, you will see an aggregated view of all changes made in the source branch that will be merged into the target branch along with all the commits from the source branch that will be included in the target branch. Once you have selected the branches you want to merge, click <b class="button">Next</b>.</p>
@@ -2029,7 +2084,7 @@ If the record a request is attached to is deleted, that request is removed. If t
 <div class="content">
 <img src="images/merge-requests/step2.png" alt="step2">
 </div>
-<div class="title">Figure 88. Creating a Merge Request: Step 2 - Select Branches</div>
+<div class="title">Figure 91. Creating a Merge Request: Step 2 - Select Branches</div>
 </div>
 <div class="paragraph">
 <p>The third step of creating a merge request is to provide any metadata you want to include about the request. This includes the required <span class="underline">Title</span>, optional <span class="underline">Description</span>, any <span class="underline">Assignees</span> of the request, and whether the source branch should be removed when the request is accepted. Once you have provided the metadata you wish to include, click <b class="button">Submit</b> and a new Merge Request with your selections will be created.</p>
@@ -2038,7 +2093,7 @@ If the record a request is attached to is deleted, that request is removed. If t
 <div class="content">
 <img src="images/merge-requests/step3.png" alt="step3">
 </div>
-<div class="title">Figure 89. Creating a Merge Request: Step 3 - Request Metadata</div>
+<div class="title">Figure 92. Creating a Merge Request: Step 3 - Request Metadata</div>
 </div>
 </div>
 <div class="sect3">
@@ -2050,7 +2105,7 @@ If the record a request is attached to is deleted, that request is removed. If t
 <div class="content">
 <img src="images/merge-requests/conflicts.png" alt="conflicts">
 </div>
-<div class="title">Figure 90. Conflicts on a Merge Request</div>
+<div class="title">Figure 93. Conflicts on a Merge Request</div>
 </div>
 <div class="paragraph">
 <p>If a merge request is accepted, the merge will be preformed from the source into the target and the request will be moved into an Accepted state. All accepted merge requests are saved within the application for provenance.</p>
@@ -2065,7 +2120,7 @@ If the record a request is attached to is deleted, that request is removed. If t
 <div class="content">
 <img src="images/merge-requests/closed_mr.png" alt="closed mr">
 </div>
-<div class="title">Figure 91. A Closed Merge Request</div>
+<div class="title">Figure 94. A Closed Merge Request</div>
 </div>
 </div>
 </div>
@@ -2081,7 +2136,7 @@ If the record a request is attached to is deleted, that request is removed. If t
 <div class="content">
 <img src="images/mapping-tool/full_mapping_tool_initial_view.png" alt="full mapping tool initial view">
 </div>
-<div class="title">Figure 92. Mapping Tool button</div>
+<div class="title">Figure 95. Mapping Tool button</div>
 </div>
 <div class="paragraph">
 <p>To use the Mapping Tool to map data, an ontology must be in the AVM repository, but it does not have to be opened to access it. If there are no available ontologies, you will not be able to map delimited data. To upload an ontology go to the <a href="#ontology_editor">Ontology Editor</a> and follow the steps for uploading ontologies or creating a new ontology.</p>
@@ -2098,7 +2153,7 @@ If the record a request is attached to is deleted, that request is removed. If t
 <div class="content">
 <img src="images/mapping-tool/create_mapping_overlay.png" alt="create mapping overlay" width="50%">
 </div>
-<div class="title">Figure 93. Create Mapping Overlay</div>
+<div class="title">Figure 96. Create Mapping Overlay</div>
 </div>
 <div class="paragraph">
 <p>Clicking <b class="button">Submit</b> brings you to the File Upload Page to continue the process of creating a mapping. You must upload a delimited file to use as a standard for the mapping. You can also check whether the file contains a header row and select the separator character if the file is CSV. The accepted file formats are <code>.csv</code>, <code>.tsv</code>, <code>.xls</code>, and <code>.xlsx</code>. Selecting a file in the form on the left loads a preview of the first 50 rows and columns of the delimited file into the table on the right. Clicking <b class="button">Continue</b> brings you to the Edit Mapping Page.</p>
@@ -2107,7 +2162,7 @@ If the record a request is attached to is deleted, that request is removed. If t
 <div class="content">
 <img src="images/mapping-tool/file_upload_create.png" alt="file upload create">
 </div>
-<div class="title">Figure 94. File Upload Page for Creating a Mapping</div>
+<div class="title">Figure 97. File Upload Page for Creating a Mapping</div>
 </div>
 <div class="paragraph">
 <p>The Edit Mapping Page contains three tabs: Edit, Preview, and Commits. The Edit tab contains a section for displaying the currently selected source ontology, the list of class mappings, and a list of property mappings for a particular class. For every row in the delimited data, an instance of a mapped class will be made according to each class mapping. Each created class instance will have a set of properties as defined by the property mappings associated with each class mapping. The values of data properties will have assigned datatypes based on the range of the mapped data property unless otherwise specified. The Preview tab allows you to map the first 10 rows of the selected delimited file using the current state of the mapping in a variety of different RDF serializations. Just like <a href="#ontology_editor">ontologies</a>, mappings are versioned with commits which can be viewed in the Commits tab.</p>
@@ -2128,7 +2183,7 @@ To learn about the structure of a mapping, refer to the <a href="#avm_mappings">
 <div class="content">
 <img src="images/mapping-tool/edit_mapping_edit.png" alt="edit mapping edit">
 </div>
-<div class="title">Figure 95. Edit Mapping Page Edit Tab</div>
+<div class="title">Figure 98. Edit Mapping Page Edit Tab</div>
 </div>
 <div class="paragraph">
 <p>When creating a mapping, the first thing you will see is the <a href="#source_ontology_overlay">Source Ontology Overlay</a>. This setting can always be changed by clicking the pencil button next to the ontology name in the Edit form. The <span class="underline">Class</span> section contains a select box with all the class mappings, a button to delete a specific class mapping, and a button to create a new class mapping. Clicking <b class="button">Add Class</b> opens an overlay where you can select a class in the imports closure of the source ontology that has not been deprecated.</p>
@@ -2162,7 +2217,7 @@ To learn about the structure of a mapping, refer to the <a href="#avm_mappings">
 <div class="content">
 <img src="images/mapping-tool/create_property_mapping_overlay_data.png" alt="create property mapping overlay data" width="50%">
 </div>
-<div class="title">Figure 96. Create Property Mapping Overlay for a Data/Annotation Property</div>
+<div class="title">Figure 99. Create Property Mapping Overlay for a Data/Annotation Property</div>
 </div>
 <div class="paragraph">
 <p>If you select an object property, a select field appears containing the titles of all class mappings of the appropriate type along with an option to create a new class mapping. The list of class mappings displayed is determined by the rdfs:range that is set on the selected property and its super-properties. If no range has been set on the property or there is a range of <code>owl:Thing</code> a full list of class mappings becomes available alongside the ability to create a new class mapping with all classes within the imports closure being an option.</p>
@@ -2171,13 +2226,13 @@ To learn about the structure of a mapping, refer to the <a href="#avm_mappings">
 <div class="content">
 <img src="images/mapping-tool/create_property_mapping_overlay_object.png" alt="create property mapping overlay object" width="50%">
 </div>
-<div class="title">Figure 97. Create Property Mapping Overlay for an Object Property</div>
+<div class="title">Figure 100. Create Property Mapping Overlay for an Object Property</div>
 </div>
 <div class="imageblock text-center">
 <div class="content">
 <img src="images/mapping-tool/language_selection.png" alt="language selection" width="50%">
 </div>
-<div class="title">Figure 98. Language Selection for a Data/Annotation Property</div>
+<div class="title">Figure 101. Language Selection for a Data/Annotation Property</div>
 </div>
 <div class="paragraph">
 <p>Clicking the main <b class="button">Save</b> button at the bottom of either the Edit or Preview tab saves the current state of the mapping and brings you back to the Mapping Select Page. Clicking on the arrow to the right of the <b class="button">Save</b> button provides you options for running the mapping in addition to saving it. These options are downloading the mapped data, uploading the mapped data into a data within a AVM repository, or committing the mapped data to a specific branch of an ontology. Each option will bring up an appropriate overlay for choosing a RDF format and file name, a dataset, or an ontology and branch respectively. Clicking <b class="button">Submit</b> in an overlay will save the current state of the mapping and run it.</p>
@@ -2210,7 +2265,7 @@ For more information about running a mapping into an ontology, refer to <a href=
 <div class="content">
 <img src="images/mapping-tool/save_run_options.png" alt="save run options">
 </div>
-<div class="title">Figure 99. Options for saving and running a mapping</div>
+<div class="title">Figure 102. Options for saving and running a mapping</div>
 </div>
 </div>
 <div class="sect3">
@@ -2222,13 +2277,13 @@ For more information about running a mapping into an ontology, refer to <a href=
 <div class="content">
 <img src="images/mapping-tool/file_upload_edit.png" alt="file upload edit">
 </div>
-<div class="title">Figure 100. File Upload Page for Editing a Mapping</div>
+<div class="title">Figure 103. File Upload Page for Editing a Mapping</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/mapping-tool/file_upload_edit_missing_columns.png" alt="file upload edit missing columns">
 </div>
-<div class="title">Figure 101. File Upload Page for Editing a Mapping with missing columns</div>
+<div class="title">Figure 104. File Upload Page for Editing a Mapping with missing columns</div>
 </div>
 </div>
 <div class="sect3">
@@ -2258,13 +2313,13 @@ To learn about datasets in AVM, refer to the <a href="#datasets_manager">Dataset
 <div class="content">
 <img src="images/mapping-tool/file_upload_run.png" alt="file upload run">
 </div>
-<div class="title">Figure 102. File Upload Page for Running a Mapping</div>
+<div class="title">Figure 105. File Upload Page for Running a Mapping</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/mapping-tool/file_upload_run_missing_columns.png" alt="file upload run missing columns">
 </div>
-<div class="title">Figure 103. File Upload Page for Running a Mapping with missing columns</div>
+<div class="title">Figure 106. File Upload Page for Running a Mapping with missing columns</div>
 </div>
 <div class="paragraph">
 <p>Clicking <b class="button">Run Mapping</b> will provide you with options for downloading the mapped data, uploading the mapped data into a data within a AVM repository, or committing the mapped data to a specific branch of an ontology. Each option will bring up an appropriate overlay for choosing a RDF format and file name, a dataset, or an ontology and branch respectively.</p>
@@ -2285,7 +2340,7 @@ For more information about running a mapping into an ontology, refer to <a href=
 <div class="content">
 <img src="images/mapping-tool/run_options.png" alt="run options">
 </div>
-<div class="title">Figure 104. Options for saving and running a mapping</div>
+<div class="title">Figure 107. Options for saving and running a mapping</div>
 </div>
 </div>
 <div class="sect3">
@@ -2299,10 +2354,10 @@ For more information about running a mapping into an ontology, refer to <a href=
 <div class="content">
 <img src="images/mapping-tool/source_ontology_overlay.png" alt="source ontology overlay" width="50%">
 </div>
-<div class="title">Figure 105. Source Ontology Overlay</div>
+<div class="title">Figure 108. Source Ontology Overlay</div>
 </div>
 <div class="paragraph">
-<p>The left side of the overlay contains a searchable list of all the ontologies in the local AVM repository and a select for the version of the ontology to use. For most ontologies, this will only contain the "Latest" value. However, if an ontology was previously selected for a mapping and that ontology has changed since then, there will be an option for the "Saved" version of the ontology. The right side of the overlay displays information about the ontology from its record in the <a href="#catalog">Catalog</a> and a sample of the classes in that ontology. Setting the source ontology will remove any class and property mappings in the mapping that are incompatible. The criteria for incompatible mappings are as follows:</p>
+<p>The left side of the overlay contains a searchable list of all the ontologies in the local AVM repository and a select for the version of the ontology to use. For most ontologies, this will only contain the "Latest" value. However, if an ontology was previously selected for a mapping and that ontology has changed since then, there will be an option for the "Saved" version of the ontology. The right side of the overlay displays information about the Ontology Record in the <a href="#catalog">Catalog</a> and a sample of the classes in that ontology. Setting the source ontology will remove any class and property mappings in the mapping that are incompatible. The criteria for incompatible mappings are as follows:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2366,7 +2421,7 @@ For more information about running a mapping into an ontology, refer to <a href=
 <div class="content">
 <img src="images/datasets-manager/full_datasets_manager_initial_view.png" alt="full datasets manager initial view">
 </div>
-<div class="title">Figure 106. The Datasets Manager</div>
+<div class="title">Figure 109. The Datasets Manager</div>
 </div>
 <div class="paragraph">
 <p>The page displays a searchable paginated list of all the datasets within the local AVM repository. Each dataset in the list displays a preview of the dataset metadata and a dropdown menu with upload data, edit, clear, and delete buttons. Deleting a dataset deletes the dataset, catalog record, and all associated data graphs. Clearing a dataset removes all associated data graphs except the system default named graph. Clearing a dataset does not remove the dataset or the catalog record. Editing a dataset allows to you to change some information about the dataset. The <b class="button">Upload Data</b> button allows you to upload graph data to the dataset from a file.</p>
@@ -2380,10 +2435,10 @@ For more information about running a mapping into an ontology, refer to <a href=
 <div class="content">
 <img src="images/datasets-manager/new_dataset_overlay.png" alt="new dataset overlay" width="50%">
 </div>
-<div class="title">Figure 107. New Dataset Overlay</div>
+<div class="title">Figure 110. New Dataset Overlay</div>
 </div>
 <div class="paragraph">
-<p>The Create New Dataset overlay contains several sections. The <span class="underline">Title</span> field populates the <code>dcterms:title</code> annotation of the new dataset record. The <span class="underline">Dataset IRI</span> field allows you to specify what the IRI of the new dataset should be. If not provided, the system will create a unique one for you. The <span class="underline">Description</span> field populates the <code>dcterms:description</code> annotation of the new dataset record. The <span class="underline">Keywords</span> field will attach the entered values as keywords to the new dataset record. The <span class="underline">Repository</span> field allows you to specity the identifier of the repository registered within AVM where the dataset and all associated named graphs will be stored. The default option is the system repository and should be used in most cases. Finally, you can select which ontologies should be used as the basis for the data. Select an ontology from the searchable list of ontologies to add it to the dataset. To remove a selected ontology, click the x next to the ontology name. Clicking <b class="button">Cancel</b> will close the overlay. Clicking <b class="button">Submit</b> will create the dataset with the provided metadata.</p>
+<p>The Create New Dataset overlay contains several sections. The <span class="underline">Title</span> field populates the <code>dcterms:title</code> annotation of the new dataset record. The <span class="underline">Dataset IRI</span> field allows you to specify what the IRI of the new dataset should be. If not provided, the system will create a unique one for you. The <span class="underline">Description</span> field populates the <code>dcterms:description</code> annotation of the new dataset record. The <span class="underline">Keywords</span> field will attach the entered values as keywords to the new dataset record. The <span class="underline">Repository</span> field allows you to specify the identifier of the repository registered within AVM where the dataset and all associated named graphs will be stored. The default option is the system repository and should be used in most cases. Finally, you can select which ontologies should be used as the basis for the data. Select an ontology from the searchable list of ontologies to add it to the dataset. To remove a selected ontology, click the x next to the ontology name. Clicking <b class="button">Cancel</b> will close the overlay. Clicking <b class="button">Submit</b> will create the dataset with the provided metadata.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2404,7 +2459,7 @@ The ability to create new repositories in AVM is coming soon!
 <div class="content">
 <img src="images/datasets-manager/edit_dataset_overlay.png" alt="edit dataset overlay" width="50%">
 </div>
-<div class="title">Figure 108. Edit Dataset Overlay</div>
+<div class="title">Figure 111. Edit Dataset Overlay</div>
 </div>
 <div class="paragraph">
 <p>The Edit Dataset overlay allows you to modify information about the dataset. The <span class="underline">Title</span> field modifies the value of the <code>dcterms:title</code> annotation of the dataset record. The <span class="underline">Description</span> field modifies the value of the <code>dcterms:description</code> annotation of the dataset record. The <span class="underline">Keywords</span> field allows you to add/remove keywords attached to the dataset record. The ontologies area allows you to modify the ontologies associated with the dataset record; just as during creation. Clicking <b class="button">Update</b> will update the dataset record with the new metadata.</p>
@@ -2416,7 +2471,7 @@ The ability to create new repositories in AVM is coming soon!
 <div class="title">Caution</div>
 </td>
 <td class="content">
-Datasets are associated with specific versions (commits) of an ontology record. In order to update a dataset to the latest version of an ontology record, you&#8217;ll need to remove the ontology, click <b class="button">Submit</b>, then add that ontology back to the dataset.
+Datasets are associated with specific versions (commits) of an Ontology Record. In order to update a dataset to the latest version of an Ontology Record, you&#8217;ll need to remove the ontology, click <b class="button">Submit</b>, then add that ontology back to the dataset.
 </td>
 </tr>
 </table>
@@ -2459,7 +2514,7 @@ The ability to save, publish, share and reuse SPARQL queries as part of applicat
 <div class="content">
 <img src="images/discover/full_discover_page_initial_view.png" alt="full discover page initial view">
 </div>
-<div class="title">Figure 109. The Discover Page</div>
+<div class="title">Figure 112. The Discover Page</div>
 </div>
 <div class="sect3">
 <h4 id="explore">Explore</h4>
@@ -2470,7 +2525,7 @@ The ability to save, publish, share and reuse SPARQL queries as part of applicat
 <div class="content">
 <img src="images/discover/explore_classes.png" alt="explore classes">
 </div>
-<div class="title">Figure 110. Explore tab with classes</div>
+<div class="title">Figure 113. Explore tab with classes</div>
 </div>
 <div class="paragraph">
 <p>The Explore tab opens with a view of all the classes found within the selected dataset and a button to create a new instance. Each card displays the label and a brief description about a class, the number of instances defined as that class, a few of those instances, and a button to explore the instances themselves. Clicking <b class="button">Explore Data</b> opens the instances view.</p>
@@ -2479,7 +2534,7 @@ The ability to save, publish, share and reuse SPARQL queries as part of applicat
 <div class="content">
 <img src="images/discover/explore_instances.png" alt="explore instances">
 </div>
-<div class="title">Figure 111. Explore Tab with instances</div>
+<div class="title">Figure 114. Explore Tab with instances</div>
 </div>
 <div class="paragraph">
 <p>The instances view contains a paginated list of all the instances defined as a particular class. Each card displays the label, brief description about an instance, a button to explore the instance itself, and a button to delete the instance. The label is determined based on the values of the <code>rdfs:label</code>, <code>dc:title</code>, or <code>dcterms:title</code> properties on the instance. The description is based on the values of the <code>rdfs:comment</code>, <code>dc:description</code>, or <code>dcterms:description</code> properties on the instance. You can navigate back to the classes view using the breadcrumb trail in the top left. Clicking <b class="button">View <em>Class Name</em></b> opens the single instance view. Clicking <b class="button">Create <em>Class Name</em></b> opens the single instance editor. If the particular class has been deprecated in the ontology, you will not be able to create a new instance.</p>
@@ -2488,7 +2543,7 @@ The ability to save, publish, share and reuse SPARQL queries as part of applicat
 <div class="content">
 <img src="images/discover/explore_single_instance.png" alt="explore single instance">
 </div>
-<div class="title">Figure 112. Explore Tab with single instance</div>
+<div class="title">Figure 115. Explore Tab with single instance</div>
 </div>
 <div class="paragraph">
 <p>The single instance view displays the IRI, label, brief description, and list of all properties associated with the selected instance. Each property will only show one value by default; however, you can view more values, if there are any, by clicking the "Show More" link for that property. The instance view can also display any assertions on a reification of a property value statement by clicking on the small downward arrow on the right side of a property value. Clicking <b class="button">Edit</b> opens the single instance editor.</p>
@@ -2497,7 +2552,7 @@ The ability to save, publish, share and reuse SPARQL queries as part of applicat
 <div class="content">
 <img src="images/discover/explore_single_instance_editor.png" alt="explore single instance editor">
 </div>
-<div class="title">Figure 113. Explore Tab with single instance editor</div>
+<div class="title">Figure 116. Explore Tab with single instance editor</div>
 </div>
 <div class="paragraph">
 <p>The single instance editor displays the IRI and a list of all properties associated with the selected instance in an editable format. The IRI can be edited by clicking the pencil button next to the IRI which will open the <a href="#edit_iri_overlay">Edit IRI Overlay</a>. If the instance being edited does not have all the required properties set, as described by cardinality restrictions in the ontology, the instance cannot be saved. To add a another property value, type in the provided input and press the <kbd>ENTER</kbd> key. To remove a property value, click on the "X" button of the associated chip. To view a complete property value and add assertions to its reification, click on the associated chip.</p>
@@ -2527,7 +2582,7 @@ Editing the instance IRI might break relationships within the dataset.
 <div class="content">
 <img src="images/discover/discover_query_editor_overview.png" alt="discover query editor overview">
 </div>
-<div class="title">Figure 114. Query tab</div>
+<div class="title">Figure 117. Query tab</div>
 </div>
 <div class="paragraph">
 <p>The Query tab provides a SPARQL query editor powered by the <a href="https://triply.cc/docs/yasgui/">YASGUI</a> SPARQL library. The top section of the page contains the query editor (powered by <a href="https://triply.cc/docs/yasgui-api#yasqe">YASQE</a>), a Dataset field and a <b class="button">Submit</b> button. The <span class="underline">Dataset</span> field contains a list of all available <a href="#datasets_manager">datasets</a> within the AVM repository. Selecting a dataset limits the query to search through the data within the selected dataset. Clicking <b class="button">Submit</b> executes the entered query against the AVM repository, optionally limited by the selected dataset, and updates the bottom section with the results.</p>
@@ -2539,14 +2594,26 @@ Editing the instance IRI might break relationships within the dataset.
 <div class="content">
 <img src="images/discover/discover_construct_query.png" alt="discover construct query">
 </div>
-<div class="title">Figure 115. Construct query</div>
+<div class="title">Figure 118. Construct query</div>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="workflows_module">Workflows Module</h3>
 <div class="paragraph">
-<p>Workflows are the gateway into agile and responsive knowledge graphs that are able to adapt to new changes, empowering faster and more informed decision making. The extensible Workflows framework allows for user defined actions and triggers to meet a wide variety of use cases. These user defined actions and triggers will be usable within the Workflows UI module without any customization needed. Workflows are also managed within the catalog as Versioned RDF Records such that the change history will be kept. To learn more about the extensible interface and the structure of the configuration, see the <a href="#workflows">Workflows</a> Appendix.</p>
+<p>Workflows are the gateway into agile and responsive knowledge graphs that are able to adapt to new changes, empowering faster and more informed decision making. The extensible Workflows framework allows for user defined actions and triggers to meet a wide variety of use cases. These user defined actions and triggers will be usable within the Workflows UI module without any customization needed. Workflows are also managed within the catalog as Versioned RDF Records ensuring that the change history is preserved.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+To learn more about the extensible interface and the structure of the configuration, see the <a href="#workflows">Workflows</a> Appendix.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>To reach the Workflows module, click on the link in the left menu.</p>
@@ -2555,7 +2622,7 @@ Editing the instance IRI might break relationships within the dataset.
 <div class="content">
 <img src="images/workflows/workflows_initial_view.png" alt="workflows initial view">
 </div>
-<div class="title">Figure 116. Workflows button</div>
+<div class="title">Figure 119. Workflows button</div>
 </div>
 <div class="paragraph">
 <p>The initial view of the Workflows module displays a searchable, filterable, sortable, and paginated table of all the configured workflows within the local AVM repository along with the latest status of their executions (status, user who started the execution, start time, and running time). Each Workflow is displayed with its title and toggle-able active status which determines whether that workflow can be executed, including manually or automatically by a Trigger. The latest execution details will update automatically as workflows trigger across the system.</p>
@@ -2567,7 +2634,7 @@ Editing the instance IRI might break relationships within the dataset.
 <div class="content">
 <img src="images/workflows/workflow_controls.png" alt="workflow controls">
 </div>
-<div class="title">Figure 117. Workflows Run, Download, and Delete Buttons</div>
+<div class="title">Figure 120. Workflows Run, Download, and Delete Buttons</div>
 </div>
 <div class="paragraph">
 <p>Click the icon next to the workflow title to open up the <a href="#individual_workflow_page">Individual Workflow Page</a> for that workflow.</p>
@@ -2581,7 +2648,7 @@ Editing the instance IRI might break relationships within the dataset.
 <div class="content">
 <img src="images/workflows/new_workflow_form.png" alt="new workflow form">
 </div>
-<div class="title">Figure 118. New Workflow Record Form</div>
+<div class="title">Figure 121. New Workflow Record Form</div>
 </div>
 <div class="paragraph">
 <p>The <span class="underline">Workflow IRI</span> is the unique identifier for the new workflow. The editor pre-populates this field with a default namespace and a local name generated from the <span class="underline">Title</span> field. You can always override this behavior. The <span class="underline">Title</span> field populates the <code>dcterms:title</code> annotations of both the new workflow record and the workflow object within the new workflow. The <span class="underline">Description</span> field populates the <code>dcterms:description</code> annotations of both the new workflow record and the workflow object within the new workflow. The <span class="underline">Keywords</span> field will attach the entered values as keywords to the new workflow record. When the dialog is submitted, the new workflow will automatically be opened into the <a href="#individual_workflow_page">Individual Workflow Page</a>. New workflows are always initialized with no trigger and a single Test Action with a templated message.</p>
@@ -2599,7 +2666,7 @@ Editing the instance IRI might break relationships within the dataset.
 <div class="content">
 <img src="images/workflows/upload_workflow_form.png" alt="upload workflow form">
 </div>
-<div class="title">Figure 119. Upload Workflow Record Form</div>
+<div class="title">Figure 122. Upload Workflow Record Form</div>
 </div>
 </div>
 <div class="sect3">
@@ -2611,13 +2678,13 @@ Editing the instance IRI might break relationships within the dataset.
 <div class="content">
 <img src="images/workflows/individual_workflow_page.png" alt="individual workflow page">
 </div>
-<div class="title">Figure 120. Individual Workflow Page</div>
+<div class="title">Figure 123. Individual Workflow Page</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/workflows/fullscreen_individual_workflow_page.png" alt="fullscreen individual workflow page">
 </div>
-<div class="title">Figure 121. Full-Screen Individual Workflow Page</div>
+<div class="title">Figure 124. Full-Screen Individual Workflow Page</div>
 </div>
 <div class="paragraph">
 <p>The graphical display of the Workflow will display the Trigger, if set, as a yellow square and all configured Actions as green circles. Every workflow can have at most one Trigger and must have at least one Action. If a Trigger has not been configured for the workflow, "Default Trigger" will be displayed on the Trigger node. The nodes will display the type of the Trigger/Action and clicking on a node will bring up a summary of the configuration for the component.</p>
@@ -2626,7 +2693,7 @@ Editing the instance IRI might break relationships within the dataset.
 <div class="content">
 <img src="images/workflows/component_details.png" alt="component details">
 </div>
-<div class="title">Figure 122. Workflow Component Details for an Action</div>
+<div class="title">Figure 125. Workflow Component Details for an Action</div>
 </div>
 <div class="paragraph">
 <p>The Workflow Execution History is presented in a filterable, paginated table with the latest executions displayed at the beginning. Each execution is displayed with its status, user who started the execution, start time, and running time and each row can be expanded to provide further details about each Action that was executed during the run. Each execution also has a button to open a page to view the detailed logs output by that run. The page will display metadata about the execution you are viewing along with a dropdown selector to load the overall execution logs or the logs output from an individual action. Each log file can also be downloaded for further investigation.</p>
@@ -2635,7 +2702,7 @@ Editing the instance IRI might break relationships within the dataset.
 <div class="content">
 <img src="images/workflows/logs_viewer.png" alt="logs viewer">
 </div>
-<div class="title">Figure 123. Workflow Execution Log Viewer</div>
+<div class="title">Figure 126. Workflow Execution Log Viewer</div>
 </div>
 </div>
 <div class="sect3">
@@ -2659,7 +2726,7 @@ If the new version of the Workflow being uploaded is invalid, the modal will dis
 <div class="content">
 <img src="images/workflows/edit_workflow_page.png" alt="edit workflow page">
 </div>
-<div class="title">Figure 124. Individual Workflow Page in Edit Mode</div>
+<div class="title">Figure 127. Individual Workflow Page in Edit Mode</div>
 </div>
 <div class="paragraph">
 <p>In edit mode, the nodes in the graphical display will have a menu that can be opened with a right click so that each component can edited individually. Right clicking on the Trigger node will provide the options to remove any existing Trigger configuration (trash icon), to add/edit the Trigger configuration (pencil icon), or to add a new Action (plus icon). Right clicking on an Action node will provide the options to remove the Action configuration or to edit the Action configuration.</p>
@@ -2708,13 +2775,13 @@ A Workflow must always have at least one Action.
 <div class="content">
 <img src="images/workflows/edit_scheduled_trigger.png" alt="edit scheduled trigger">
 </div>
-<div class="title">Figure 125. Scheduled Trigger</div>
+<div class="title">Figure 128. Scheduled Trigger</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/workflows/edit_commit_to_branch_trigger.png" alt="edit commit to branch trigger">
 </div>
-<div class="title">Figure 126. Commit To Branch Trigger</div>
+<div class="title">Figure 129. Commit To Branch Trigger</div>
 </div>
 </div>
 <div class="sect4">
@@ -2736,13 +2803,13 @@ A Workflow must always have at least one Action.
 <div class="content">
 <img src="images/workflows/add_test_action.png" alt="add test action">
 </div>
-<div class="title">Figure 127. Test Action</div>
+<div class="title">Figure 130. Test Action</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/workflows/add_http_request_action.png" alt="add http request action">
 </div>
-<div class="title">Figure 128. HTTP Request Action</div>
+<div class="title">Figure 131. HTTP Request Action</div>
 </div>
 </div>
 </div>
@@ -2759,7 +2826,7 @@ A Workflow must always have at least one Action.
 <div class="content">
 <img src="images/my-account/my_account_link.png" alt="my account link" width="50%">
 </div>
-<div class="title">Figure 129. My Account link</div>
+<div class="title">Figure 132. My Account link</div>
 </div>
 <div class="paragraph">
 <p>The My Account page contains four main tabs for configuring your account:</p>
@@ -2789,7 +2856,7 @@ A Workflow must always have at least one Action.
 <div class="content">
 <img src="images/my-account/profile_tab.png" alt="profile tab">
 </div>
-<div class="title">Figure 130. Profile Tab</div>
+<div class="title">Figure 133. Profile Tab</div>
 </div>
 </div>
 <div class="sect3">
@@ -2801,7 +2868,7 @@ A Workflow must always have at least one Action.
 <div class="content">
 <img src="images/my-account/groups_tab.png" alt="groups tab">
 </div>
-<div class="title">Figure 131. Groups Tab</div>
+<div class="title">Figure 134. Groups Tab</div>
 </div>
 </div>
 <div class="sect3">
@@ -2813,7 +2880,7 @@ A Workflow must always have at least one Action.
 <div class="content">
 <img src="images/my-account/password_tab.png" alt="password tab">
 </div>
-<div class="title">Figure 132. Password Tab</div>
+<div class="title">Figure 135. Password Tab</div>
 </div>
 </div>
 <div class="sect3">
@@ -2825,7 +2892,7 @@ A Workflow must always have at least one Action.
 <div class="content">
 <img src="images/my-account/preferences_tab.png" alt="preferences tab">
 </div>
-<div class="title">Figure 133. Preferences Tab</div>
+<div class="title">Figure 136. Preferences Tab</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2853,7 +2920,7 @@ Default preferences coming soon!
 <div class="content">
 <img src="images/user-management/administration_link.png" alt="administration link" width="50%">
 </div>
-<div class="title">Figure 134. Administration link</div>
+<div class="title">Figure 137. Administration link</div>
 </div>
 <div class="paragraph">
 <p>There are six main tabs of the Administration page:</p>
@@ -2873,7 +2940,7 @@ Default preferences coming soon!
 <p><a href="#application_settings">Application Settings</a></p>
 </li>
 <li>
-<p><a href="#anzo_configurations">Anzo Configurations</a></p>
+<p><a href="#anzo_configuration">Anzo Configuration</a></p>
 </li>
 <li>
 <p><a href="#licensing">Licensing</a></p>
@@ -2892,7 +2959,7 @@ Default preferences coming soon!
 <div class="content">
 <img src="images/user-management/users_tab.png" alt="users tab">
 </div>
-<div class="title">Figure 135. Users Tab</div>
+<div class="title">Figure 138. Users Tab</div>
 </div>
 <div class="paragraph">
 <p>The left side of the tab contains a list of all the users in AVM. Each user is displayed using their first and last names, if available, or their username. If a user is an administrator, whether by having the admin role or by being a part of a group with the admin role, an indicator will be next to their username in the list. At the top of the list is a search bar that will filter the list of users based on their first name, last name, or username. Clicking on a user will load that user&#8217;s information into the right side of the section.</p>
@@ -2922,7 +2989,7 @@ The default Admin user can not be deleted.
 <div class="content">
 <img src="images/user-management/create_user_overlay.png" alt="create user overlay" width="50%">
 </div>
-<div class="title">Figure 136. Create User Overlay</div>
+<div class="title">Figure 139. Create User Overlay</div>
 </div>
 </div>
 <div class="sect3">
@@ -2934,7 +3001,7 @@ The default Admin user can not be deleted.
 <div class="content">
 <img src="images/user-management/groups_tab.png" alt="groups tab">
 </div>
-<div class="title">Figure 137. Groups Tab</div>
+<div class="title">Figure 140. Groups Tab</div>
 </div>
 <div class="paragraph">
 <p>The left side of the tab contains a list of all the groups in AVM. Next to each group title is an indicator of how many users are within that group. At the top of the list is a search bar that will filter the list of groups based on their title. Clicking on a group title will load that group&#8217;s information into the right side of the section.</p>
@@ -2952,7 +3019,7 @@ The default Admin user can not be deleted.
 <div class="content">
 <img src="images/user-management/create_group_overlay.png" alt="create group overlay" width="50%">
 </div>
-<div class="title">Figure 138. Create group overlay</div>
+<div class="title">Figure 141. Create group overlay</div>
 </div>
 </div>
 <div class="sect3">
@@ -2976,7 +3043,7 @@ More permissions coming soon!
 <div class="content">
 <img src="images/user-management/permissions_tab.png" alt="permissions tab">
 </div>
-<div class="title">Figure 139. Permissions Tab</div>
+<div class="title">Figure 142. Permissions Tab</div>
 </div>
 </div>
 <div class="sect3">
@@ -3008,22 +3075,25 @@ More Application Settings coming soon!
 <div class="content">
 <img src="images/user-management/application_settings_tab.png" alt="application settings tab">
 </div>
-<div class="title">Figure 140. Application Settings Tab</div>
+<div class="title">Figure 143. Application Settings Tab</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="anzo_configurations">Anzo Configurations</h4>
+<h4 id="anzo_configuration">Anzo Configuration</h4>
 <div class="paragraph">
-<p>The Anzo Configurations tab enables runtime updates to the configured Anzo servers that AVM will utilize for all external connections. AVM supports multiple Anzo configurations that can be utilized within the individual modules.</p>
+<p>The Anzo Configuration tab enables runtime updates to the configured Anzo servers that AVM will utilize for all external connections. AVM supports multiple Anzo configurations that can be utilized within the individual modules.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/user-management/anzo-configuration-tab.png" alt="anzo configuration tab">
 </div>
-<div class="title">Figure 141. Anzo Configurations Tab</div>
+<div class="title">Figure 144. Anzo Configuration Tab</div>
 </div>
 <div class="paragraph">
 <p>The left side of the page has a selector for anzo configurations with a button to add a new configuration. The right side has a form for setting the fields for the selected configuration. Currently, there are these <strong>required</strong> and non-required fields that appear as text inputs:</p>
+</div>
+<div class="paragraph">
+<p><strong>Anzo FLDS Datasource</strong> - The URI of the Anzo Data Source to be used when creating datasets in the Anzo server (such as for publishing). The default value is <code>http://cambridgesemantics.com/AnzoDataStore/LocalServerDefault</code>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Hostname</strong> - The hostname of the configured Anzo server.</p>
@@ -3062,7 +3132,7 @@ More Application Settings coming soon!
 <div class="content">
 <img src="images/user-management/licensing_tab.png" alt="licensing tab">
 </div>
-<div class="title">Figure 142. Application Settings Tab</div>
+<div class="title">Figure 145. Application Settings Tab</div>
 </div>
 </div>
 <div class="sect3">
@@ -3086,7 +3156,7 @@ To learn about the available LDAP and SSO configuration files, see <a href="#lda
 <div class="content">
 <img src="images/user-management/connections_tab.png" alt="connections tab">
 </div>
-<div class="title">Figure 143. LDAP/SSO Tab</div>
+<div class="title">Figure 146. LDAP/SSO Tab</div>
 </div>
 <div class="paragraph">
 <p>If an LDAP configuration is set using the associated form, users can log into the application with the Users/Groups defined in your organization&#8217;s directory. The form also allows you to remove the configuration. The changes will immediately go into effect once the form is saved/cleared.</p>
@@ -3095,7 +3165,7 @@ To learn about the available LDAP and SSO configuration files, see <a href="#lda
 <div class="content">
 <img src="images/user-management/ldap_config.png" alt="ldap config">
 </div>
-<div class="title">Figure 144. LDAP Configuration Form</div>
+<div class="title">Figure 147. LDAP Configuration Form</div>
 </div>
 <div class="paragraph">
 <p>The LDAP form is separated into two sections. The "Connection" section contains the following fields:</p>
@@ -3203,7 +3273,7 @@ If a SAML or OAuth/OpenID configuration is present and not set to standalone, th
 <div class="content">
 <img src="images/user-management/saml_config.png" alt="saml config">
 </div>
-<div class="title">Figure 145. SAML Configuration Form</div>
+<div class="title">Figure 148. SAML Configuration Form</div>
 </div>
 <div class="paragraph">
 <p>The SAML form provides options to customize the connection from AVM, acting as a Service Provider (SP), to a SAML Identity Property (IdP) and how to pull various user details out of the SAML responses. The form also allows you to remove the configuration. The changes will immediately go into effect once the form is saved/cleared.</p>
@@ -3286,7 +3356,7 @@ In SAML flows, the Identity Property (IdP) will often require the Reply URL, at 
 <div class="content">
 <img src="images/user-management/oauth_config.png" alt="oauth config">
 </div>
-<div class="title">Figure 146. OAuth/OpenID Configuration Form</div>
+<div class="title">Figure 149. OAuth/OpenID Configuration Form</div>
 </div>
 <div class="paragraph">
 <p>The OAuth/OpenID form provides options to customize the connection from AVM to either a generic OAuth 2.0 Provider or an OpenID provider. The form also allows you to remove the configuration. The changes will immediately go into effect once the form is saved/cleared. Certain fields are the same between both OAuth and OpenID configurations and others that are unique to one vs. the other. The form contains a radio button to allow you to specify which type of provider is configured.</p>
@@ -3518,6 +3588,12 @@ dataDir=path/to/directory</pre>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">30000</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>flds.datasource</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The URI of the Data Source that should be utilized when creating datasets on the Anzo server. If not specified will use the default Datasource URI.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>http://cambridgesemantics.com/AnzoDataStore/LocalServerDefault</code></p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -3532,6 +3608,22 @@ anzo.ssl = true
 anzo.username = sysadmin
 anzo.password = 123</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>If the default Anzo Data Source does not meet your environment&#8217;s needs (eg. is not mounted to your AnzoGraph deployments), you can set the flds.datasource` property to a different Anzo Data Source within your installation with the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Within the Anzo Administration view, go to Connections &#8594; Anzo Data Store and click on the target Anzo Data Source.</p>
+</li>
+<li>
+<p>Click the copy button next to the Anzo Data Source&#8217;s URI in the right hand gray box.</p>
+</li>
+<li>
+<p>Edit the <code>flds.datasource</code> property in your <code>.cfg</code> file either manually on the server or by using the <a href="#anzo_configuration">Anzo Configuration UI</a> and the new value will automatically be used next time a publish is made.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect4">
@@ -4301,10 +4393,10 @@ readTimeout = 20000</code></pre>
 <div class="sect4">
 <h5 id="ontology_cache_configuration">Ontology Cache Configuration</h5>
 <div class="paragraph">
-<p>AVM utilizes a caching mechanism within a triple store to improve performance when retrieving ontology data. The maintenance and cleanup of that cache is configured in the <code>com.mobi.cache.impl.repository.CleanupRepositoryCache.cfg</code> file in the <code>$AVM_HOME/etc</code> directory.</p>
+<p>AVM utilizes a caching mechanism within a triple store to improve performance when retrieving ontology and shapes graph data. The maintenance and cleanup of the cache is configured in the <code>com.mobi.cache.impl.repository.CleanupRepositoryCache.cfg</code> file in the <code>$AVM_HOME/etc</code> directory.</p>
 </div>
 <div class="paragraph">
-<p>This file is responsible for deleting stale ontologies within the repository after a specified period in order to preserve resources and improve processing. The format looks like the following:</p>
+<p>This file is responsible for deleting stale ontologies and shapes graphs within the repository after a specified period in order to preserve resources and improve processing. The format looks like the following:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -4502,13 +4594,13 @@ backgroundColor=#99ffce</code></pre>
 <div class="content">
 <img src="images/configuration/login-banner.png" alt="login banner">
 </div>
-<div class="title">Figure 147. AVM Login Screen with a banner</div>
+<div class="title">Figure 150. AVM Login Screen with a banner</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/configuration/home-banner.png" alt="home banner">
 </div>
-<div class="title">Figure 148. AVM Home Page with a banner</div>
+<div class="title">Figure 151. AVM Home Page with a banner</div>
 </div>
 <div class="sect5">
 <h6 id="multi_line_html_template">Multi-Line HTML Template</h6>
@@ -4917,63 +5009,6 @@ We recommend running AVM on the default port 8443 and using firewall configurati
 </table>
 </div>
 </div>
-<div class="sect3">
-<h4 id="recommended_plugin_deployment_versions">Recommended Plugin Deployment Versions</h4>
-<div class="paragraph">
-<p>The AVM-Anzo integration leverages two plugin bundles installed on the Anzo server. This matrix describes the recommended AVM-Anzo plugin versions for associated deployment versions of Anzo and AVM.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top"><strong>Anzo Version</strong></th>
-<th class="tableblock halign-left valign-top"><strong>AVM Version</strong></th>
-<th class="tableblock halign-left valign-top"><strong>AVM-Anzo Plugins</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4.1 - 4.4</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.2</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4.1 - 4.4</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.0</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">5.0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2.4.0</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">5.0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.3</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3.0.2</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">5.1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.3 - 1.4</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">5.0.0</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">5.2 - 5.4</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.5 - 1.7, 2.0 - 2.5, 3.0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">6.0.5</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">5.2 - 5.4</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3.1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">7.0.0</p></td>
-</tr>
-</tbody>
-</table>
-</div>
 </div>
 <div class="sect2">
 <h3 id="installing_avm">Installing AVM</h3>
@@ -5162,77 +5197,6 @@ You can check the status of the running server using the <code>bin/status</code>
 <h4 id="post_installation_configuration">Post-Installation Configuration</h4>
 <div class="paragraph">
 <p>In addition to the steps below, AVM supports a number of configurations to customize your installation and users' experience. See the <a href="#avm">AVM Configurations</a> section for more details.</p>
-</div>
-<div class="sect4">
-<h5 id="configure_avm_for_anzo_publishing">Configure AVM for Anzo Publishing</h5>
-<div class="paragraph">
-<p>To enable publishing from AVM, follow the instructions under <a href="#anzo_connection_configuration">Anzo Connection Configuration</a> to configuration the Anzo connection. Then Anzo must be configured using two plugins provided by your service team:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>com.inovexcorp.mobi.loader</code></p>
-</li>
-<li>
-<p><code>com.inovexcorp.mobi.vocabulary.orchestrationService</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Upload these plugins to the Anzo server:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/administration-guide/avm-bundles.png" alt="avm bundles">
-</div>
-<div class="title">Figure 149. AVM Plugins</div>
-</div>
-<div class="paragraph">
-<p><code>STOP</code> and <code>START</code> the "AVM Ontology Loader" bundle.</p>
-</div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="images/administration-guide/plugin-configuration.png" alt="plugin configuration" width="100%">
-</div>
-<div class="title">Figure 150. Plugin Configuration</div>
-</div>
-<div class="paragraph">
-<p>If you are unable to get a successful publish after stopping and starting the bundle, restart the Anzo server.</p>
-</div>
-<div class="paragraph">
-<p>For SKOS publishes to be successful, you must also ensure that service within the bundle is configured with an appropriate Anzo Data Source indicating where the generated Datasets will be stored on disk such that they can be loaded by your AnzoGraph installations. The plugin comes with an included Anzo Data Source definition called <code>published_cvs</code> with a default Data Location <code>/opt/anzo_database/published_cvs</code>.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/administration-guide/anzo-data-store.png" alt="anzo data store">
-</div>
-<div class="title">Figure 151. Anzo Data Store Configuration</div>
-</div>
-<div class="paragraph">
-<p>If this Data Location does not meet your environment&#8217;s needs, you can either change the included Anzo Data Source or change the bundle&#8217;s service to use an existing Anzo Data Source within your installation. To do so, follow the steps below:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Within the Anzo Administration view, go to Connections &#8594; Anzo Data Store and click on the target Anzo Data Source.</p>
-</li>
-<li>
-<p>Click the copy button next to the Anzo Data Source&#8217;s URI in the right hand gray box.</p>
-</li>
-<li>
-<p>Still within the Anzo Administration view, go to Servers &#8594; Plugin Configuration and click on the "AVM Ontology Loader" bundle.</p>
-</li>
-<li>
-<p>On the right hand side, click on the Services tab and expand the "AVM Ontology Loader" accordion.</p>
-</li>
-<li>
-<p>Find the field titled <code>com.inovexcorp.mobi.loader.flds.datasource</code> and click on the value to change it to the copied URI. Click the checkmark to save the value.</p>
-</li>
-<li>
-<p><code>STOP</code> and <code>START</code> the "AVM Ontology Loader" bundle for the change to be applied.</p>
-</li>
-</ol>
-</div>
 </div>
 <div class="sect4">
 <h5 id="change_the_default_java_heap_size">Change the Default Java Heap Size</h5>
@@ -5520,6 +5484,35 @@ If restoring from a version prior to 1.22, There are two files which are not inc
 </td>
 </tr>
 </table>
+</div>
+<div class="sect3">
+<h4 id="upgrading_to_avm_4_x">Upgrading to AVM 4.x</h4>
+<div class="paragraph">
+<p>AVM 4.0 introduced a number of breaking changes from prior versions that also include a few notable configuration changes. The basic steps for upgrading must still be followed, but the following items should be taken note:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Due to the new "inversioning" paradigm for commit histories, the restore process is expected to take longer than previous upgrades as all the commit histories are restructured to the new format. Please account for this when planning any downtimes.</p>
+</li>
+<li>
+<p>During the restoration process, a versioned RDF record may be marked as "incompatible" with the new installation for one of two reasons.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>An Ontology/Shapes Graph Record might share an ontology/shapes graph IRI with another record. In this case, the restore operation <em>will abort</em> with a log statement about the failed records and steps to remedy the issue before attempting the restore again.</p>
+</li>
+<li>
+<p>Invalid data might be discovered within older commits of records that were created in much older version (eg. &lt; 2.x). In this case, the restore operation <em>will not abort</em> and will log any invalid records to be addressed for tailored migration process. If this situation occurs, reach out to the product team to help ensure your data is migrated completely and appropriately.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>For Anzo publishing, no plugins are required to be deployed to a target Anzo system. Any pre-existing custom plugins (the previously required "AVM Ontology Loader" and "AVM Vocabulary Orchestration Service" plugins) should be removed from the Anzo installation.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -8966,8 +8959,8 @@ public ActionDefinition createDefinition(NewAction action) {
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 3.1<br>
-Last updated 2024-08-31 03:19:35 UTC
+Version 4.0<br>
+Last updated 2025-01-30 14:44:19 UTC
 </div>
 </div>
 <script src="../highlight/highlight.min.js"></script>

@@ -85,7 +85,7 @@
 </div><div id="header">
 <h1>Anzo Vocabulary Manager User Manual</h1>
 <div class="details">
-<span id="revnumber">version 4.0</span>
+<span id="revnumber">version 4.1</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -141,7 +141,6 @@
 </li>
 <li><a href="#synchronize">Synchronize</a></li>
 <li><a href="#vocabulary-linking">Link</a></li>
-<li><a href="#publish">Publish</a></li>
 <li><a href="#shapes_editor_beta">Shapes Editor (BETA)</a>
 <ul class="sectlevel3">
 <li><a href="#creating_new_shapes_graphs">Creating New Shapes Graphs</a></li>
@@ -158,6 +157,7 @@
 </li>
 </ul>
 </li>
+<li><a href="#publish">Publish</a></li>
 <li><a href="#merge_requests">Merge Requests</a>
 <ul class="sectlevel3">
 <li><a href="#create_a_merge_request">Create a Merge Request</a></li>
@@ -219,7 +219,7 @@
 <li><a href="#groups_2">Groups</a></li>
 <li><a href="#permissions">Permissions</a></li>
 <li><a href="#application_settings">Application Settings</a></li>
-<li><a href="#anzo_configuration">Anzo Configuration</a></li>
+<li><a href="#publish_configuration">Publish Configuration</a></li>
 <li><a href="#licensing">Licensing</a></li>
 <li><a href="#ldapsso">LDAP/SSO</a></li>
 </ul>
@@ -444,6 +444,11 @@
 <li><a href="#anzo_owl_publish_example">Anzo OWL Publish Example</a>
 <ul class="sectlevel3">
 <li><a href="#rest_request_2">REST Request</a></li>
+</ul>
+</li>
+<li><a href="#anzo_shacl_publish_example">Anzo SHACL Publish Example</a>
+<ul class="sectlevel3">
+<li><a href="#rest_request_3">REST Request</a></li>
 </ul>
 </li>
 </ul>
@@ -1641,114 +1646,6 @@ See the <a href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/">W3C Speci
 </div>
 </div>
 <div class="sect2">
-<h3 id="publish">Publish</h3>
-<div class="paragraph">
-<p>The Publish Page in AVM allows you to push versioned RDF data to external systems including Anzo. Ontology Record data can be pushed as either models used as the foundation of all views into the Knowledge Graph or as referential datasets used for further processing, such as linking with other data sources, unstructured processes, and Hi-Res Analytics. Shapes Graph Record data can be pushed as a dataset for use in SHACL based validation logic within Graphmarts. The publish capability is extensible and custom publish targets can be easily added via the Extensible Publishing Framework.</p>
-</div>
-<div class="paragraph">
-<p>To reach the Publish Page, click on the link in the left menu.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/publishing/publish_landing.png" alt="publish landing">
-</div>
-<div class="title">Figure 62. The Publish Page</div>
-</div>
-<div class="paragraph">
-<p>The initial view of the Publish Page shows a filterable, searchable, and paginated list of all the current Versioned RDF Records in AVM, including Ontology Record and Shapes Graph Records. Each Record is displayed with a title, an icon representing the type of Record, the identifier IRI for the latest data in the Record, and the provenance data of the latest publish successfully completed. To publish a Record to Anzo, click the checkbox found on the corresponding row and click the <b class="button">Publish Record</b> button, prompting a configuration modal to appear. This modal displays a list of all registered publish services compatible with the type of Record you selected. Each publish service comes with its own configuration options to customize how the data is sent to the external system.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/publishing/publish_overlay.png" alt="publish overlay">
-</div>
-<div class="title">Figure 63. The publish modal</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/publishing/publish_modal_options.png" alt="publish modal options">
-</div>
-<div class="title">Figure 64. The publish modal with registered services.</div>
-</div>
-<div class="paragraph">
-<p>AVM comes with three registered Anzo Publish Services for pushing ontologies, vocabularies, and shapes graphs to the Anzo Catalog. All allow you to specify which configured Anzo instance to publish to.</p>
-</div>
-<div class="paragraph">
-<p>The "Publish to Anzo as SKOS Concepts" service allows AVM users to select whether to publish the concept hierarchy, the class hierarchy or both as SKOS vocabulary concepts.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-When publishing the concept hierarchy, all individuals who are instances of SKOS Concept and of a subclass of SKOS Concept will be included.
-</td>
-</tr>
-</table>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/publishing/publish_modal_skos.png" alt="publish modal skos">
-</div>
-<div class="title">Figure 65. SKOS Publish to Anzo</div>
-</div>
-<div class="paragraph">
-<p>The "Publish to Anzo as OWL Dataset/Model" service allows AVM users to publish the entire contents of an Ontology Record to either an Anzo model or dataset.</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Warning</div>
-</td>
-<td class="content">
-When publishing large ontologies, it&#8217;s recommended to publish as an Anzo dataset rather than an Anzo model as the Anzo Model Editor does not support ontologies at that scale.
-</td>
-</tr>
-</table>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/publishing/publish_modal_owl.png" alt="publish modal owl">
-</div>
-<div class="title">Figure 66. OWL Publish to Anzo</div>
-</div>
-<div class="paragraph">
-<p>The "Publish Shapes Graph to Anzo" service allows Mobi users to create an Anzo dataset containing their shapes graph data for use in validation logic within Graphmarts.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/publishing/publish_modal_shacl.png" alt="publish modal shacl">
-</div>
-<div class="title">Figure 67. SHACL Publish to Anzo</div>
-</div>
-<div class="paragraph">
-<p>After selecting either the entity types or target location, click <b class="button">Submit</b>, and AVM will push the ontology/vocabulary data at the head commit of the MASTER branch to Anzo.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/publishing/published_dataset.png" alt="published dataset">
-</div>
-<div class="title">Figure 68. A published vocabulary dataset in the Anzo SDL interface.</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/publishing/published_model.png" alt="published model">
-</div>
-<div class="title">Figure 69. A published ontology model in the Anzo SDL interface.</div>
-</div>
-<div class="paragraph">
-<p>To view more details about the publish history of a particular Versioned RDF Record, click on the Record in the Publish Landing Page. The Publish History page displays each publish executed for the Record as well as relevant metadata including the user who published, the head commit at the time of publishing, and the time of the publish.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/publishing/publish_records.png" alt="publish records">
-</div>
-<div class="title">Figure 70. Record of all publishes for a record</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="shapes_editor_beta">Shapes Editor (BETA)</h3>
 <div class="paragraph">
 <p>The AVM web-based Shapes Editor is an innovative feature that provides users with a Distributed Management System for local and community development of (<a href="https://www.w3.org/TR/shacl/#shapes">SHACL Shapes</a>). The Shapes Editor features constraint capture, collaboration, shapes graph reuse, and extensibility.</p>
@@ -1760,7 +1657,7 @@ When publishing large ontologies, it&#8217;s recommended to publish as an Anzo d
 <div class="content">
 <img src="images/shacl-editor/full_editor_initial_view.png" alt="full editor initial view">
 </div>
-<div class="title">Figure 71. The Shapes Editor</div>
+<div class="title">Figure 62. The Shapes Editor</div>
 </div>
 <div class="paragraph">
 <p>The main Shapes Editor page includes the same top action-bar as the <a href="#ontology_editor">Ontology Editor</a> where all the actions related to opening and versioning the Shapes Graph Record are located. From the action-bar, users can create, filter, and open different Shapes Graph Records, branches, and tags as well as create branches/tags, merge branches, upload/download the shapes graph data, and make a new commit.</p>
@@ -1769,7 +1666,7 @@ When publishing large ontologies, it&#8217;s recommended to publish as an Anzo d
 <div class="content">
 <img src="images/shacl-editor/action_bar.png" alt="action bar" width="100%">
 </div>
-<div class="title">Figure 72. Shapes Editor Action Bar</div>
+<div class="title">Figure 63. Shapes Editor Action Bar</div>
 </div>
 <div class="paragraph">
 <p>The starting point for any action on the page when you first navigate to the editor is the records dropdown. From here, you can create new shapes graphs, open existing ones, delete shapes graphs you have permission to do so, and download the latest version from the head commit of the MASTER branch. Clicking on a shapes graph will open it in the editor. You can open more than one shapes graph open at a time for parallel development.</p>
@@ -1778,7 +1675,7 @@ When publishing large ontologies, it&#8217;s recommended to publish as an Anzo d
 <div class="content">
 <img src="images/shacl-editor/records_dropdown.png" alt="records dropdown" width="50%">
 </div>
-<div class="title">Figure 73. Shapes Editor Record Select</div>
+<div class="title">Figure 64. Shapes Editor Record Select</div>
 </div>
 <div class="paragraph">
 <p>When opening a Shapes Graph Record, the editor will load the previous branch and/or commit you were viewing. If you have not previously opened the shapes graph or in the case that the branch you were viewing no longer exists, the editor will load the HEAD commit of the shape graph&#8217;s MASTER branch. For an explanation of commits and branches, see the section on <a href="#shapes_graph_versioning">Shapes Graph Versioning</a>.</p>
@@ -1792,7 +1689,7 @@ When publishing large ontologies, it&#8217;s recommended to publish as an Anzo d
 <div class="content">
 <img src="images/shacl-editor/create_shapes.png" alt="create shapes" width="50%">
 </div>
-<div class="title">Figure 74. New Shapes Record Form</div>
+<div class="title">Figure 65. New Shapes Record Form</div>
 </div>
 <div class="paragraph">
 <p>Shapes graphs in Mobi will always include an OWL ontology object to capture high level information about the shapes graph, following best practices from the SHACL W3C specification (see <a href="https://www.w3.org/TR/shacl/#sparql-prefixes">this section</a> as an example).</p>
@@ -1813,7 +1710,7 @@ When publishing large ontologies, it&#8217;s recommended to publish as an Anzo d
 <div class="content">
 <img src="images/shacl-editor/upload_shapes.png" alt="upload shapes" width="50%">
 </div>
-<div class="title">Figure 75. Upload Shapes Record Form</div>
+<div class="title">Figure 66. Upload Shapes Record Form</div>
 </div>
 <div class="paragraph">
 <p>The status of each upload is recorded in the Upload Log which can be opened by clicking the button next to the records dropdown. Any errors will be detailed for each file. The file extension is used to guess the appropriate RDF Format to parse the file contents. If a parsing error occurs, the snackbar will display the error message relevant to guessed RDF Format.</p>
@@ -1822,7 +1719,7 @@ When publishing large ontologies, it&#8217;s recommended to publish as an Anzo d
 <div class="content">
 <img src="images/shacl-editor/upload_log_button.png" alt="upload log button" width="50%">
 </div>
-<div class="title">Figure 76. Upload Log Button</div>
+<div class="title">Figure 67. Upload Log Button</div>
 </div>
 </div>
 <div class="sect3">
@@ -1846,7 +1743,7 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 <div class="content">
 <img src="images/shacl-editor/shapes_details.png" alt="shapes details">
 </div>
-<div class="title">Figure 77. Shapes Record Details</div>
+<div class="title">Figure 68. Shapes Record Details</div>
 </div>
 </div>
 <div class="sect3">
@@ -1882,7 +1779,7 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 <div class="content">
 <img src="images/shacl-editor/versioning_dropdown.png" alt="versioning dropdown" width="40%">
 </div>
-<div class="title">Figure 78. Branches Dropdown</div>
+<div class="title">Figure 69. Branches Dropdown</div>
 </div>
 <div class="paragraph">
 <p>To edit the metadata of a branch or tag that is not checked out, click the pencil icon next to it in the dropdown menu. You cannot edit the MASTER branch of a shapes graph. To delete a branch or tag, click on the delete icon next to the branch/tag in the dropdown menu. If a branch is deleted, all commits on that branch that are not part of another branch will be removed, as well as the branch itself. If a tag is deleted, the commit is not removed. Note that these actions cannot be undone.</p>
@@ -1897,7 +1794,7 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 <div class="content">
 <img src="images/shacl-editor/upload_changes_button.png" alt="upload changes button">
 </div>
-<div class="title">Figure 79. Upload Changes button</div>
+<div class="title">Figure 70. Upload Changes button</div>
 </div>
 </div>
 <div class="sect4">
@@ -1912,7 +1809,7 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 <div class="content">
 <img src="images/shacl-editor/changes_page.png" alt="changes page">
 </div>
-<div class="title">Figure 80. Changes Page</div>
+<div class="title">Figure 71. Changes Page</div>
 </div>
 <div class="paragraph">
 <p>The commit history graph displays of all the commits made in the history of the branch you are currently viewing. The username of the creator, ID, message, and date for each commit are displayed within the graph. The graph displays each commit connected to its parent commits continuing backwards until the initial commit. The graph displays any Tags and Branches associated with visible commits. To view more information about a particular commit in the history, such as the added and deleted statements, click on its hash id to open an informational modal. The graph also includes commit dots for "checking out" a commit in the history. Clicking the Commit dot will open the shapes graph at that commit in read-only mode.</p>
@@ -1927,7 +1824,7 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 <div class="content">
 <img src="images/shacl-editor/commit_button.png" alt="commit button">
 </div>
-<div class="title">Figure 81. Commit Button</div>
+<div class="title">Figure 72. Commit Button</div>
 </div>
 <div class="paragraph">
 <p>Commits cannot be made when a Tag or Commit is checked out or you are behind the HEAD of the current Branch. If you are behind the HEAD of the current branch, an indicator wil be shown in the top action-bar with a button to checkout the latest commit.</p>
@@ -1936,7 +1833,7 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 <div class="content">
 <img src="images/shacl-editor/pull_latest_changes.png" alt="pull latest changes">
 </div>
-<div class="title">Figure 82. Pull in Latest Changes Indicator</div>
+<div class="title">Figure 73. Pull in Latest Changes Indicator</div>
 </div>
 </div>
 <div class="sect4">
@@ -1948,7 +1845,7 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 <div class="content">
 <img src="images/shacl-editor/merge_branches_button.png" alt="merge branches button">
 </div>
-<div class="title">Figure 83. Merge Branches button</div>
+<div class="title">Figure 74. Merge Branches button</div>
 </div>
 <div class="paragraph">
 <p>The merge view displays the name of the current (source) branch, a select box for the branch (target) you want to merge into, and a checkbox for whether you want the source branch to be deleted after it is merged. The view also shows an aggregated view of all changes made in the source branch that will be merged into the target branch along with a list of all the commits that will be added to the target branch from the source branch.</p>
@@ -1957,7 +1854,7 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 <div class="content">
 <img src="images/shacl-editor/merge_page.png" alt="merge page">
 </div>
-<div class="title">Figure 84. Merge View</div>
+<div class="title">Figure 75. Merge View</div>
 </div>
 <div class="paragraph">
 <p>Clicking <b class="button">Submit</b> will attempt to perform the merge. If there are no conflicts between the changes on both branches, a new commit will be created merging the two branches, and a success message will appear in the top right corner of the screen.</p>
@@ -1969,7 +1866,7 @@ In-app shapes graph editing features are coming soon. In this BETA version, upda
 <div class="content">
 <img src="images/shacl-editor/merge_conflicts_main.png" alt="merge conflicts main">
 </div>
-<div class="title">Figure 85. List of All Merge Conflicts</div>
+<div class="title">Figure 76. List of All Merge Conflicts</div>
 </div>
 <div class="paragraph">
 <p>When resolving a conflict, the tool displays the changes to the entity from both branches. To resolve the conflict, select the version of the entity you wish to keep. You can either click the <b class="button">Back to List</b> button to go back to the list of all the conflicts or the <b class="button">Previous</b> or <b class="button">Next</b> buttons to iterate through the list of conflicts.</p>
@@ -1990,12 +1887,120 @@ Currently the editor only supports accepting entire changes. Improvements to giv
 <div class="content">
 <img src="images/shacl-editor/merge_conflicts_resolution.png" alt="merge conflicts resolution">
 </div>
-<div class="title">Figure 86. Merge Conflict Resolution View</div>
+<div class="title">Figure 77. Merge Conflict Resolution View</div>
 </div>
 <div class="paragraph">
 <p>Once all conflicts have been resolved, the <b class="button">Submit with Resolutions</b> button will become active and you can complete the merge operation. Completing the merge will create a new commit that incorporates your conflict resolutions into the target branch, and displays a success message in the upper right corner of the screen.</p>
 </div>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="publish">Publish</h3>
+<div class="paragraph">
+<p>The Publish Page in AVM allows you to push versioned RDF data to external systems including Anzo. Ontology Record data can be pushed as either models used as the foundation of all views into the Knowledge Graph or as referential datasets used for further processing, such as linking with other data sources, unstructured processes, and Hi-Res Analytics. Shapes Graph Record data can be pushed as a dataset for use in SHACL based validation logic within Graphmarts. The publish capability is extensible and custom publish targets can be easily added via the Extensible Publishing Framework.</p>
+</div>
+<div class="paragraph">
+<p>To reach the Publish Page, click on the link in the left menu.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/publish_landing.png" alt="publish landing">
+</div>
+<div class="title">Figure 78. The Publish Page</div>
+</div>
+<div class="paragraph">
+<p>The initial view of the Publish Page shows a filterable, searchable, and paginated list of all the current Versioned RDF Records in AVM, including Ontology Record and Shapes Graph Records. Each Record is displayed with a title, an icon representing the type of Record, the identifier IRI for the latest data in the Record, and the provenance data of the latest publish successfully completed. To publish a Record to Anzo, click the checkbox found on the corresponding row and click the <b class="button">Publish Record</b> button, prompting a configuration modal to appear. This modal displays a list of all registered publish services compatible with the type of Record you selected. Each publish service comes with its own configuration options to customize how the data is sent to the external system.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/publish_overlay.png" alt="publish overlay" width="40%">
+</div>
+<div class="title">Figure 79. The publish modal</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/publish_modal_options.png" alt="publish modal options" width="40%">
+</div>
+<div class="title">Figure 80. The publish modal with registered services.</div>
+</div>
+<div class="paragraph">
+<p>AVM comes with three registered Anzo Publish Services for pushing ontologies, vocabularies, and shapes graphs to the Anzo Catalog. All allow you to specify which configured Anzo instance to publish to.</p>
+</div>
+<div class="paragraph">
+<p>The "Publish to Anzo as SKOS Concepts" service allows AVM users to select whether to publish the concept hierarchy, the class hierarchy or both as SKOS vocabulary concepts.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+When publishing the concept hierarchy, all individuals who are instances of SKOS Concept and of a subclass of SKOS Concept will be included.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/publish_modal_skos.png" alt="publish modal skos" width="40%">
+</div>
+<div class="title">Figure 81. SKOS Publish to Anzo</div>
+</div>
+<div class="paragraph">
+<p>The "Publish to Anzo as OWL Dataset/Model" service allows AVM users to publish the entire contents of an Ontology Record to either an Anzo model or dataset.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+When publishing large ontologies, it&#8217;s recommended to publish as an Anzo dataset rather than an Anzo model as the Anzo Model Editor does not support ontologies at that scale.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/publish_modal_owl.png" alt="publish modal owl" width="40%">
+</div>
+<div class="title">Figure 82. OWL Publish to Anzo</div>
+</div>
+<div class="paragraph">
+<p>The "Publish Shapes Graph to Anzo" service allows Mobi users to create an Anzo dataset containing their shapes graph data for use in validation logic within Graphmarts.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/publish_modal_shacl.png" alt="publish modal shacl">
+</div>
+<div class="title">Figure 83. SHACL Publish to Anzo</div>
+</div>
+<div class="paragraph">
+<p>After selecting either the entity types or target location, click <b class="button">Submit</b>, and AVM will push the ontology/vocabulary data at the head commit of the MASTER branch to Anzo.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/published_dataset.png" alt="published dataset">
+</div>
+<div class="title">Figure 84. A published vocabulary dataset in the Anzo SDL interface.</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/published_model.png" alt="published model">
+</div>
+<div class="title">Figure 85. A published ontology model in the Anzo SDL interface.</div>
+</div>
+<div class="paragraph">
+<p>To view more details about the publish history of a particular Versioned RDF Record, click on the Record in the Publish Landing Page. The Publish History page displays each publish executed for the Record as well as relevant metadata including the user who published, the head commit at the time of publishing, and the time of the publish.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/publish_records.png" alt="publish records">
+</div>
+<div class="title">Figure 86. Record of all publishes for a record</div>
 </div>
 </div>
 <div class="sect2">
@@ -2687,7 +2692,7 @@ To learn more about the extensible interface and the structure of the configurat
 <div class="title">Figure 124. Full-Screen Individual Workflow Page</div>
 </div>
 <div class="paragraph">
-<p>The graphical display of the Workflow will display the Trigger, if set, as a yellow square and all configured Actions as green circles. Every workflow can have at most one Trigger and must have at least one Action. If a Trigger has not been configured for the workflow, "Default Trigger" will be displayed on the Trigger node. The nodes will display the type of the Trigger/Action and clicking on a node will bring up a summary of the configuration for the component.</p>
+<p>The graphical display of the Workflow will display the Trigger, if set, as a yellow square and all configured Actions as green circles. Every workflow can have at most one Trigger and must have at least one Action. If a Trigger has not been configured for the workflow, "Default Trigger" will be displayed on the Trigger node. The nodes will display the configured title or type of the Trigger/Action and clicking on a node will bring up a summary of the configuration for the component.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -2729,7 +2734,7 @@ If the new version of the Workflow being uploaded is invalid, the modal will dis
 <div class="title">Figure 127. Individual Workflow Page in Edit Mode</div>
 </div>
 <div class="paragraph">
-<p>In edit mode, the nodes in the graphical display will have a menu that can be opened with a right click so that each component can edited individually. Right clicking on the Trigger node will provide the options to remove any existing Trigger configuration (trash icon), to add/edit the Trigger configuration (pencil icon), or to add a new Action (plus icon). Right clicking on an Action node will provide the options to remove the Action configuration or to edit the Action configuration.</p>
+<p>In edit mode, the nodes and edges in the graphical display will have a menu that can be opened with a right click and hold so that each component can edited individually. The Trigger node menu will provide the options to remove any existing Trigger configuration (trash icon), to add/edit the Trigger configuration (pencil icon), or to add a new entry Action (plus icon). The Action node menu will provide the options to remove the Action configuration, edit the Action configuration, or add a new child Action. The edge menu will provide the option to remove the edge between nodes. To draw a new edge between nodes, click and drag from one node to another.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2738,7 +2743,7 @@ If the new version of the Workflow being uploaded is invalid, the modal will dis
 <div class="title">Note</div>
 </td>
 <td class="content">
-A Workflow must always have at least one Action.
+A Workflow must always have at least one Action. There can be no cycles between actions or the trigger.
 </td>
 </tr>
 </table>
@@ -2787,7 +2792,7 @@ A Workflow must always have at least one Action.
 <div class="sect4">
 <h5 id="editing_actions">Editing Actions</h5>
 <div class="paragraph">
-<p>When adding/editing an Action, the modal will contain a dropdown with all the available types of Actions within the system (see the description of <a href="#extending_workflows">Extending Workflows</a>). Once you&#8217;ve selected an Action type, the modal will update with an appropriate form with all the configuration options for that Action type. AVM currently supports two Action types:</p>
+<p>When adding/editing an Action, the modal will contain a dropdown with all the available types of Actions within the system (see the description of <a href="#extending_workflows">Extending Workflows</a>) along with a field to set an optional title for the Action. Once you&#8217;ve selected an Action type, the modal will update with an appropriate form with all the configuration options for that Action type. AVM currently supports two Action types:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2940,7 +2945,7 @@ Default preferences coming soon!
 <p><a href="#application_settings">Application Settings</a></p>
 </li>
 <li>
-<p><a href="#anzo_configuration">Anzo Configuration</a></p>
+<p><a href="#publish_configuration">Publish Configuration</a></p>
 </li>
 <li>
 <p><a href="#licensing">Licensing</a></p>
@@ -3027,18 +3032,6 @@ The default Admin user can not be deleted.
 <div class="paragraph">
 <p>The Permissions tab allows you to set high level access control for common actions in the application, such as creating Ontology Records and querying the system repository.  Permissions can be set to allow all authenticated users (the <span class="underline">Everyone</span> slider) or limit access to specific users and groups. To set the permission to a user or group, unselect the <span class="underline">Everyone</span> permission, find a user or group in the search box underneath the appropriate box, and select it. To remove a user or group from the permission, click the <code>X</code> button next to the username or group title. After you have finished making the changes you want, make sure to click the save button in the bottom right.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-More permissions coming soon!
-</td>
-</tr>
-</table>
-</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/user-management/permissions_tab.png" alt="permissions tab">
@@ -3079,48 +3072,41 @@ More Application Settings coming soon!
 </div>
 </div>
 <div class="sect3">
-<h4 id="anzo_configuration">Anzo Configuration</h4>
+<h4 id="publish_configuration">Publish Configuration</h4>
 <div class="paragraph">
-<p>The Anzo Configuration tab enables runtime updates to the configured Anzo servers that AVM will utilize for all external connections. AVM supports multiple Anzo configurations that can be utilized within the individual modules.</p>
+<p>The Publish Configuration tab enables management of connections to external systems, such as Anzo instances, that AVM will utilize within the <a href="#publish">Publishing Tool</a>, and in Anzo&#8217;s case the <a href="#synchronize">Synchronize Tool</a> as well. This view is based on an extensible framework for introducing new types of external systems with their own unique requirements and supports multiples connections for each type. The left side of the tab displays the list of all configurations grouped by the type of external systems along with a button to create a new configuration. Every publish configuration is uniquely identified by its type and ID.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/user-management/anzo-configuration-tab.png" alt="anzo configuration tab">
+<img src="images/user-management/publish_config_tab.png" alt="publish config tab">
 </div>
-<div class="title">Figure 144. Anzo Configuration Tab</div>
-</div>
-<div class="paragraph">
-<p>The left side of the page has a selector for anzo configurations with a button to add a new configuration. The right side has a form for setting the fields for the selected configuration. Currently, there are these <strong>required</strong> and non-required fields that appear as text inputs:</p>
+<div class="title">Figure 144. Publish Configuration Tab</div>
 </div>
 <div class="paragraph">
-<p><strong>Anzo FLDS Datasource</strong> - The URI of the Anzo Data Source to be used when creating datasets in the Anzo server (such as for publishing). The default value is <code>http://cambridgesemantics.com/AnzoDataStore/LocalServerDefault</code>.</p>
+<p>The modal to create a new publish configuration will first display a select field with all registered types of publish configurations, including Anzo. Once an external system is selected, the modal will populate with all configuration options for that type of external system along with a button to test the connection to the external system before the configuration is saved.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+For a description of the Anzo configuration fields, see <a href="#anzo_connection_configuration">Anzo Connection Configuration</a>.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p><strong>Hostname</strong> - The hostname of the configured Anzo server.</p>
+<div class="title">New Publish Configuration Modal</div>
+<p><span class="image"><img src="images/user-management/new_anzo_publish_config.png" alt="new anzo publish config"></span></p>
 </div>
 <div class="paragraph">
-<p><strong>Password</strong> - The password for the configured Anzo server. If an Anzo Configuration has a pre-existing password, a placeholder of masked dots (••••••••••) will be displayed in the form field, rather than the actual password. You will need to clear the existing password field before entering a new password for the configuration.</p>
+<p>Clicking on a configuration in the left hand list will display all settings on the right side of the tab in an editable form. Each field is displayed with an information tooltip describing the purpose of the value. Any sensitive fields will be masked with dots and to update the value, the existing value must be cleared. Buttons to test the connection to the external system, save the updated form, and delete the configuration are at the bottom of the form.</p>
 </div>
 <div class="paragraph">
-<p><strong>Port</strong> - The port of the configured Anzo server.</p>
-</div>
-<div class="paragraph">
-<p><strong>SSL</strong> - SSL setting for configured Anzo server.</p>
-</div>
-<div class="paragraph">
-<p><strong>Username</strong> - The username for the configured Anzo server.</p>
-</div>
-<div class="paragraph">
-<p><strong>Connect</strong> - The connect timeout in milliseconds(ms) for communicating with the configured Anzo server. The default value is 60000.</p>
-</div>
-<div class="paragraph">
-<p><strong>Read</strong> - The read timeout in milliseconds(ms) for communicating with the configured Anzo server. The default value is 30000.</p>
-</div>
-<div class="paragraph">
-<p>After applying your configuration changes, you can click <b class="button">Save</b> which will save the changes you have made to the configuration. It will prompt you with a success or failure toast, and the application will now apply those settings when performing operations with that Anzo configuration.</p>
-</div>
-<div class="paragraph">
-<p>For more details on Anzo Configurations, take a look at the <a href="#anzo_connection_configuration">Anzo Connection Configuration</a> section.</p>
+<div class="title">Selected Anzo Publish Configuration</div>
+<p><span class="image"><img src="images/user-management/selected_anzo_publish_config.png" alt="selected anzo publish config"></span></p>
 </div>
 </div>
 <div class="sect3">
@@ -3174,6 +3160,9 @@ To learn about the available LDAP and SSO configuration files, see <a href="#lda
 <ul>
 <li>
 <p><strong>Hostname</strong>: The hostname for the LDAP server.</p>
+</li>
+<li>
+<p><strong>Verify SSL Certificates</strong>: This checkbox, when checked, will verify all SSL certificates when connecting to the LDAP server.</p>
 </li>
 <li>
 <p><strong>Disable Authentication</strong>: This checkbox, when checked, disables direct authentication to the LDAP engine.</p>
@@ -3391,6 +3380,9 @@ When removing the configuration, any uploaded files will not be removed from dis
 <p><strong>Client Secret</strong>: The optional client secret to use in requests to the OAuth/OpenID provider.</p>
 </li>
 <li>
+<p><strong>Client Authentication Method</strong>: The authentication method to use when fetching a token from the Identity Provider. When unset, it will default to using Basic Auth.</p>
+</li>
+<li>
 <p><strong>User Identifier Claim</strong>: An optional property to specify which claim in the returned JWT contains the user&#8217;s username. If configured with LDAP, these values must match the values for the LDAP <strong>User ID</strong> attribute. Defaults to using the <code>sub</code> of the JWT.</p>
 </li>
 <li>
@@ -3590,13 +3582,13 @@ The Publish integration requires an Anzo version of 5.4.7 or later.
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>timeout.connect</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The connection timeout in number of milliseconds when communicating with the Anzo server.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The connection timeout in milliseconds when communicating with the Anzo server.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">10000</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>timeout.read</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The read timeout in number of milliseconds when communicating with the Anzo server.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The read timeout in milliseconds when communicating with the Anzo server.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">30000</p></td>
 </tr>
@@ -3633,7 +3625,7 @@ anzo.password = 123</code></pre>
 <p>Click the copy button next to the Anzo Data Source&#8217;s URI in the right hand gray box.</p>
 </li>
 <li>
-<p>Edit the <code>flds.datasource</code> property in your <code>.cfg</code> file either manually on the server or by using the <a href="#anzo_configuration">Anzo Configuration UI</a> and the new value will automatically be used next time a publish is made.</p>
+<p>Edit the <code>flds.datasource</code> property in your <code>.cfg</code> file either manually on the server or by using the <a href="#publish_configuration">Publish Configuration UI</a> and the new value will automatically be used next time a publish is made.</p>
 </li>
 </ol>
 </div>
@@ -3759,6 +3751,12 @@ tokenDurationMins = 1440</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The hostname of the ldap server (ex: <a href="https://localhost:10389" class="bare">https://localhost:10389</a>).</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&#x2713;</p></td>
 <td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.ssl.verify</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether SSL certificates should be verified when connecting to the LDAP server.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ldap.timeout</code></p></td>
@@ -4132,6 +4130,11 @@ tokenDurationMins = 1440</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>clientSecret</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The optional client secret to use in requests to the OAuth/OpenID provider.</p></td>
 <td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clientAuthMethod</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The method by which the client, i.e. AVM, will be authenticated with the Identity Provider when fetching a token (if configured to do so). Supported options are <code>client_secret_basic</code> and <code>client_secret_post</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>client_secret_basic</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>userIdentifierClaim</code></p></td>
@@ -8794,6 +8797,62 @@ public ActionDefinition createDefinition(NewAction action) {
 <div class="paragraph">
 <p>The publish framework has a generic POST <code>$AVM_HOST/mobirest/publish</code> endpoint as the entrypoint for all publish activities. The body of a request to the endpoint should be a JSON-LD serialization of a collection of RDF that defines the inputs for the publish as defined by the publish service configuration.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>All examples in this Appendix will be in Turtle RDF serialization and use the following prefixes:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Prefix</th>
+<th class="tableblock halign-left valign-top">Namespace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sh</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">http://www.w3.org/ns/shacl#/</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pub</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">http://mobi.com/ontologies/publish#</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>config</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">http://mobi.com/config#</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>wf</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">https://mobi.solutions/ontologies/form#</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anzoowl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">http://mobi.com/ontologies/publish/anzo/owl#</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anzoskos</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">http://mobi.com/ontologies/publish/anzo/skos#</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anzoshacl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">http://mobi.solutions/ontologies/publish/anzo/shacl#</p></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+</div>
 <div class="sect2">
 <h3 id="core_publish_definitions">Core Publish Definitions</h3>
 <div class="paragraph">
@@ -8806,7 +8865,7 @@ public ActionDefinition createDefinition(NewAction action) {
 <div class="title">Figure 162. Core Publish Framework</div>
 </div>
 <div class="paragraph">
-<p>A <code>pub:PublishService</code> represents the capability of the platform to push data from Mobi to a certain type of external system with a human readable name and how many concurrent publishes can be made with the specific service. The instances of this class are what populate the dropdown in the Publish Configuration modal in the UI (see <a href="#publish">Publish</a>). The <code>pub:PublishConfig</code> class represents an individual request to publish a Versioned RDF Record to an external system. Instances of this class are required to have a <code>pub:useService</code> predicate pointing to which Publish Service to use along with the IRI of the Versioned RDF Record to publish. It can also optionally have a pointer to a specific Commit of that Versioned RDF Record that should be published. In the absence of this predicate on an instance of <code>pub:PublishConfig</code>, the head Commit of the MASTER Branch will be used.</p>
+<p>A <code>pub:PublishService</code> represents the capability of the platform to push data from AVM to a certain type of external system with a human readable name and how many concurrent publishes can be made with the specific service. The instances of this class are what populate the dropdown in the Publish Configuration modal in the UI (see <a href="#publish">Publish</a>). The <code>pub:PublishConfig</code> class represents an individual request to publish a Versioned RDF Record to an external system. Instances of this class are required to have a <code>pub:useService</code> predicate pointing to which Publish Service to use along with the IRI of the Versioned RDF Record to publish. It can also optionally have a pointer to a specific Commit of that Versioned RDF Record that should be published. In the absence of this predicate on an instance of <code>pub:PublishConfig</code>, the head Commit of the MASTER Branch will be used. If the Publish Service supports selection of a specific external system to publish to (using the <a href="#publish_configuration">Publish Configuration UI</a>), a <code>pub:PublishConfig</code> can optionally reference the ID of that external system with the <code>config:hasId</code> property.</p>
 </div>
 <div class="paragraph">
 <p>An extension of the core framework will:</p>
@@ -8828,6 +8887,9 @@ public ActionDefinition createDefinition(NewAction action) {
 <li>
 <p>Include a constraint on <code>pub:RecordPropertyShape</code> to restrict the types of Versioned RDF Records that the service supports</p>
 </li>
+<li>
+<p>If support for <code>config:hasId</code> is required, include a SHACL Property Shape for the predicate, restricting it to only supported external system IDs</p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -8837,12 +8899,14 @@ public ActionDefinition createDefinition(NewAction action) {
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
 @prefix pub: &lt;http://mobi.com/ontologies/publish#&gt; .
+@prefix config: &lt;http://mobi.com/config#&gt; .
 @prefix : &lt;http://mobi.solutions/example#&gt; .
 
 :test a :CustomPublishConfig, pub:PublishConfig ; # An instance of the publish configuration to execute
   pub:record &lt;https://mobi.com/records#7dbc162b-592c-4742-bf10-4c156c381781&gt; ; # the required IRI of the Versioned RDF Record to publish
   pub:useService :CustomPublishService ; # the required value for this property given the publish configuration
   pub:commit &lt;https://mobi.com/commits#7dbc162b-592c-4742-bf10-4c156c381781&gt; ; # the optional IRI of the Commit to publish
+  config:hasId "demo" ; # the optional ID of the external system you will be publishing to
   # any additional custom properties for the type of publish configuration
   .</code></pre>
 </div>
@@ -8851,7 +8915,7 @@ public ActionDefinition createDefinition(NewAction action) {
 <div class="sect2">
 <h3 id="anzo_config_selector">Anzo Config Selector</h3>
 <div class="paragraph">
-<p>All Anzo publish services utilize the same SHACL Property Shape for the property specifying which Anzo server to publish to (<code>http://mobi.com/config#hasId</code>). This property is required and must line up with the ID of an Anzo Configuration within the platform, i.e. instances of `http://mobi.com/config#AnzoConfiguration` (see <a href="#anzo_connection_configuration">Anzo Connection Configuration</a>).</p>
+<p>All Anzo publish services utilize the same SHACL Property Shape for the <code>config:hasId</code> property specifying which Anzo server to publish to. This property is required and must line up with the ID of an Anzo Configuration within the platform, i.e. instances of <code>http://mobi.com/config#AnzoConfiguration</code> (see <a href="#anzo_connection_configuration">Anzo Connection Configuration</a>).</p>
 </div>
 </div>
 <div class="sect2">
@@ -8894,14 +8958,14 @@ public ActionDefinition createDefinition(NewAction action) {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">@prefix ns0: &lt;http://mobi.com/config#&gt; .
+<pre class="highlightjs highlight"><code class="language-none hljs">@prefix config: &lt;http://mobi.com/config#&gt; .
 @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
 @prefix pub: &lt;http://mobi.com/ontologies/publish#&gt; .
 @prefix anzoskos: &lt;http://mobi.com/ontologies/publish/anzo/skos#&gt; .
 
 &lt;http://mobi.com/ontologies/publish/anzo/skos#AnzoSkosPublish1722973197969&gt;
   a anzoskos:AnzoSkosPublish ; # The type of publish configuration
-  ns0:hasId "dev"^^xsd:string ; # The Anzo config (instance) to publish to
+  config:hasId "dev"^^xsd:string ; # The Anzo config (instance) to publish to
   pub:commit &lt;https://mobi.com/commits#7932ffdabee02aed1063ac6f691b21f7bff2e0b3&gt; ; # The IRI of the Commit on the Record to publish
   pub:record &lt;https://mobi.com/records#bc631ae0-6296-465e-a999-53c240df6878&gt; ; # The IRI of the Record to publish
   pub:useService anzoskos:AnzoSkosPublishService ; # The PublishService to use, required to line up with the type of publish configuration
@@ -8950,18 +9014,73 @@ public ActionDefinition createDefinition(NewAction action) {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">@prefix ns0: &lt;http://mobi.com/config#&gt; .
+<pre class="highlightjs highlight"><code class="language-none hljs">@prefix config: &lt;http://mobi.com/config#&gt; .
 @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
 @prefix pub: &lt;http://mobi.com/ontologies/publish#&gt; .
 @prefix anzoowl: &lt;http://mobi.com/ontologies/publish/anzo/owl#&gt; .
 
 &lt;http://mobi.com/ontologies/publish/anzo/owl#AnzoOwlPublish1722972802499&gt;
   a anzoowl:AnzoOwlPublish ; # The type of publish configuration
-  ns0:hasId "dev"^^xsd:string ; # The Anzo config (instance) to publish to
+  config:hasId "dev"^^xsd:string ; # The Anzo config (instance) to publish to
   pub:commit &lt;https://mobi.com/commits#c8687ca9a4baa3339ac8344788a408af6046bafd&gt; ; # The IRI of the Commit on the Record to publish
   pub:record &lt;https://mobi.com/records#bc631ae0-6296-465e-a999-53c240df6878&gt; ; # The IRI of the Record to publish
   pub:useService anzoowl:AnzoOwlPublishService ; # The PublishService to use, required to line up with the type of publish configuration
   anzoowl:publishMode "As Model"^^xsd:string . # Publish to an Anzo model. If this value was "As Dataset", it would publish to an Anzo Dataset</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="anzo_shacl_publish_example">Anzo SHACL Publish Example</h3>
+<div class="paragraph">
+<p>AVM has the capability to publish shapes graph data to an Anzo dataset. The Anzo Publish SHACL SHACL configurations define:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The Anzo SHACL Publish Service (<code>SHACL</code>) with an unlimited concurrency</p>
+</li>
+<li>
+<p>The Anzo SKOS Publish Configuration (<code>anzoskos:AnzoSkosPublish</code>)</p>
+</li>
+<li>
+<p>The Anzo SHACL Publish Configuration (<code>anzoshacl:AnzoShaclPublish</code>)</p>
+</li>
+<li>
+<p>Required value for <code>pub:useService</code> of <code>anzoshacl:AnzoShaclPublishService</code></p>
+</li>
+<li>
+<p>Support only for <code>ShapesGraphRecord</code></p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="rest_request_3">REST Request</h4>
+<div class="paragraph">
+<p>Below is an example request to publish a record as SHACL to a configured Anzo instance:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/publishing/postman_publish_shacl.png" alt="postman publish shacl">
+</div>
+<div class="title">Figure 165. Anzo SHACL Postman Request</div>
+</div>
+<div class="paragraph">
+<p>The body of the request represented in turtle is below (See comments for explanation of fields):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@prefix config: &lt;http://mobi.com/config#&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix pub: &lt;http://mobi.com/ontologies/publish#&gt; .
+@prefix anzoshacl: &lt;http://mobi.solutions/ontologies/publish/anzo/shacl#&gt; .
+
+&lt;http://mobi.solutions/ontologies/publish/anzo/shacl#AnzoShaclPublish1722973197969&gt;
+  a anzoshacl:AnzoShaclPublish ; # The type of publish configuration
+  config:hasId "dev"^^xsd:string ; # The Anzo Configuration to publish to
+  pub:commit &lt;https://mobi.com/commits#7932ffdabee02aed1063ac6f691b21f7bff2e0b3&gt; ; # The IRI of the Commit on the Record to publish
+  pub:record &lt;https://mobi.com/records#bc631ae0-6296-465e-a999-53c240df6878&gt; ; # The IRI of the Record to publish
+  pub:useService anzoshacl:AnzoShaclPublishService . # The PublishService to use, required to line up with the type of publish configuration</code></pre>
 </div>
 </div>
 </div>
@@ -8971,8 +9090,8 @@ public ActionDefinition createDefinition(NewAction action) {
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 4.0<br>
-Last updated 2025-01-30 14:44:19 UTC
+Version 4.1<br>
+Last updated 2025-04-10 13:27:37 UTC
 </div>
 </div>
 <script src="../highlight/highlight.min.js"></script>

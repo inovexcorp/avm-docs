@@ -238,6 +238,7 @@
 <li><a href="#version_2_3_1">Version 2.3.1</a></li>
 <li><a href="#version_2_3_2">Version 2.3.2</a></li>
 <li><a href="#version_2_3_3">Version 2.3.3</a></li>
+<li><a href="#version_2_3_4">Version 2.3.4</a></li>
 </ul>
 </li>
 </ul>
@@ -2071,6 +2072,43 @@ This version includes a critical fix to reduce duplication of system policies on
 </ul>
 </div>
 </div>
+<div class="sect3">
+<h4 id="version_2_3_4">Version 2.3.4</h4>
+<div class="paragraph">
+<p>Hotfix 2.3.4 was released on March 14, 2025.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+Due to the publish policy fix, you must reset the policy in order for the change to take effect. To do so, log into the AVM Karaf Client and run: <code>mobi:reload-system-policy http\%3A\%2F\%2Fmobi.com\%2Fpolicies\%2Fpublish.xml</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Added ability to specify the client authentication method for OAuth/OpenID SSO configurations</p>
+</li>
+<li>
+<p>Added ability to skip SSL certificate verification with LDAP configurations</p>
+</li>
+<li>
+<p>Updated OpenID SSO configurations to refetch the latest public keys if a token&#8217;s signing algorithm could not be found in the cached list</p>
+</li>
+<li>
+<p>Fixed an issue where publish policy was not properly controlling users' ability to publish</p>
+</li>
+<li>
+<p>Fixed an issue where LDAP configurations with an admin account would not perform proper password validation on user logins</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -3859,7 +3897,7 @@ The "Query System Repo" policy will be rest to support updated SPARQL compliant 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-11 01:43:37 UTC
+Last updated 2025-05-17 17:58:46 UTC
 </div>
 </div>
 <script src="../highlight/highlight.min.js"></script>

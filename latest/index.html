@@ -4888,7 +4888,7 @@ OPTIONS
 <div class="title">Note</div>
 </td>
 <td class="content">
-AVM customers will be individually provided with distributions and license files. Please consult your sales or support representative for more information.
+AVM customers will be individually provided with distributions (or RPMs) and license files. Please consult your sales or support representative for more information.
 </td>
 </tr>
 </table>
@@ -5032,12 +5032,27 @@ We recommend running AVM on the default port 8443 and using firewall configurati
 <div class="sect4">
 <h5 id="create_service_account">Create Service Account</h5>
 <div class="paragraph">
-<p>Before installing AVM, create a service account on the host server. The account will be used to run AVM. The service account should meet the following requirements:</p>
+<p>Before installing AVM, create a service account on the host server. The account will be used to run AVM.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This step is not required when installing AVM via the RPM package.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The service account should meet the following requirements:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The service account must have read and write permissions for the AVM installation directory (i.e. <code>$AVM_HOME</code>). On Linux, this is typically <code>/opt/anzo/avm-distribution-&lt;version&gt;</code>.</p>
+<p>The service account must have read and write permissions for the AVM installation directory (i.e. <code>$AVM_HOME</code>). On Linux, this is typically <code>/opt/avm/avm-distribution-&lt;version&gt;</code>.</p>
 </li>
 </ul>
 </div>
@@ -5046,7 +5061,7 @@ We recommend running AVM on the default port 8443 and using firewall configurati
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo useradd -d /opt/anzo anzo</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo useradd -d /opt/avm avm</code></pre>
 </div>
 </div>
 </div>
@@ -5074,7 +5089,7 @@ If you are using a Red Hat system, you can install Java 17 with <code>sudo yum i
 <div class="title">Note</div>
 </td>
 <td class="content">
-On a standard RHEL/CentOS system, there is no package available via <code>yum</code> to install. We suggest Downloading the Oracle installer from <a href="https://www.oracle.com/java/technologies/downloads/#java17">here</a> and running <code>sudo rpm -Uvh jdk-17_linux-x64_bin.rpm</code> to install.
+On a standard RHEL/CentOS system, there is no package available via <code>yum</code> to install. We suggest Downloading the Oracle installer from <a href="https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html">here</a> and running <code>sudo rpm -Uvh jdk-17_linux-x64_bin.rpm</code> or <code>sudo rpm -Uvh jdk-17_linux-aarch64_bin.rpm</code> (depending on your OS) to install.
 </td>
 </tr>
 </table>
@@ -5084,7 +5099,7 @@ On a standard RHEL/CentOS system, there is no package available via <code>yum</c
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo su - anzo
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo su - avm
 echo 'export JAVA_HOME=/path/to/java/home' &gt;&gt; ~/.bashrc
 exit</code></pre>
 </div>
@@ -5096,7 +5111,7 @@ exit</code></pre>
 <div class="sect4">
 <h5 id="collect_the_server_id">Collect the Server ID</h5>
 <div class="paragraph">
-<p>After the pre-installation configuration steps, follow the instructions below to collect your AVM Server ID. These instructions assume that you have copied the AVM distribution to the server. The AVM distribution comes packaged as a <code>.zip</code> file for Windows and a <code>tar.gz</code> file for Linux/OSX.</p>
+<p>After the pre-installation configuration steps, follow the instructions below to collect your AVM Server ID. These instructions assume that you have copied the AVM distribution or RPM package to the server. The AVM distribution comes packaged as a <code>.zip</code> file for Windows and a <code>tar.gz</code> file for Linux/OSX.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -5109,6 +5124,41 @@ These instructions are prepared for a standard RHEL/CentOS deployment server.
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>If you are installing via the RPM package, use the following instructions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install the rpm package</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo rpm -i {path_to_rpm_package}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>EITHER start AVM with the auto-configured systemd service</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo systemctl start avm</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>OR change into the installed directory and start up the server</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd /opt/avm/latest
+sudo -u avm bin/start</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If you are installing from the distribution, follow the instructions below:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -5155,7 +5205,7 @@ tar -xf $AVM_HOME.tar.gz</code></pre>
 <div class="sect4">
 <h5 id="add_license_file">Add License File</h5>
 <div class="paragraph">
-<p>Copy the provided license file to the <code>$AVM_HOME/etc/</code> directory.</p>
+<p>Copy the provided license file to the <code>$AVM_HOME/etc/</code> directory or if installing via the RPM package to a <code>.mobi</code> directory in the auto-generated <code>/opt/avm</code> directory.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -5163,7 +5213,7 @@ tar -xf $AVM_HOME.tar.gz</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Now you can start the AVM installation.</p>
+<p>Now you can start the AVM installation either using the RPM generated service script (<code>sudo systemctl start avm</code>) or manually.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -5204,6 +5254,23 @@ You can check the status of the running server using the <code>bin/status</code>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./bin/stop</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you installed via the RPM package, you can either stop the systemd service:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo systemctl stop avm</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or you can manually stop the distribution:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd /opt/avm/latest
+sudo -u avm bin/start</code></pre>
 </div>
 </div>
 </div>
@@ -5362,6 +5429,18 @@ We recommend running AVM on the default port 8443 and using firewall configurati
 <div class="title">Note</div>
 </td>
 <td class="content">
+If you installed via the RPM package this was done for you.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
 The below steps should be run as the root user.
 </td>
 </tr>
@@ -5427,6 +5506,9 @@ systemctl enable avm</code></pre>
 <div class="paragraph">
 <p>Upgrades of the AVM platform are performed via a backup/restore process where a <code>.zip</code> file is created of all the system data of the current installation and loaded into the new version installation. This process will handle any migration steps required when migrating to newer versions. The basic steps are outlined below and are applicable for any upgrades within major version (e.g. 2.1 to 2.4).</p>
 </div>
+<div class="paragraph">
+<p>If you installed AVM via the RPM package, the backup/restore process is performed for you as part of the upgrade.</p>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -5434,7 +5516,7 @@ systemctl enable avm</code></pre>
 <div class="title">Note</div>
 </td>
 <td class="content">
-<code>$AVM_HOME</code> is the extracted directory from your current Mobi distribution (e.g. <code>/path/to/avm-distribution-2.3.2</code>).
+<code>$AVM_HOME</code> is the extracted directory from your current AVM distribution (e.g. <code>/path/to/avm-distribution-2.3.2</code>).
 </td>
 </tr>
 </table>
@@ -5442,7 +5524,7 @@ systemctl enable avm</code></pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Run the following command to create a zipped backup of your old distribution. The name of the backup can be whatever you choose as long as it is a valid zip file name. <strong>NOTE:</strong> If you have any binary data represented in the system, such as Workflow Execution Logs, and you are going to restore into an installation on a different machine, you will want to add the <code>-b</code> flag with the absolute path to the $NEW_MOBI_HOME directory. This will ensure all file paths on the binary file instances within the repositories reflect the new installation location.</p>
+<p>Run the following command to create a zipped backup of your old distribution. The name of the backup can be whatever you choose as long as it is a valid zip file name. <strong>NOTE:</strong> If you have any binary data represented in the system, such as Workflow Execution Logs, and you are going to restore into an installation on a different machine, you will want to add the <code>-b</code> flag with the absolute path to the $NEW_AVM_HOME directory. This will ensure all file paths on the binary file instances within the repositories reflect the new installation location.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$AVM_HOME/bin/client "mobi:backup -o /path/to/avm-backup.zip"</code></pre>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <link rel="icon" type="image/x-icon" href="../favicon.ico">
 <title>AVM Release Notes</title>
 <link rel="stylesheet" href="./../foundation.css">
@@ -102,6 +102,11 @@
 <li><a href="#administration">Administration</a></li>
 </ul>
 </li>
+<li><a href="#hotfixes">Hotfixes</a>
+<ul class="sectlevel3">
+<li><a href="#version_4_2_1">Version 4.2.1</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#release_notes_for_avm_4_1">Release Notes for AVM 4.1</a>
@@ -116,8 +121,13 @@
 <li><a href="#discover">Discover</a></li>
 <li><a href="#workflows">Workflows</a></li>
 <li><a href="#administration_2">Administration</a></li>
+</ul>
+</li>
+<li><a href="#hotfixes_2">Hotfixes</a>
+<ul class="sectlevel3">
 <li><a href="#version_4_1_1">Version 4.1.1</a></li>
 <li><a href="#version_4_1_2">Version 4.1.2</a></li>
+<li><a href="#version_4_1_3">Version 4.1.3</a></li>
 </ul>
 </li>
 </ul>
@@ -140,7 +150,7 @@
 <li><a href="#administration_3">Administration</a></li>
 </ul>
 </li>
-<li><a href="#hotfixes">Hotfixes</a>
+<li><a href="#hotfixes_3">Hotfixes</a>
 <ul class="sectlevel3">
 <li><a href="#version_4_0_1">Version 4.0.1</a></li>
 </ul>
@@ -163,7 +173,7 @@
 <li><a href="#administration_4">Administration</a></li>
 </ul>
 </li>
-<li><a href="#hotfixes_2">Hotfixes</a>
+<li><a href="#hotfixes_4">Hotfixes</a>
 <ul class="sectlevel3">
 <li><a href="#version_3_1_1">Version 3.1.1</a></li>
 </ul>
@@ -206,7 +216,7 @@
 <li><a href="#administration_5">Administration</a></li>
 </ul>
 </li>
-<li><a href="#hotfixes_3">Hotfixes</a>
+<li><a href="#hotfixes_5">Hotfixes</a>
 <ul class="sectlevel3">
 <li><a href="#version_2_5_1">Version 2.5.1</a></li>
 <li><a href="#version_2_5_2">Version 2.5.2</a></li>
@@ -251,7 +261,7 @@
 <li><a href="#mapping_tool_8">Mapping Tool</a></li>
 </ul>
 </li>
-<li><a href="#hotfixes_4">Hotfixes</a>
+<li><a href="#hotfixes_6">Hotfixes</a>
 <ul class="sectlevel3">
 <li><a href="#version_2_3_1">Version 2.3.1</a></li>
 <li><a href="#version_2_3_2">Version 2.3.2</a></li>
@@ -294,7 +304,7 @@
 <li><a href="#administration_8">Administration</a></li>
 </ul>
 </li>
-<li><a href="#hotfixes_5">Hotfixes</a></li>
+<li><a href="#hotfixes_7">Hotfixes</a></li>
 <li><a href="#2_1_1">2.1.1</a></li>
 </ul>
 </li>
@@ -308,7 +318,7 @@
 <li><a href="#discover_5">Discover</a></li>
 </ul>
 </li>
-<li><a href="#hotfixes_6">Hotfixes</a>
+<li><a href="#hotfixes_8">Hotfixes</a>
 <ul class="sectlevel3">
 <li><a href="#2_0_3">2.0.3</a></li>
 <li><a href="#2_0_2">2.0.2</a></li>
@@ -655,6 +665,25 @@
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="hotfixes">Hotfixes</h3>
+<div class="sect3">
+<h4 id="version_4_2_1">Version 4.2.1</h4>
+<div class="paragraph">
+<p>Hotfix 4.2.1 of AVM was released on November 5, 2025.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Fixed an issue with the entity search where search results that included blank nodes would cause an empty result view</p>
+</li>
+<li>
+<p>Added the ability to bypass the UserInfo endpoint call during standalone OpenID logins for providers that do not support it, such as Azure AD, and pull user info from configurable JWT claims</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -854,6 +883,9 @@ Due to the new Centralized SPARQL endpoint and access control structures, the po
 </ul>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="hotfixes_2">Hotfixes</h3>
 <div class="sect3">
 <h4 id="version_4_1_1">Version 4.1.1</h4>
 <div class="paragraph">
@@ -876,6 +908,19 @@ Due to the new Centralized SPARQL endpoint and access control structures, the po
 <ul>
 <li>
 <p>Fixed an issue with publishing to Anzo as Datasets where the Working Edition was not properly updated with the latest component</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="version_4_1_3">Version 4.1.3</h4>
+<div class="paragraph">
+<p>Hotfix 4.1.3 of AVM was released on November 4, 2025.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Added the ability to bypass the UserInfo endpoint call during standalone OpenID logins for providers that do not support it, such as Azure AD, and pull user info from configurable JWT claims</p>
 </li>
 </ul>
 </div>
@@ -1172,7 +1217,7 @@ For deployments utilizing the revamped publish to Anzo capability, please note t
 </div>
 </div>
 <div class="sect2">
-<h3 id="hotfixes">Hotfixes</h3>
+<h3 id="hotfixes_3">Hotfixes</h3>
 <div class="sect3">
 <h4 id="version_4_0_1">Version 4.0.1</h4>
 <div class="paragraph">
@@ -1356,7 +1401,7 @@ For deployments utilizing the revamped publish to Anzo capability, please note t
 </div>
 </div>
 <div class="sect2">
-<h3 id="hotfixes_2">Hotfixes</h3>
+<h3 id="hotfixes_4">Hotfixes</h3>
 <div class="sect3">
 <h4 id="version_3_1_1">Version 3.1.1</h4>
 <div class="paragraph">
@@ -1797,7 +1842,7 @@ This version includes a critical fix to reduce duplication of system policies on
 </div>
 </div>
 <div class="sect2">
-<h3 id="hotfixes_3">Hotfixes</h3>
+<h3 id="hotfixes_5">Hotfixes</h3>
 <div class="sect3">
 <h4 id="version_2_5_1">Version 2.5.1</h4>
 <div class="paragraph">
@@ -2264,7 +2309,7 @@ This version includes a critical fix to reduce duplication of system policies on
 </div>
 </div>
 <div class="sect2">
-<h3 id="hotfixes_4">Hotfixes</h3>
+<h3 id="hotfixes_6">Hotfixes</h3>
 <div class="sect3">
 <h4 id="version_2_3_1">Version 2.3.1</h4>
 <div class="paragraph">
@@ -2657,7 +2702,7 @@ Due to the publish policy fix, you must reset the policy in order for the change
 </div>
 </div>
 <div class="sect2">
-<h3 id="hotfixes_5">Hotfixes</h3>
+<h3 id="hotfixes_7">Hotfixes</h3>
 
 </div>
 <div class="sect2">
@@ -2792,7 +2837,7 @@ With the latest version of Karaf, the password properties in <code>$AVM_HOME/etc
 </div>
 </div>
 <div class="sect2">
-<h3 id="hotfixes_6">Hotfixes</h3>
+<h3 id="hotfixes_8">Hotfixes</h3>
 <div class="sect3">
 <h4 id="2_0_3">2.0.3</h4>
 <div class="paragraph">
@@ -4138,7 +4183,7 @@ The "Query System Repo" policy will be rest to support updated SPARQL compliant 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-25 14:54:08 UTC
+Last updated 2025-11-06 16:43:42 UTC
 </div>
 </div>
 <script src="../highlight/highlight.min.js"></script>

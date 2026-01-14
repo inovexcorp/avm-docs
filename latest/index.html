@@ -10030,7 +10030,7 @@ public ActionDefinition createDefinition(NewAction action) {
 services:
   avm:
     container_name: avm
-    image: inovexis/avm:4.2.0 # image name with tag (It is recommended to pin a version and not use latest)
+    image: nexus.inovexcorp.com/foundry-docker-prod-hosted/avm:4.2.0 # image name with tag (It is recommended to pin a version and not use latest)
     ports:
       - "443:8443"
     command: bash -c '/opt/avm/avm-distribution/docker/docker-start.sh'
@@ -10092,11 +10092,11 @@ Offline/air-gapped licensing is not supported with Docker deployments. See the <
 <div class="sect2">
 <h3 id="upgrading_versions">Upgrading Versions</h3>
 <div class="paragraph">
-<p>To upgrade to a newer version of AVM, you can change the image tag in the <code>docker-compose.yml</code> file to the desired version. For example, to upgrade to version 4.2.0, you would change the image line to:</p>
+<p>To upgrade to a newer version of AVM, you can change the image tag in the <code>docker-compose.yml</code> file to the desired version. For example, to upgrade to version 4.3.0, you would change the image line to:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">image: inovexis/avm:4.2.0</code></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">image: nexus.inovexcorp.com/foundry-docker-prod-hosted/avm:4.3.0</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -10105,7 +10105,7 @@ Offline/air-gapped licensing is not supported with Docker deployments. See the <
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">docker-compose down
-docker pull inovexis/avm:4.2.0
+docker pull nexus.inovexcorp.com/foundry-docker-prod-hosted/avm:4.3.0
 docker-compose up -d</code></pre>
 </div>
 </div>
@@ -10205,7 +10205,7 @@ unzip ../data_backup_VERSION_TIMESTAMP.zip</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 4.3<br>
-Last updated 2026-01-11 19:40:58 UTC
+Last updated 2026-01-11 19:41:02 UTC
 </div>
 </div>
 <script src="../highlight/highlight.min.js"></script>

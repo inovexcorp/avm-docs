@@ -286,13 +286,24 @@
 </li>
 <li><a href="#installing_avm">Installing AVM</a>
 <ul class="sectlevel3">
-<li><a href="#pre_installation_configuration">Pre-Installation Configuration</a>
+<li><a href="#install_via_docker">Install via Docker</a>
 <ul class="sectlevel4">
-<li><a href="#create_service_account">Create Service Account</a></li>
-<li><a href="#install_java_17">Install Java 17</a></li>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#install_avm_docker_image">Install AVM Docker Image</a></li>
 </ul>
 </li>
-<li><a href="#install_avm">Install AVM</a></li>
+<li><a href="#install_via_rpm">Install via RPM</a>
+<ul class="sectlevel4">
+<li><a href="#prerequisites_2">Prerequisites</a></li>
+<li><a href="#install_avm_package">Install AVM Package</a></li>
+</ul>
+</li>
+<li><a href="#install_via_distribution_tarball">Install via Distribution Tarball</a>
+<ul class="sectlevel4">
+<li><a href="#prerequisites_3">Prerequisites</a></li>
+<li><a href="#install_avm_distribution_tarball">Install AVM Distribution Tarball</a></li>
+</ul>
+</li>
 <li><a href="#post_installation_configuration">Post-Installation Configuration</a>
 <ul class="sectlevel4">
 <li><a href="#change_the_default_java_heap_size">Change the Default Java Heap Size</a></li>
@@ -306,6 +317,9 @@
 </li>
 <li><a href="#upgrading_avm">Upgrading AVM</a>
 <ul class="sectlevel3">
+<li><a href="#upgrading_via_docker">Upgrading via Docker</a></li>
+<li><a href="#upgrading_via_rpm">Upgrading via RPM</a></li>
+<li><a href="#upgrading_via_distribution_tarball">Upgrading via Distribution Tarball</a></li>
 <li><a href="#upgrading_to_avm_4_x">Upgrading to AVM 4.x</a></li>
 </ul>
 </li>
@@ -5723,6 +5737,18 @@ AVM will not run without a valid license file. You will need to consult your sal
 <div class="paragraph">
 <p>We provide recommended hardware requirements as a guideline. These specifications are based on standard deployment environments. Larger production data or user requirements may require more powerful hardware configurations.</p>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+Due to a <a href="https://learn.microsoft.com/en-us/answers/questions/1293667/azure-container-app-ingress-decoding-url">known issue</a> with Azure Container Apps automatic-decoding of HTTP requests, AVM deployments in Azure Container Apps is not supported at this time.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>The table below provides a summary of the recommended hardware for production servers and the minimum requirements for test servers.</p>
 </div>
@@ -5816,6 +5842,18 @@ compatibility, performance, and security.</p></td>
 <div class="paragraph">
 <p>The table below lists the TCP ports to open on the AVM host.</p>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+You must ensure connectivity from your installation server to the Keygen API at <code>https://api.keygen.sh</code> on port 443 for license validation. Otherwise, your distribution will not start. The alternative is to use an offline license file provided by your sales or support representative. See the <a href="#licensing_configuration">Licensing Configuration</a> section for some more details.
+</td>
+</tr>
+</table>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -5834,43 +5872,25 @@ compatibility, performance, and security.</p></td>
 </tr>
 </tbody>
 </table>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-We recommend running AVM on the default port 8443 and using firewall configuration or a proxy server for SSL (port 443) termination and redirection. AVM does not run on non-SSL ports by default.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>For more details configuring this port, or enabling HTTP access, see <a href="#change_the_default_web_port">Change the Default Web Port</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="installing_avm">Installing AVM</h3>
 <div class="paragraph">
-<p>When using the distribution package, deployment consists of unpacking the distribution to an appropriate location on the filesystem and modifying included configuration files. With the RPM and Docker installation methods, the process will be more automated and configuration files can still be modified.</p>
+<p>All distributions of AVM, the compressed distribution tarball, Docker image, and RPM package, are provided via our hosted <a href="https://nexus.inovexcorp.com/nexus/">Nexus Repository Manager</a>. To get access to the relevant repositories, reach out to your sales or support representative for credentials.</p>
+</div>
+<div class="paragraph">
+<p>When using the compressed distribution tarball, deployment consists of unpacking the distribution to an appropriate location on the filesystem and modifying included configuration files. With the RPM and Docker installation methods, the process will be more automated and configuration files can still be modified.</p>
 </div>
 <div class="sect3">
-<h4 id="pre_installation_configuration">Pre-Installation Configuration</h4>
+<h4 id="install_via_docker">Install via Docker</h4>
 <div class="sect4">
-<h5 id="create_service_account">Create Service Account</h5>
+<h5 id="prerequisites">Prerequisites</h5>
 <div class="paragraph">
-<p>Before installing AVM, create a service account on the host server. The account will be used to run AVM.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-This step is not required when installing AVM via the RPM package.
-</td>
-</tr>
-</table>
+<p>Before installing AVM, create a service account on the host server. The account will be used to run the AVM image.</p>
 </div>
 <div class="paragraph">
 <p>The service account should meet the following requirements:</p>
@@ -5878,10 +5898,7 @@ This step is not required when installing AVM via the RPM package.
 <div class="ulist">
 <ul>
 <li>
-<p>The service account must have read and write permissions for the AVM installation directory (i.e. <code>$AVM_HOME</code>). On Linux, this is typically <code>/opt/avm/avm-distribution-&lt;version&gt;</code>.</p>
-</li>
-<li>
-<p>When installing via Docker, the account needs to have read and write permissions for the directories that are mounted as volumes in the <code>docker-compose.yml</code> file.</p>
+<p>The account needs to have read and write permissions for the directories that are mounted as volumes in the <code>docker-compose.yml</code> file.</p>
 </li>
 </ul>
 </div>
@@ -5895,73 +5912,67 @@ This step is not required when installing AVM via the RPM package.
 </div>
 </div>
 <div class="sect4">
-<h5 id="install_java_17">Install Java 17</h5>
+<h5 id="install_avm_docker_image">Install AVM Docker Image</h5>
 <div class="paragraph">
-<p>AVM requires the latest version of Java 1.17 to operate. Refer to <a href="http://www.oracle.com/technetwork/java/javase/" class="bare">http://www.oracle.com/technetwork/java/javase/</a> for details on how to download and install Java SE 1.17.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-If you are installing via Docker following <a href="#docker_deployments">these instructions</a>, then this step is not needed.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-If you are using a Red Hat system, you can install Java 17 with <code>sudo yum install java-17-openjdk</code> prior to version 8 and <code>sudo dnf install java-17-openjdk-devel</code> on versions 8+.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-On a standard RHEL/CentOS system, there is no package available via <code>yum</code> to install. We suggest Downloading the Oracle installer from <a href="https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html">here</a> and running <code>sudo rpm -Uvh jdk-17_linux-x64_bin.rpm</code> or <code>sudo rpm -Uvh jdk-17_linux-aarch64_bin.rpm</code> (depending on your OS) to install.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The <code>JAVA_HOME</code> environment variable must be set for the user running AVM. On a Red Hat system, the path looks something like <code>/usr/lib/jvm/java-17-openjdk</code>. On a standard RHEL/CentOS system (after running the rpm above), the path looks something like <code>/usr/java/jdk-17.0.4.1</code>. Either way, the variable can be set using the following commands:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo su - avm
-echo 'export JAVA_HOME=/path/to/java/home' &gt;&gt; ~/.bashrc
-exit</code></pre>
-</div>
+<p>AVM is provided as a Docker image that can be deployed using <code>docker compose</code>. Follow the instructions in the <a href="#docker_deployments">Docker Deployments</a> Appendix to install AVM via the Docker image.</p>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="install_avm">Install AVM</h4>
+<h4 id="install_via_rpm">Install via RPM</h4>
+<div class="sect4">
+<h5 id="prerequisites_2">Prerequisites</h5>
 <div class="paragraph">
-<p>Follow the instructions in the <a href="#docker_deployments">Docker Deployments</a> Appendix to install AVM via the Docker image.</p>
+<p>The AVM package requires Java SE 17 to run. This can be installed via the <code>yum</code> package manager if available in your OS. An example command to install Java SE 17 is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">yum install java-17-openjdk-devel</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Follow the instructions below to install AVM via the RPM package. These instructions assume that you have copied the AVM RPM to the server.</p>
+<p>If the package is not available in your OS, you can download and install Java SE 17 a number of ways. We suggest downloading the Oracle installer from <a href="https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html">here</a> and running <code>sudo rpm -Uvh jdk-17_linux-x64_bin.rpm</code> or <code>sudo rpm -Uvh jdk-17_linux-aarch64_bin.rpm</code> (depending on your OS) to install.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="install_avm_package">Install AVM Package</h5>
+<div class="paragraph">
+<p>To proceed you can either download the latest RPM package from our hosted <a href="https://nexus.inovexcorp.com/nexus/#browse/browse:public-yum-prod-ent-hosted">Nexus repository</a> and install it manually or you can configure the repository with your YUM client so you can install it directly. The instructions below show you how to configure the repository and install AVM using <code>yum</code>.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Install the rpm package</p>
+<p>Create the repo file manually at <code>/etc/yum.repos.d/realmone-ent.repo</code>, replacing <code>{USERNAME}</code> and <code>{PASSWORD}</code> with your provided Nexus credentials.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo rpm -i {path_to_rpm_package}</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo tee /etc/yum.repos.d/realmone-ent.repo &gt; /dev/null &lt;&lt;EOF
+[realmone_ent]
+name=RealmOne Enterprise Repository
+baseurl=https://{USERNAME}:{PASSWORD}@nexus.inovexcorp.com/nexus/repository/public-yum-prod-ent-hosted/
+enabled=1
+gpgcheck=1
+gpgkey=http://nexus.inovexcorp.com/nexus/repository/public-raw-prod-hosted/gpg/prod-public.key
+repo_gpgcheck=0
+priority=1
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Once configured, clean and refresh the YUM Cache.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo yum clean all
+sudo yum makecache</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>You should now be able to list all available versions of the package and install AVM using <code>yum</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo yum --showduplicates list avm
+sudo yum install avm</code></pre>
 </div>
 </div>
 </li>
@@ -5994,7 +6005,124 @@ sudo -u avm bin/start</code></pre>
 </ol>
 </div>
 <div class="paragraph">
-<p>Follow the instructions below to install AVM via the distribution. These instructions assume that you have copied the AVM distribution to the server.</p>
+<p>All AVM prepackaged bundles, services, and required artifacts and dependencies will be automatically deployed by the runtime once started. The AVM web application should now be accessible at <code><a href="https://localhost:8443/avm/index.html" class="bare">https://localhost:8443/avm/index.html</a></code> (or substitute <code>localhost</code> with the hostname/IP address of the machine running the process dependant on firewall configurations). The default login credentials are <code>admin:admin</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Due to the self-signed SSL certificate that AVM comes with, your browser will likely show you a certificate warning when first loaded. This is safe to proceed past. See <a href="#configure_custom_ssl_certificates">Configure Custom SSL Certificates</a> for more details.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+You can check the status of the running server using the <code>bin/status</code> script or access the <a href="#avm-shell-guide">AVM shell</a> using the <code>bin/client</code> script. If you are having problems starting AVM, check the log files in <code>$AVM_HOME/data/log</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To stop the AVM server, you can either stop the systemd service:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo systemctl stop avm</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or you can manually stop the distribution:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd /opt/avm/latest
+sudo -u avm bin/stop</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="install_via_distribution_tarball">Install via Distribution Tarball</h4>
+<div class="sect4">
+<h5 id="prerequisites_3">Prerequisites</h5>
+<div class="sect5">
+<h6 id="create_service_account">Create Service Account</h6>
+<div class="paragraph">
+<p>Before installing AVM, create a service account on the host server. The account will be used to run AVM.</p>
+</div>
+<div class="paragraph">
+<p>The service account should meet the following requirements:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The service account must have read and write permissions for the AVM installation directory (i.e. <code>$AVM_HOME</code>). On Linux, this is typically <code>/opt/avm/avm-distribution-&lt;version&gt;</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>On a standard RHEL/CentOS system, this can be created using the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo useradd -d /opt/avm avm</code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="install_java_17">Install Java 17</h6>
+<div class="paragraph">
+<p>AVM requires the latest version of Java 1.17 to operate. Refer to <a href="http://www.oracle.com/technetwork/java/javase/" class="bare">http://www.oracle.com/technetwork/java/javase/</a> for details on how to download and install Java SE 1.17.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+If you are using a Red Hat system, you can install Java 17 with <code>sudo yum install java-17-openjdk</code> prior to version 8 and <code>sudo dnf install java-17-openjdk-devel</code> on versions 8+.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+On a standard RHEL/CentOS system, there is no package available via <code>yum</code> to install. We suggest downloading the Oracle installer from <a href="https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html">here</a> and running <code>sudo rpm -Uvh jdk-17_linux-x64_bin.rpm</code> or <code>sudo rpm -Uvh jdk-17_linux-aarch64_bin.rpm</code> (depending on your OS) to install.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>JAVA_HOME</code> environment variable must be set for the user running AVM. On a Red Hat system, the path looks something like <code>/usr/lib/jvm/java-17-openjdk</code>. On a standard RHEL/CentOS system (after running the rpm above), the path looks something like <code>/usr/java/jdk-17.0.4.1</code>. Either way, the variable can be set using the following commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo su - avm
+echo 'export JAVA_HOME=/path/to/java/home' &gt;&gt; ~/.bashrc
+exit</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="install_avm_distribution_tarball">Install AVM Distribution Tarball</h5>
+<div class="paragraph">
+<p>Follow the instructions below to install AVM via the distribution. These instructions assume that you have copied the AVM distribution tarball to the server.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -6082,22 +6210,6 @@ You can check the status of the running server using the <code>bin/status</code>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./bin/stop</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>If you installed via the RPM package, you can either stop the systemd service:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo systemctl stop avm</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>or you can manually stop the distribution:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd /opt/avm/latest
-sudo -u avm bin/start</code></pre>
-</div>
 </div>
 </div>
 <div class="sect3">
@@ -6156,10 +6268,23 @@ All versions from 1.7 onwards have this line already added.
 <div class="title">Tip</div>
 </td>
 <td class="content">
-We recommend running AVM on the default port 8443 and using firewall configuration or a proxy server for SSL (port 443) termination and redirection. AVM does not run on non-SSL ports by default.
+We recommend running AVM on the default port 8443 and using firewall configuration or a proxy server for SSL (port 443) termination and redirection.
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>If required, AVM can be configured to run on a non-SSL port by changing the following properties in <code>$AVM_HOME/etc/org.ops4j.pax.web.cfg</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties"># Enable HTTP (Unsecured)
+org.osgi.service.http.enabled=true
+# Disable HTTPS (Secured)
+org.osgi.service.http.secure.enabled=false
+# Set the HTTP port (Default is usually 8181)
+org.osgi.service.http.port=8181</code></pre>
+</div>
 </div>
 </div>
 <div class="sect4">
@@ -6331,9 +6456,26 @@ systemctl enable avm</code></pre>
 <div class="paragraph">
 <p>Upgrades of the AVM platform are performed via a backup/restore process where a <code>.zip</code> file is created of all the system data of the current installation and loaded into the new version installation. This process will handle any migration steps required when migrating to newer versions. The basic steps are outlined below and are applicable for any upgrades within major version (e.g. 2.1 to 2.4).</p>
 </div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+If restoring from a version prior to 1.22, there are two files which are not included in the backup whose contents will need to be manually updated in the new distribution. The <code>$NEW_AVM_HOME/bin/setenv</code> file contains the Java Max and Min Memory settings that should be updated to the desired levels post upgrade (See <a href="#change_the_default_java_heap_size">Change the Default Java Heap Size</a>). The <code>$NEW_AVM_HOME/etc/com.mobi.platform.server.cfg</code> file holds a variable for the <span class="underline">hostName</span> of the application (See <a href="#set_the_host_name">Set the Host Name</a>). This will need to be manually updated to the previous value to support certain connections with other applications.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="upgrading_via_docker">Upgrading via Docker</h4>
 <div class="paragraph">
 <p>If you installed AVM via Docker, follow the instructions in the <a href="#docker_deployments">Docker Deployments</a> Appendix to upgrade AVM via Docker.</p>
 </div>
+</div>
+<div class="sect3">
+<h4 id="upgrading_via_rpm">Upgrading via RPM</h4>
 <div class="paragraph">
 <p>If you installed AVM via the RPM package, the backup/restore process is performed for you as part of the upgrade.</p>
 </div>
@@ -6355,8 +6497,11 @@ systemctl enable avm</code></pre>
 </li>
 </ol>
 </div>
+</div>
+<div class="sect3">
+<h4 id="upgrading_via_distribution_tarball">Upgrading via Distribution Tarball</h4>
 <div class="paragraph">
-<p>To upgrade AVM when installed directly with the distribution, the basic steps are outlined below and are applicable for any upgrades within major versions (e.g. 2.1 to 2.4).</p>
+<p>To upgrade AVM when installed directly with the distribution tarball, the basic steps are outlined below and are applicable for any upgrades within major versions (e.g. 2.1 to 2.4).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -6419,17 +6564,6 @@ The AVM server can take several seconds to start up. If the <code>client</code> 
 </tr>
 </table>
 </div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Warning</div>
-</td>
-<td class="content">
-If restoring from a version prior to 1.22, There are two files which are not included in the backup whose contents will need to be manually updated in the new distribution. The <code>$NEW_AVM_HOME/bin/setenv</code> file contains the Java Max and Min Memory settings that should be updated to the desired levels post upgrade (See <a href="#change_the_default_java_heap_size">Change the Default Java Heap Size</a>). The <code>$NEW_AVM_HOME/etc/com.mobi.platform.server.cfg</code> file holds a variable for the <span class="underline">hostName</span> of the application (See <a href="#set_the_host_name">Set the Host Name</a>). This will need to be manually updated to the previous value to support certain connections with other applications.
-</td>
-</tr>
-</table>
 </div>
 <div class="sect3">
 <h4 id="upgrading_to_avm_4_x">Upgrading to AVM 4.x</h4>
@@ -10022,7 +10156,7 @@ public ActionDefinition createDefinition(NewAction action) {
 <h2 id="docker_deployments">Appendix G: Docker Deployments</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>AVM can be deployed using Docker. Please contact the AVM team for access to the AVM Docker image. AVM docker images are hosted on a private Docker registry. AVM can be run using the provided <code>docker-compose.yml</code> file. The compose file will start a container for AVM and a container for Dagu to enable <a href="#workflows">Workflows</a>. This file can be customized to fit your needs.</p>
+<p>AVM can be deployed using Docker. AVM Docker images are hosted in our <a href="https://nexus.inovexcorp.com/nexus/#browse/browse:foundry-docker-prod-hosted">Nexus Repository</a>. Please contact your sales and support representative to create you an account to access the image. AVM can be run using the provided <code>docker-compose.yml</code> file. The compose file will start a container for AVM and a container for Dagu to enable <a href="#workflows">Workflows</a>. This file can be customized to fit your needs.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -10030,7 +10164,7 @@ public ActionDefinition createDefinition(NewAction action) {
 services:
   avm:
     container_name: avm
-    image: nexus.inovexcorp.com/foundry-docker-prod-hosted/avm:4.2.0 # image name with tag (It is recommended to pin a version and not use latest)
+    image: nexus.inovexcorp.com/foundry-docker-prod-hosted/avm:4.3.0 # image name with tag (It is recommended to pin a version and not use the latest keyword)
     ports:
       - "443:8443"
     command: bash -c '/opt/avm/avm-distribution/docker/docker-start.sh'
@@ -10047,6 +10181,17 @@ services:
 volumes:
   data:
   etc:</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ensure you can log into the the Nexus repository from your Docker host machine. You can do this by running the following command and entering the Nexus username and password provided by your sales and support representative when prompted:</p>
+</div>
+<div class="paragraph">
+<p>+</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">docker login nexus.inovexcorp.com/foundry-docker-prod-hosted</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -10205,7 +10350,7 @@ unzip ../data_backup_VERSION_TIMESTAMP.zip</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 4.3<br>
-Last updated 2026-01-11 19:41:02 UTC
+Last updated 2026-01-11 19:40:58 UTC
 </div>
 </div>
 <script src="../highlight/highlight.min.js"></script>

@@ -1,0 +1,2411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.23">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+<title>AVM API Guide</title>
+<link rel="stylesheet" href="./../foundation.css">
+<link rel="stylesheet" href="../highlight/styles/github.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+<link rel="stylesheet" href="custom.css">
+<link rel="stylesheet" href="../nav-bar.css">
+<script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Create toggle anchor
+        var target = document.querySelector('#header');
+        var anchor = document.createElement('a');
+        anchor.className = 'tocSwitch fa fa-arrow-up';
+        // Add click listener to the button
+        anchor.addEventListener('click', function (e) {
+            e.stopPropagation();
+            var toc = document.querySelector('#toc');
+            var body = document.querySelector('body');
+            // If the toc is visible
+            if (body.classList.contains('toc2')) {
+                body.classList.remove('toc2');
+                body.classList.remove('toc-left');
+                toc.style.display = 'none';
+                anchor.className = 'tocSwitch fa fa-arrow-down';
+            } else { // If the toc is not visible
+                body.classList.add('toc2');
+                body.classList.add('toc-left');
+                toc.style.display = 'block';
+                anchor.className = 'tocSwitch fa fa-arrow-up';
+            }
+        });
+        // Add anchor to DOM
+        target.appendChild(anchor);
+        // Add window resize listener
+        $(window).resize(function() {
+            var toc = document.querySelector('#toc');
+            var body = document.querySelector('body');
+            // If the window is smaller than 768px, collapse the toc by default
+            if ($(window).width() < 768) {
+                body.classList.remove('toc2');
+                body.classList.remove('toc-left');
+                toc.style.display = 'none';
+                anchor.className = 'tocSwitch fa fa-arrow-down';
+            } else { // If the window is bigger than 768px, keep the toc open
+                body.classList.add('toc2');
+                body.classList.add('toc-left');
+                toc.style.display = 'block';
+                anchor.className = 'tocSwitch fa fa-arrow-up';
+            }
+        });
+        // Add click listener for
+        $('#toc a').click(function() {
+            var toc = document.querySelector('#toc');
+            var body = document.querySelector('body');
+            if ($(window).width() < 768) {
+                body.classList.remove('toc2');
+                body.classList.remove('toc-left');
+                toc.style.display = 'none';
+                anchor.className = 'tocSwitch fa fa-arrow-down';
+            }
+        });
+    });
+</script>
+</head>
+<body class="article toc2 toc-left">
+<div class="nav-bar">
+    <a class="img-link" href="../">
+        <img src="../logo_white_transparent.png" alt="Alternative AVM Logo"/>
+    </a>
+    <input type="checkbox" name="menu-btn" id="menu-btn" value="1" />
+    <label class="menu-icon" for="menu-btn"><i class="fa fa-bars" aria-hidden="true"></i></label>
+    <ul class="nav-items">
+        <li><a href="../latest/index.html">User Manual</a></li>
+        <li><a href="../api-guide/index.html">API Guide</a></li>
+        <li><a href="../release-notes/index.html">Release Notes</a></li>
+        <li><a href="https://help.altair.com/graphstudio/userdoc/Home.htm" target="_blank">Graph Studio Docs</a></li>
+    </ul>
+</div><div id="header">
+<h1>AVM API Guide</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#accessing_the_swagger_documentation">Accessing the Swagger Documentation</a></li>
+<li><a href="#overview">Overview</a>
+<ul class="sectlevel2">
+<li><a href="#authentication">Authentication</a></li>
+<li><a href="#error_handling">Error Handling</a></li>
+<li><a href="#pagination_sorting_and_filtering">Pagination, Sorting, and Filtering</a></li>
+<li><a href="#best_practices_per_endpoint_group">Best Practices Per Endpoint Group</a></li>
+</ul>
+</li>
+<li><a href="#api_recipes">API Recipes</a>
+<ul class="sectlevel2">
+<li><a href="#get_a_records_iri">Get a Record&#8217;s IRI</a></li>
+<li><a href="#get_a_versioned_rdf_records_content">Get a Versioned RDF Record&#8217;s Content</a></li>
+<li><a href="#sparql_queries">SPARQL Queries</a></li>
+<li><a href="#making_commits_to_a_versioned_rdf_record">Making Commits to a Versioned RDF Record</a>
+<ul class="sectlevel3">
+<li><a href="#incremental_updates">Incremental Updates</a></li>
+<li><a href="#all_at_once_updates">All-at-Once Updates</a></li>
+</ul>
+</li>
+<li><a href="#merging_branches">Merging Branches</a></li>
+<li><a href="#creating_and_using_workflows">Creating and Using Workflows</a>
+<ul class="sectlevel3">
+<li><a href="#create_a_workflow">Create a Workflow</a></li>
+<li><a href="#activatedeactivate_a_workflow">Activate/Deactivate a Workflow</a></li>
+<li><a href="#update_a_workflow_definition">Update a Workflow Definition</a></li>
+<li><a href="#manually_initiate_a_workflow_execution">Manually Initiate a Workflow Execution</a></li>
+<li><a href="#retrieving_workflow_provenance_and_logs">Retrieving Workflow Provenance and Logs</a></li>
+</ul>
+</li>
+<li><a href="#creating_and_using_webhooks">Creating and Using Webhooks</a>
+<ul class="sectlevel3">
+<li><a href="#creating_a_webhook">Creating a Webhook</a></li>
+<li><a href="#update_a_webhook_configuration">Update a Webhook Configuration</a></li>
+<li><a href="#retrieving_webhook_execution_history">Retrieving Webhook Execution History</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>AVM is an open and collaborative knowledge graph platform for teams and communities to bridge the gap between your business knowledge and your disparate data silos by easily developing innovative knowledge graph solutions that self-validate and integrate into your complex data systems. This API Guide provides detailed information on how to use the AVM REST API.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="accessing_the_swagger_documentation">Accessing the Swagger Documentation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Every installation of AVM provides <a href="https://swagger.io/">Swagger</a> Documentation for the full suite of AVM REST APIs. This documentation is provided as a standard Swagger YAML file as well as a fully interactive hosted version. The Swagger YAML file can be downloaded at <code>$AVM_HOST/swagger-ui/mobi-swagger.yaml</code>. To reach the Swagger Documentation UI, navigate to <code>$AVM_HOST/swagger-ui/index.html</code>. For example, in a default deployment these URLs would look like <a href="https://localhost:8443/swagger-ui/mobi-swagger.yaml" class="bare">https://localhost:8443/swagger-ui/mobi-swagger.yaml</a> and <a href="https://localhost:8443/swagger-ui/index.html" class="bare">https://localhost:8443/swagger-ui/index.html</a>, respectively. If the browser session is already logged into AVM, there is no need to click the Authorize button.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="images/swagger-docs.png" alt="Swagger REST API Documentation">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview">Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All operations performed by the AVM UI are exposed through the AVM REST API. Below are some overarching principles for using the API:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>All endpoints are accessible from the base path of <code>$AVM_HOST/mobirest</code>.</p>
+</li>
+<li>
+<p>The majority of the endpoints utilize the <a href="https://json-ld.org/">JSON-LD</a> (JSON for Linking Data) as the primary format for data exchange. Any JSON-LD data returned will be in the expanded format. Any endpoints that utilize a specialized JSON format or other data formats will be clearly documented.</p>
+</li>
+<li>
+<p>All returned dates will be in the ISO 8601 format.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="authentication">Authentication</h3>
+<div class="paragraph">
+<p>AVM uses Cookie-based Authentication with <a href="https://www.jwt.io/">JWT (JSON Web Tokens)</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Authentication">Basic Authentication</a> for secure access to the API.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To obtain a valid authentication token, send a <strong>POST</strong> request to <code>$AVM_HOST/mobirest/session</code> with your username and password and the response will provide a cookie called <code>mobi_web_token</code> that can be used for subsequent requests.</p>
+</li>
+<li>
+<p>To logout, send a <strong>DELETE</strong> request to <code>$AVM_HOST/mobirest/session</code>.</p>
+</li>
+<li>
+<p>Basic Authentication support follows all standard practices for HTTP Basic Authentication. Include the username and password in the <code>Authorization</code> header of the request in the format <code>Basic &lt;CREDENTIALS&gt;</code>. The credentials should be the Base64 encoded form of <code>username:password</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For more information on how to use the API, please refer to the Swagger documentation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="error_handling">Error Handling</h3>
+<div class="paragraph">
+<p>Errors returned by the API typically follow a standard structure defined by the <code>RESTError</code> interface as described in the Swagger documentation. The body of the error response will contain the error details in JSON format.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "error": "Error Type or Code",
+  "errorMessage": "A human-readable description of the error.",
+  "errorDetails": [] // Optional array of detailed error strings
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Common HTTP Status Codes you will encounter are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>200 OK</code>: Request succeeded.</p>
+</li>
+<li>
+<p><code>400 Bad Request</code>: Invalid input or validation failure.</p>
+</li>
+<li>
+<p><code>401 Unauthorized</code>: Missing or invalid authentication token.</p>
+</li>
+<li>
+<p><code>403 Forbidden</code>: Authenticated user lacks permission for the resource.</p>
+</li>
+<li>
+<p><code>404 Not Found</code>: Resource does not exist.</p>
+</li>
+<li>
+<p><code>500 Internal Server Error</code>: Server-side error.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pagination_sorting_and_filtering">Pagination, Sorting, and Filtering</h3>
+<div class="paragraph">
+<p>Many "list" endpoints support standard query parameters for pagination and sorting.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>limit</code>: (Integer) Number of results to return.</p>
+</li>
+<li>
+<p><code>offset</code>: (Integer) Number of results to skip (0-based).</p>
+</li>
+<li>
+<p><code>sort</code>: (String) Property IRI to sort by (e.g., <code>&lt;http://purl.org/dc/terms/title&gt;</code>).</p>
+</li>
+<li>
+<p><code>ascending</code>: (Boolean) true for ascending order, false for descending.</p>
+</li>
+<li>
+<p><code>searchText</code>: (String) General text search filter.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Responses from these paginated endpoints will include the following response headers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>x-total-count</code>: Total number of records matching the query (useful for calculating total pages).</p>
+</li>
+<li>
+<p><code>link</code>: Links to next/previous pages (RFC 5988 style).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="best_practices_per_endpoint_group">Best Practices Per Endpoint Group</h3>
+<div class="paragraph">
+<p>This section provides some generate best practices for the different tagged groups of endpoints as seen in the Swagger documentation.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>User Management</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="underline">Validation</span>: Validate inputs (email formats, password strength) on the client side before sending them to the API to reduce unnecessary server load and 400 Bad Request errors.</p>
+</li>
+<li>
+<p><span class="underline">Security</span>: Never log or expose user passwords. Ensure all user management traffic happens over HTTPS.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>SPARQL</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="underline">Request Method</span>: Use <strong>POST</strong> for SPARQL queries whenever possible. <strong>GET</strong> requests have URL length limits that complex SPARQL queries easily exceed.</p>
+</li>
+<li>
+<p><span class="underline">Performance</span>: Use the <code>LIMIT</code> clause in your SPARQL queries to prevent fetching massive result sets that can crash the browser or overload the server.</p>
+</li>
+<li>
+<p><span class="underline">Injection Safety</span>: Sanitize any user input injected into SPARQL query strings. Avoid direct string concatenation if possible, or validate inputs strictly to prevent SPARQL injection attacks.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Ontologies</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="underline">Large Files</span>: When uploading large ontologies, compress them (e.g., into a <code>.zip</code> file) to reduce network latency and transfer time. The API supports zipped uploads.</p>
+</li>
+<li>
+<p><span class="underline">Caching</span>: Only use <code>clearCache=true</code> when absolutely necessary (e.g., debugging specific inconsistency issues). Clearing the cache degrades performance for subsequent requests as the ontology must be reloaded and reasoned over.</p>
+</li>
+<li>
+<p><span class="underline">In-Progress Commits</span>: Use <code>applyInProgressCommit=true</code> when you want to see the "draft" state of the ontology currently being edited by the user. Use <code>false</code> to see the last persisted state.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Shapes Graphs (SHACL)</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="underline">Validation</span>: Use <code>getNodeShapes</code> to retrieve form definitions. This allows you to dynamically build UI forms that comply with the SHACL constraints defined in the graph.</p>
+</li>
+<li>
+<p><span class="underline">Dependencies</span>: When updating a shapes graph, be aware of other records (like Datasets or Workflows) that depend on these shapes for validation or UI generation.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Mappings</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="underline">Preview First</span>: Before committing a mapping or performing a full download, use the preview functionality (if available via other endpoints or client-side logic) to verify the mapping produces the expected RDF structure.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Merge Requests</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="underline">Duplicate Checks</span>: Before creating a new Merge Request, query existing requests (<code>getRequests</code>) to ensure a request for the same source/target branch and record doesn&#8217;t already exist.</p>
+</li>
+<li>
+<p><span class="underline">Descriptive Titles</span>: Encourage descriptive titles and descriptions for Merge Requests to help reviewers understand the context of the changes.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Workflows</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="underline">Real-time Monitoring</span>: Do not poll the execution status endpoint frequently. Instead, subscribe to the Server-Sent Events (<code>/sse-stream</code>) to receive real-time updates on workflow activity start/stop events.</p>
+</li>
+<li>
+<p><span class="underline">Log Management</span>: Only fetch full logs when requested by the user. Logs can be large; utilize the preview or specific log file endpoints to save bandwidth.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Settings</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="underline">Defaults</span>: Always have a fallback mechanism in your client code if a specific setting is missing or fails to load.</p>
+</li>
+<li>
+<p><span class="underline">Type Safety</span>: Use the correct Setting Type IRI when querying to ensure you retrieve the expected configuration group.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Provenance</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="underline">Filtering</span>: Always use the entity or agent filters when querying activities. The unfiltered list can be extremely large and slow to retrieve.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Record Permissions</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="underline">Verification</span>: Before attempting to modify a record, check the user&#8217;s permissions (often returned in the record metadata or checkable via this endpoint) to enable/disable UI controls appropriately.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Server-Sent Events(SSE)</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="underline">Reconnection</span>: Implement automatic reconnection logic with exponential backoff on the client side, as connections can be dropped intermittently.</p>
+</li>
+<li>
+<p><span class="underline">Filtering</span>: The stream sends all events. Filter on the client side based on the event type relevant to your context (e.g., <code>com/mobi/workflows/&#8230;&#8203;</code>).</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="api_recipes">API Recipes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section outlines common workflows and use cases when utilizing the API that often involve more than one endpoint and passing data between responses and requests. All referenced endpoints should be prefixed with <code>$AVM_HOST/mobirest</code>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+If there&#8217;s a recipe you would like to see, please submit a help desk ticket and we can add it to the documentation!
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="get_a_records_iri">Get a Record&#8217;s IRI</h3>
+<div class="paragraph">
+<p>Many of the Record specific endpoints require the IRI (Internationalized Resource Identifier) of the record as a parameter. This IRI is typically returned when you first create or retrieve a record, and it&#8217;s used to uniquely identify that record in the system. There are multiple ways to retrieve these IRIs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Option 1: Copy the IRI via the AVM UI</strong></p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the AVM UI, navigate to the Catalog module.</p>
+</li>
+<li>
+<p>Search for the title of the Record you wish to identify. Hover over the title of the Record and click to copy the Record IRI or click the copy button next to the title.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><strong>Option 2: Search for the Record via the API</strong> This option involves making a search query against all the Records in AVM. This search text could be one of the keywords on the Record or a key phrase in the description or in the title. We also filter the list down to only the Ontology Records.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Execute a <strong>GET</strong> request to <code>/catalogs/http%3A%2F%2Fmobi.com%2Fcatalog-local/records</code> with the following query parameters to retrieve a JSON-LD array of all the Records that match the search text you provide.</p>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Parameter Name</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The URL-encoded IRI of the type of Record you want to retrieve. Eg. to get Ontology Records, use <code>http%3A%2F%2Fmobi.com%2Fontologies%2Fontology-editor%23OntologyRecord</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>searchText</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The text to search for in the Record titles and descriptions.</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Find the JSON-LD object for your Ontology Record in the response and copy the value of <code>@id</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This response will also provide all the other metadata about a Record, such as its description, keywords, last modified date, and so on.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="get_a_versioned_rdf_records_content">Get a Versioned RDF Record&#8217;s Content</h3>
+<div class="paragraph">
+<p>Once you have the IRI of a Versioned RDF Record (like an Ontology or Shapes Graph), you can retrieve its content by making a <strong>GET</strong> request to the endpoint that corresponds to the type of Record you are trying to retrieve. In all endpoints below, replace <code>{ENCODED_RECORD_IRI}</code> with the URL-encoded version of the IRI of the Record you want to retrieve.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Ontology Record:</strong> <code>/ontologies/{ENCODED_RECORD_IRI}</code></p>
+</li>
+<li>
+<p><strong>Shapes Graph:</strong> <code>/shapes/{ENCODED_RECORD_IRI}</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Depending on the version of the Record you are trying to retrieve, the steps vary slightly as detailed below.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+To specify the RDF format for the ontology data, use the <code>format</code> query parameter with one of the following options: <code>jsonld</code>, <code>rdf/xml</code>, or <code>turtle</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Option 1: Latest Commit of MASTER</strong> No other query parameters are required. Make the call as outlined above.</p>
+</li>
+<li>
+<p><strong>Option 2: Latest Commit on a Particular Branch</strong> You will need to get the IRI of the intended Branch</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Make a <strong>GET</strong> call to <code>/catalogs/http%3A%2F%2Fmobi.com%2Fcatalog-local/records/{ENCODED_RECORD_IRI}/branches</code> to retrieve a JSON-LD array of the record branch IRIs.</p>
+</li>
+<li>
+<p>Find the JSON-LD object of the intended Branch in the response and copy the value of <code>@id</code>.</p>
+</li>
+<li>
+<p>Provide the encoded Branch IRI as the value of the <code>branchId</code> query parameter in your call to retrieve the Record&#8217;s data.</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sparql_queries">SPARQL Queries</h3>
+<div class="paragraph">
+<p>All SPARQL queries in the AVM API are made against the <code>/sparql</code> endpoint, with the path specifying which type of "store" you want to query.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>repository</code> - Query a repository (i.e. triple store) configured in AVM identified by an IRI in the form <code>https://mobi.solutions/repos/{REPO_ID}</code></p>
+</li>
+<li>
+<p><code>dataset-record</code> - Query a Dataset Record identified by its Record IRI</p>
+</li>
+<li>
+<p><code>ontology-record</code> - Query an Ontology Record identified by its Record IRI</p>
+</li>
+<li>
+<p><code>shapes-graph-record</code> - Query a Shapes Graph Record identified by its Record IRI</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Once you have identified the resource you want to query, you can construct your SPARQL query and make a <strong>POST</strong> request to the <code>/sparql/{STORE_TYPE}/{IDENTIFIER}</code> endpoint with the query as the request body with the <code>Content-Type</code> header set to <code>application/sparql-query</code>. To change the result format, you can add a <code>Accept</code> header to the request with the following options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>SELECT</code> queries</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>application/sparql-results+json</code></p>
+</li>
+<li>
+<p><code>text/csv</code></p>
+</li>
+<li>
+<p><code>text/tab-separated-values</code></p>
+</li>
+<li>
+<p><code>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</code> (returns an Excel file)</p>
+</li>
+<li>
+<p><code>application/json</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CONSTRUCT</code> queries</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>application/ld+json</code></p>
+</li>
+<li>
+<p><code>application/rdf+xml</code></p>
+</li>
+<li>
+<p><code>text/turtle</code></p>
+</li>
+<li>
+<p><code>application/json</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To download the results of the query as a file, specify the file name in the <code>fileName</code> query parameter and the desired result format as the <code>fileType</code> query parameter with the following file extension options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>SELECT</code> queries</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>json</code></p>
+</li>
+<li>
+<p><code>csv</code></p>
+</li>
+<li>
+<p><code>tsv</code></p>
+</li>
+<li>
+<p><code>xlsx</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>CONSTRUCT</code> queries</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>json</code></p>
+</li>
+<li>
+<p><code>xml</code></p>
+</li>
+<li>
+<p><code>ttl</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+If you are querying a Versioned RDF Record type like an Ontology or Shapes Graph, make sure to include the <code>branchId</code> or <code>commitId</code> query parameters as appropriate to specify the version you want to query. To query the latest Commit on the MASTER branch, you can omit those parameters. To include your user&#8217;s in progress changes, use the <code>applyInProgressCommit=true</code> query parameter. You can also optionally include imported data by using the <code>includeImports=true</code> query parameter.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="making_commits_to_a_versioned_rdf_record">Making Commits to a Versioned RDF Record</h3>
+<div class="paragraph">
+<p>Within the AVM versioning system, every Commit to a Versioned RDF Record (such as an Ontology or Shapes Graph) starts as what is called an "In Progress Commit". This is a temporary state that allows you to make changes to the Record without affecting the published version. Once you are satisfied with the changes, you can finalize the changes by turning the In Progress Commit into a final immutable Commit. A user can only have one In Progress Commit per Record at a time.</p>
+</div>
+<div class="paragraph">
+<p>An In Progress Commit is made up of the additions and deletions to be applied to the Record. This can either be built incrementally or all at once with an "upload changes" action. The workflows for each are described below.</p>
+</div>
+<div class="sect3">
+<h4 id="incremental_updates">Incremental Updates</h4>
+<div class="paragraph">
+<p>Incremental updates are performed via <strong>PUT</strong> requests against the <code>/catalogs/http%3A%2F%2Fmobi.com%2Fcatalog-local/records/{ENCODED_RECORD_IRI}/in-progress-commit</code> endpoint containing the triples you wish to include as additions and deletions in your Commit. This endpoint will create an In Progress Commit if the requesting user does not already have one and otherwise will simply update the existing In Progress Commit. The request takes URL Encoded Form Data with the following fields</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>additions</code> - A JSON-LD array of the triples to be added to the compiled resource</p>
+</li>
+<li>
+<p><code>deletions</code> - A JSON-LD array of the triples to be removed from the compiled resource</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Repeated <strong>PUT</strong> requests are additive and will continue to combine the existing additions and deletions associated with the In Progress Commit with the new data provided in the request. To "clear" what is currently within the In Progress Commit, you can make a <strong>DELETE</strong> request against the same endpoint.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="all_at_once_updates">All-at-Once Updates</h4>
+<div class="paragraph">
+<p>Performing an "All-at-once" is generally called "Uploading Changes" within the AVM UI. This path does not require you to have made an In Progress Commit ahead of time unlike incremental updates. This functionality is available via a <strong>PUT</strong> request against the following base URLs for the listed types of Versioned RDF Records:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ontology Records - <code>/mobirest/ontologies/{ENCODED_RECORD_IRI}</code></p>
+</li>
+<li>
+<p>Shapes Graph Records - <code>/mobirest/shapes-graphs/{ENCODED_RECORD_IRI}</code></p>
+</li>
+<li>
+<p>Workflow Records - <code>/mobirest/workflows/{ENCODED_RECORD_IRI}</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each endpoint accepts optional query parameters for <code>branchId</code> and <code>commitId</code> to specify the version of the Record&#8217;s compiled resource to compare against. The absence of these parameters means it will compare against the head Commit of the MASTER Branch. The new data should be provided via a <code>file</code> field in URL Encoded Form Data.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+All endpoints will throw an error if the user making the request already has an In Progress Commit for the specified Record. You must either commit those changes or discard them before making a new request.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To finalize the changes once they have been uploaded, make a <strong>POST</strong> request against <code>/mobirest/catalogs/http%3A%2F%2Fmobi.com%2Fcatalog-local/records/{ENCODED_RECORD_IRI}/branches/{ENCODED_BRANCH_IRI}/commits</code> with a <code>message</code> query parameter containing text you would like to associate with the immutable Commit being made.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="merging_branches">Merging Branches</h3>
+<div class="paragraph">
+<p>A merge between branches is made by making a special commit on the "target" Branch that is linked to the head Commit of the "source" Branch. Performing the merge requires identifying the IRIs of the source Branch and target Branch in question, checking for any conflicts between the version history of the two Branches, and then hitting a dedicated endpoint to create the merge Commit. Conflicts are resolved by inverting the changes you don&#8217;t want for each conflicting scenario in the merge Commit delta.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Identifying Branch IRIs</strong> - You can either copy the Branch IRIs from the UI, or you can make a REST request to fetch the IRIs from the Branch JSON-LD definitions.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>Option 1: Copy the IRI from the UI</strong></p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>In the AVM UI, navigate to the Catalog module.</p>
+</li>
+<li>
+<p>Search for the title of the Record with the Branches. Click on <b class="button">View</b> for that Record.</p>
+</li>
+<li>
+<p>In the Record view, click on the <b class="button">Branches</b> tab. Identify the Branches in question and click on their titles to copy the IRI.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><strong>Option 2: Fetch the IRI via REST API</strong></p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Make a <strong>GET</strong> request to <code>/catalogs/http%3A%2F%2Fmobi.com%2Fcatalog-local/records/{ENCODED_RECORD_IRI}/branches</code></p>
+</li>
+<li>
+<p>Search for the JSON object with a <code>http://purl.org/dc/terms/title</code> value matching the Branch in question. Copy the <code>@id</code> value to get the IRI</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><strong>Checking for Conflicts</strong></p>
+</li>
+<li>
+<p>Make a <strong>GET</strong> request to <code>/catalogs/http%3A%2F%2Fmobi.com%2Fcatalog-local/records/{ENCODED_RECORD_IRI}/branches/{ENCODED_BRANCH_IRI}/conflicts</code> with the encoded IRI of the target Branch in the <code>targetId</code> query parameter</p>
+</li>
+<li>
+<p>If the response is empty, there are no conflicts and you can proceed to Step 3</p>
+</li>
+<li>
+<p>If the response is not empty for each object in the array, decide whether to keep the additions and deletions listed for the <code>left</code> (i.e. the target Branch) or for the <code>right</code> (i.e. the source Branch). Which ever you choose, take the additions and deletions <span class="underline">from the other "side"</span> and keep for Step 3</p>
+</li>
+<li>
+<p><strong>Creating the Merge Commit</strong></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Make a <strong>POST</strong> request to <code>/catalogs/http%3A%2F%2Fmobi.com%2Fcatalog-local/records/{ENCODED_RECORD_IRI}/branches/{ENCODED_BRANCH_IRI}/conflicts</code> with the encoded IRI of the target Branch in the <code>targetId</code> query parameter. Provide the following URL Encoded Form Data:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><code>conflicts</code> - The exact JSON response you received from Step 2, even if it was empty</p>
+</li>
+<li>
+<p><code>additions</code> - The combined <code>deletions</code> from all the identified <span class="underline">other "sides"</span> from each conflict</p>
+</li>
+<li>
+<p><code>deletions</code> - The combined <code>additions</code> from all the identified <span class="underline">other "sides"</span> from each conflict</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creating_and_using_workflows">Creating and Using Workflows</h3>
+<div class="paragraph">
+<p>Complete management and execution of Workflows can be accomplished through the AVM UI, but is also possible through the extensive REST API suite. Common flows when maintaining Workflows are described below.</p>
+</div>
+<div class="sect3">
+<h4 id="create_a_workflow">Create a Workflow</h4>
+<div class="paragraph">
+<p>To create a workflow, follow the steps below.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a file containing the RDF definition of your Workflow. An example file is shown below.</p>
+<div class="listingblock">
+<div class="title">workflow.ttl</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt;.
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;.
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;.
+@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt;.
+@prefix w: &lt;http://mobi.solutions/ontologies/workflows#&gt;.
+@prefix : &lt;https://mobi.solutions/test#&gt;.
+@base &lt;https://mobi.solutions/test&gt;.
+
+:WorkflowA a w:Workflow ;
+    w:hasAction :TestActionA .
+
+:TestActionA a w:TestAction, w:Action ;
+    w:testMessage "This is a test." .</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Send a <strong>POST</strong> request to <code>/workflows</code> with the following form data contents. The response from this endpoint will include the IRI of the newly created Workflow Record, which will the unique identifier for your Workflow needed for any further requests.</p>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Parameter</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>file</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The required binary RDF file containing your workflow definition</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The required title for the Workflow Record you are creating</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An optional description for the Workflow Record you are creating</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>markdown</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An optional markdown overview of the Workflow Record you are creating</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>keywords</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An optional list of keywords to associate with the Workflow Record you are creating</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Once created, the Workflow Record will appear in the Catalog UI in the application so record metadata and permissions can be adjusted from there.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="activatedeactivate_a_workflow">Activate/Deactivate a Workflow</h4>
+<div class="paragraph">
+<p>When a Workflow Record is first created, it is inactive to start, meaning that even manually initiating an execution will not succeed. This is done to ensure that all required edits to the Workflow can be performed without fear of it executing before the changes are complete. To activate a Workflow and enable it to run, you will need to update the Workflow Record metadata following the steps below.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Send a <strong>GET</strong> request to <code>/catalogs/http%3A%2F%2Fmobi.com%2Fcatalog-local/records/{ENCODED_RECORD_IRI}</code> where <code>ENCODED_RECORD_IRI</code> is replaced by the URL encoded version of the IRI of the target Workflow Record. This will return the full JSON-LD of your Workflow&#8217;s metadata, which should look like below.</p>
+<div class="listingblock">
+<div class="title">Example Workflow Record JSON-LD</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">[
+    {
+        "@id": "https://mobi.com/records#19ee2b35-aa29-4a86-a0b1-892633b1d0bc",
+        "@type": [
+            "http://www.w3.org/2002/07/owl#Thing",
+            "http://mobi.solutions/ontologies/workflows#WorkflowRecord",
+            "http://mobi.com/ontologies/catalog#VersionedRecord",
+            "http://mobi.com/ontologies/catalog#VersionedRDFRecord",
+            "http://mobi.com/ontologies/catalog#Record"
+        ],
+        "http://mobi.com/ontologies/catalog#branch": [
+            {
+                "@id": "https://mobi.com/branches#19b8cc92-00a9-4594-b759-8565d2f0537a"
+            }
+        ],
+        "http://mobi.com/ontologies/catalog#catalog": [
+            {
+                "@id": "http://mobi.com/catalog-local"
+            }
+        ],
+        "http://mobi.com/ontologies/catalog#masterBranch": [
+            {
+                "@id": "https://mobi.com/branches#19b8cc92-00a9-4594-b759-8565d2f0537a"
+            }
+        ],
+        "http://mobi.solutions/ontologies/workflows#active": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#boolean",
+                "@value": "true"
+            }
+        ],
+        "http://mobi.solutions/ontologies/workflows#latestActivity": [
+            {
+                "@id": "http://mobi.com/activities/2001f136-5a37-47f2-95b0-ec3f083d634a"
+            }
+        ],
+        "http://mobi.solutions/ontologies/workflows#workflowIRI": [
+            {
+                "@id": "http://test.com/workflows-example#WorkflowB"
+            }
+        ],
+        "http://purl.org/dc/terms/issued": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+                "@value": "2023-09-15T08:55:30.954519-04:00"
+            }
+        ],
+        "http://purl.org/dc/terms/modified": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+                "@value": "2023-09-15T08:57:28.801002-04:00"
+            }
+        ],
+        "http://purl.org/dc/terms/publisher": [
+            {
+                "@id": "http://mobi.com/users/d033e22ae348aeb5660fc2140aec35850c4da997"
+            }
+        ],
+        "http://purl.org/dc/terms/title": [
+            {
+                "@value": "Workflow B"
+            }
+        ]
+    }
+]</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Copy the returned JSON-LD. Send a <strong>PUT</strong> request to <code>/catalogs/http%3A%2F%2Fmobi.com%2Fcatalog-local/records/{ENCODED_RECORD_IRI}</code>. Then paste the Record JSON-LD into the body of the request and change the <code>@value</code> value of <code>http://mobi.solutions/ontologies/workflows#active</code> to the desired activation state (<code>true</code> for active and <code>false</code> for inactive).</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="update_a_workflow_definition">Update a Workflow Definition</h4>
+<div class="paragraph">
+<p>Workflows are managed by Workflow Records, which are types of Versioned RDF Records. This means that all changes to the definition of the Workflow must go through the standard graph-versioning flow in order for the changes to be recognized by the system. Thus, to update the definition of a Workflow, you will need to first create an In Progress Commit with the changes and then commit those changes to the MASTER branch. This can be done by either uploading a new version of the workflow as a file or manually creating an in progress commit with the added and deleted triples. Regardless of which option you choose, you will need to follow steps similar to those below.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Make a <strong>GET</strong> request to <code>/catalogs/http%3A%2F%2Fmobi.com%2Fcatalog-local/records/{ENCODED_RECORD_IRI}/branches/master</code> where <code>ENCODED_RECORD_IRI</code> is replaced by the URL encoded version of the IRI of the target Workflow Record. This will return the full JSON-LD of the MASTER Branch of the Workflow Record. We will need both the IRI of the Branch and the IRI of the head Commit for the subsequent requests. An example response is shown below.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+    "@id": "https://mobi.com/branches#19b8cc92-00a9-4594-b759-8565d2f0537a",
+    "@type": [
+        "http://www.w3.org/2002/07/owl#Thing",
+        "http://mobi.com/ontologies/catalog#Branch"
+    ],
+    "http://mobi.com/ontologies/catalog#head": [
+        {
+            "@id": "https://mobi.com/commits#d78190647e4e9b2e8555c036349fbf8928417c50"
+        }
+    ],
+    "http://purl.org/dc/terms/description": [
+        {
+            "@value": "The master branch."
+        }
+    ],
+    "http://purl.org/dc/terms/issued": [
+        {
+            "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "@value": "2023-09-15T08:55:30.955812-04:00"
+        }
+    ],
+    "http://purl.org/dc/terms/modified": [
+        {
+            "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "@value": "2023-09-15T08:55:31.003336-04:00"
+        }
+    ],
+    "http://purl.org/dc/terms/publisher": [
+        {
+            "@id": "http://mobi.com/users/d033e22ae348aeb5660fc2140aec35850c4da997"
+        }
+    ],
+    "http://purl.org/dc/terms/title": [
+        {
+            "@value": "MASTER"
+        }
+    ]
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Make a <strong>GET</strong> request to <code>/commits/{ENCODED_COMMIT_IRI}/resource</code> where <code>ENCODED_COMMIT_IRI</code> is replaced by the URL encoded version of the IRI of the head Commit retrieved from the last call. This will return the compiled RDF of the latest/current version of the Workflow definition. An example response is below.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">[
+    {
+        "@id": "http://test.com/workflows-example#WorkflowB",
+        "@type": [
+            "http://mobi.solutions/ontologies/workflows#Workflow"
+        ],
+        "http://mobi.solutions/ontologies/workflows#hasAction": [
+            {
+                "@id": "http://test.com/workflows-example#WorkflowBAction"
+            }
+        ]
+    },
+    {
+        "@id": "http://test.com/workflows-example#WorkflowBAction",
+        "@type": [
+            "http://mobi.solutions/ontologies/workflows#Action",
+            "http://mobi.solutions/ontologies/workflows#TestAction"
+        ],
+        "http://mobi.solutions/ontologies/workflows#testMessage": [
+            {
+                "@value": "This is a test from Workflow B"
+            }
+        ]
+    }
+]</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Here you can either manually update the In Progress Commit with the added and deleted statements or upload a new version of the workflow.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>To manually update the In Progress Commit, make a <strong>PUT</strong> request to <code>/catalogs/http%3A%2F%2Fmobi.com%2Fcatalog-local/records/{ENCODED_RECORD_IRI}/in-progress-commit</code> where <code>ENCODED_RECORD_IRI</code> is replaced by the URL encoded version of the IRI of the target Workflow Record with the following form data contents. If successful, the endpoint will return an empty 200 response.</p>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Parameter</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>additions</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The new desired Workflow definition in JSON-LD RDF format</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>deletions</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The contents of the previous compiled resource call with the full JSON-LD of the current Workflow RDF definition</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>To upload a new version of the workflow, make a <strong>PUT</strong> request to <code>/workflows/{ENCODED_RECORD_IRI}</code> where <code>ENCODED_RECORD_IRI</code> is replaced by the URL encoded version of the IRI of the target Workflow Record with the following form data contents. If successful, the endpoint will return an empty 200 response. If the Workflow definition is invalid, the endpoint will return a 400 response with the Turtle serialization of the SHACL validation report in the body.</p>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Parameter</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>file</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The file with the new version of the Workflow definition.</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Make a <strong>POST</strong> REST request to <code>/catalogs/http%3A%2F%2Fmobi.com%2Fcatalog-local/records/{ENCODED_RECORD_IRI}/branches/{ENCODED_BRANCH_IRI}/commits</code> where <code>ENCODED_RECORD_IRI</code> is replaced by the URL encoded version of the IRI of the target Workflow Record and <code>ENCODED_BRANCH_IRI</code> is replaced the URL encoded version of the IRI of the MASTER Branch of the Workflow Record. This will commit the changes you created/uploaded in the previous call to the system and update the associated trigger service if appropriate. The response from this endpoint will be the IRI of the newly created Commit.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="manually_initiate_a_workflow_execution">Manually Initiate a Workflow Execution</h4>
+<div class="paragraph">
+<p>Workflows can be configured with automated triggers that will initiate executions, but a Workflow can always be triggered manually following the steps below.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Send a <strong>POST</strong> REST request to <code>/workflows/{ENCODED_RECORD_IRI}/executions</code> where <code>ENCODED_RECORD_IRI</code> is replaced by the URL encoded version of the IRI of the target Workflow Record. This will initiate an execution of the target Workflow in an asynchronous process and provide the IRI of the generated <code>w:WorkflowExecutionActivity</code> in the response to be used in subsequent calls to fetch the status and logs.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="retrieving_workflow_provenance_and_logs">Retrieving Workflow Provenance and Logs</h4>
+<div class="paragraph">
+<p>As Workflows are executed, provenance is tracked for each execution along with logs with more details about the complete workflow execution and each individual action. This can all be retrieved via various REST endpoints provided by the platform. Common scenarios are described below with the appropriate REST endpoints.</p>
+</div>
+<div class="sect4">
+<h5 id="retrieve_workflow_activity">Retrieve Workflow Activity</h5>
+<div class="paragraph">
+<p>Send a <strong>GET</strong> request to <code>/workflows/{ENCODED_RECORD_IRI}/executions/{ACTIVITY_ID}</code> where <code>ENCODED_RECORD_IRI</code> is replaced by the URL encoded version of the IRI of the target Workflow Record and <code>ACTIVITY_ID</code> is either replaced by <code>latest</code>, to get the latest execution details, or the URL encoded version of the IRI of a specific <code>w:WorkflowExecutionActivity</code>. The response will be the full JSON-LD of the <code>w:WorkflowExecutionActivity</code> requested. An example response is shown below.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example Workflow Activity JSON-LD</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+    "@id": "http://mobi.com/activities/2001f136-5a37-47f2-95b0-ec3f083d634a",
+    "@type": [
+        "http://www.w3.org/ns/prov#Activity",
+        "http://mobi.solutions/ontologies/workflows#WorkflowExecutionActivity",
+        "http://www.w3.org/2002/07/owl#Thing"
+    ],
+    "http://mobi.solutions/ontologies/workflows#logs": [
+        {
+            "@id": "https://mobi.solutions/workflows/log-files/agent_98d3918e09cf5791eee7ad55c6ac67cadbab484e.20230915.14:42:49.158.cbfd8c5c.log"
+        }
+    ],
+    "http://mobi.solutions/ontologies/workflows#succeeded": [
+        {
+            "@type": "http://www.w3.org/2001/XMLSchema#boolean",
+            "@value": "true"
+        }
+    ],
+    "http://www.w3.org/ns/prov#endedAtTime": [
+        {
+            "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "@value": "2023-09-15T14:42:59.176399-04:00"
+        }
+    ],
+    "http://www.w3.org/ns/prov#startedAtTime": [
+        {
+            "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "@value": "2023-09-15T14:42:48.974369-04:00"
+        }
+    ],
+    "http://www.w3.org/ns/prov#used": [
+        {
+            "@id": "https://mobi.com/records#19ee2b35-aa29-4a86-a0b1-892633b1d0bc"
+        }
+    ],
+    "http://www.w3.org/ns/prov#wasAssociatedWith": [
+        {
+            "@id": "http://mobi.com/users/d033e22ae348aeb5660fc2140aec35850c4da997"
+        }
+    ]
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="retrieve_all_workflow_activities">Retrieve All Workflow Activities</h5>
+<div class="paragraph">
+<p>Send a <strong>GET</strong> request to <code>/provenance</code> and provide the URL encoded version of the IRI of the target Workflow Record as the value of the <code>entity</code> query parameters. The response will be a JSON object containing a key called <code>activities</code>, which will include a sorted array of all the provenance activities about the target Workflow Record, including all <code>w:WorkflowExecutionActivity</code> and the initial creation activity. An example response is shown below.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example Full Workflow Activities</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+    "activities": [
+        {
+            "@id": "http://mobi.com/activities/2001f136-5a37-47f2-95b0-ec3f083d634a",
+            "@type": [
+                "http://www.w3.org/ns/prov#Activity",
+                "http://mobi.solutions/ontologies/workflows#WorkflowExecutionActivity",
+                "http://www.w3.org/2002/07/owl#Thing"
+            ],
+            "http://mobi.solutions/ontologies/workflows#logs": [
+                {
+                    "@id": "https://mobi.solutions/workflows/log-files/agent_98d3918e09cf5791eee7ad55c6ac67cadbab484e.20230915.14:42:49.158.cbfd8c5c.log"
+                }
+            ],
+            "http://mobi.solutions/ontologies/workflows#succeeded": [
+                {
+                    "@type": "http://www.w3.org/2001/XMLSchema#boolean",
+                    "@value": "true"
+                }
+            ],
+            "http://www.w3.org/ns/prov#endedAtTime": [
+                {
+                    "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "@value": "2023-09-15T14:42:59.176399-04:00"
+                }
+            ],
+            "http://www.w3.org/ns/prov#startedAtTime": [
+                {
+                    "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "@value": "2023-09-15T14:42:48.974369-04:00"
+                }
+            ],
+            "http://www.w3.org/ns/prov#used": [
+                {
+                    "@id": "https://mobi.com/records#19ee2b35-aa29-4a86-a0b1-892633b1d0bc"
+                }
+            ],
+            "http://www.w3.org/ns/prov#wasAssociatedWith": [
+                {
+                    "@id": "http://mobi.com/users/d033e22ae348aeb5660fc2140aec35850c4da997"
+                }
+            ]
+        },
+        {
+            "@id": "http://mobi.com/activities/86c8db82-066d-4531-8526-2f6c39556567",
+            "@type": [
+                "http://www.w3.org/ns/prov#Activity",
+                "http://mobi.solutions/ontologies/workflows#WorkflowExecutionActivity",
+                "http://www.w3.org/2002/07/owl#Thing"
+            ],
+            "http://mobi.solutions/ontologies/workflows#logs": [
+                {
+                    "@id": "https://mobi.solutions/workflows/log-files/agent_98d3918e09cf5791eee7ad55c6ac67cadbab484e.20230915.13:19:53.994.67ebcf55.log"
+                }
+            ],
+            "http://mobi.solutions/ontologies/workflows#succeeded": [
+                {
+                    "@type": "http://www.w3.org/2001/XMLSchema#boolean",
+                    "@value": "true"
+                }
+            ],
+            "http://www.w3.org/ns/prov#endedAtTime": [
+                {
+                    "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "@value": "2023-09-15T09:20:04.09355-04:00"
+                }
+            ],
+            "http://www.w3.org/ns/prov#startedAtTime": [
+                {
+                    "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "@value": "2023-09-15T09:19:53.86763-04:00"
+                }
+            ],
+            "http://www.w3.org/ns/prov#used": [
+                {
+                    "@id": "https://mobi.com/records#19ee2b35-aa29-4a86-a0b1-892633b1d0bc"
+                }
+            ],
+            "http://www.w3.org/ns/prov#wasAssociatedWith": [
+                {
+                    "@id": "http://mobi.com/users/d033e22ae348aeb5660fc2140aec35850c4da997"
+                }
+            ]
+        },
+        {
+            "@id": "http://mobi.com/activities/f2df2cde-7eec-4fb7-aa22-4e4ec6cabfd8",
+            "@type": [
+                "http://www.w3.org/ns/prov#Activity",
+                "http://mobi.com/ontologies/prov#CreateActivity",
+                "http://www.w3.org/2002/07/owl#Thing"
+            ],
+            "http://www.w3.org/ns/prov#atLocation": [
+                {
+                    "@value": "9832af45-7488-3b7c-928e-0618de48a3e3"
+                }
+            ],
+            "http://www.w3.org/ns/prov#endedAtTime": [
+                {
+                    "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "@value": "2023-09-15T08:55:31.854546-04:00"
+                }
+            ],
+            "http://www.w3.org/ns/prov#generated": [
+                {
+                    "@id": "https://mobi.com/records#19ee2b35-aa29-4a86-a0b1-892633b1d0bc"
+                }
+            ],
+            "http://www.w3.org/ns/prov#startedAtTime": [
+                {
+                    "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "@value": "2023-09-15T08:55:30.942226-04:00"
+                }
+            ],
+            "http://www.w3.org/ns/prov#wasAssociatedWith": [
+                {
+                    "@id": "http://mobi.com/users/d033e22ae348aeb5660fc2140aec35850c4da997"
+                }
+            ]
+        }
+    ],
+    "entities": [
+        {
+            "@id": "https://mobi.com/records#19ee2b35-aa29-4a86-a0b1-892633b1d0bc",
+            "@type": [
+                "http://www.w3.org/2002/07/owl#Thing",
+                "http://www.w3.org/ns/prov#Entity",
+                "http://mobi.solutions/ontologies/workflows#WorkflowRecord",
+                "http://mobi.com/ontologies/catalog#VersionedRecord",
+                "http://mobi.com/ontologies/catalog#VersionedRDFRecord",
+                "http://mobi.com/ontologies/catalog#Record"
+            ],
+            "http://mobi.com/ontologies/catalog#branch": [
+                {
+                    "@id": "https://mobi.com/branches#19b8cc92-00a9-4594-b759-8565d2f0537a"
+                }
+            ],
+            "http://mobi.com/ontologies/catalog#catalog": [
+                {
+                    "@id": "http://mobi.com/catalog-local"
+                }
+            ],
+            "http://mobi.com/ontologies/catalog#masterBranch": [
+                {
+                    "@id": "https://mobi.com/branches#19b8cc92-00a9-4594-b759-8565d2f0537a"
+                }
+            ],
+            "http://mobi.solutions/ontologies/workflows#active": [
+                {
+                    "@type": "http://www.w3.org/2001/XMLSchema#boolean",
+                    "@value": "true"
+                }
+            ],
+            "http://mobi.solutions/ontologies/workflows#latestActivity": [
+                {
+                    "@id": "http://mobi.com/activities/2001f136-5a37-47f2-95b0-ec3f083d634a"
+                }
+            ],
+            "http://mobi.solutions/ontologies/workflows#workflowIRI": [
+                {
+                    "@id": "http://test.com/workflows-example#WorkflowB"
+                }
+            ],
+            "http://purl.org/dc/terms/issued": [
+                {
+                    "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "@value": "2023-09-15T08:55:30.954519-04:00"
+                }
+            ],
+            "http://purl.org/dc/terms/modified": [
+                {
+                    "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "@value": "2023-09-15T08:57:28.801002-04:00"
+                }
+            ],
+            "http://purl.org/dc/terms/publisher": [
+                {
+                    "@id": "http://mobi.com/users/d033e22ae348aeb5660fc2140aec35850c4da997"
+                }
+            ],
+            "http://purl.org/dc/terms/title": [
+                {
+                    "@value": "Workflow B"
+                }
+            ],
+            "http://www.w3.org/ns/prov#atLocation": [
+                {
+                    "@value": "system"
+                }
+            ],
+            "http://www.w3.org/ns/prov#generatedAtTime": [
+                {
+                    "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "@value": "2023-09-15T08:55:31.853903-04:00"
+                }
+            ]
+        }
+    ]
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="retrieve_specific_workflow_activity_logs">Retrieve Specific Workflow Activity Logs</h5>
+<div class="paragraph">
+<p>Send a <strong>GET</strong> request to <code>/workflows/{ENCODED_RECORD_IRI}/executions/{ENCODED_ACTIVITY_IRI}/logs</code> where <code>ENCODED_RECORD_IRI</code> is replaced by the URL encoded version of the IRI of the target Workflow Record and <code>ENCODED_ACTIVITY_IRI</code> is replaced by the URL encoded version of the IRI of a specific <code>w:WorkflowExecutionActivity</code>. The response will be a preview of the plain text contents of the logs file generated by the overall Workflow execution in question. An example response is shown below.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example Workflow Execution Logs</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">2023/09/15 14:42:49 server is running at "/tmp/@dagu-98d3918e09cf5791eee7ad55c6ac67cadbab484e-4c93e3159bb697634261e271087fbeb1.sock"
+2023/09/15 14:42:49 start running: http://test.com/workflows-example#WorkflowBAction
+2023/09/15 14:42:49 http://test.com/workflows-example#WorkflowBAction finished
+2023/09/15 14:42:49 schedule finished.
+2023/09/15 14:42:49
+Summary -&gt;
++--------------------------------------+------------------------------------------+---------------------+---------------------+----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------+
+| REQUESTID                            | NAME                                     | STARTED AT          | FINISHED AT         |   STATUS | PARAMS                                                                                                                                                                                                 | ERROR |
++--------------------------------------+------------------------------------------+---------------------+---------------------+----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------+
+| cbfd8c5c-56e3-4861-aefc-f3b833336322 | 98d3918e09cf5791eee7ad55c6ac67cadbab484e | 2023-09-15 14:42:49 | 2023-09-15 14:42:49 | finished | "https://localhost:8443" "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9tb2JpLmNvbVwvIiwic3ViIjoiYWRtaW4iLCJleHAiOjE2OTQ4ODk3NjksInNjb3BlIjoic2VsZiBcLyoifQ.aEpjpZZMW5mucXQSQ35fU7_aVxj5_yj-hU_fH7mbFZQ" |       |
++--------------------------------------+------------------------------------------+---------------------+---------------------+----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------+
+Details -&gt;
++---+---------------------------------------------------+---------------------+---------------------+----------+-------------------------------------+-------+
+| # | STEP                                              | STARTED AT          | FINISHED AT         | STATUS   | COMMAND                             | ERROR |
++---+---------------------------------------------------+---------------------+---------------------+----------+-------------------------------------+-------+
+| 1 | http://test.com/workflows-example#WorkflowBAction | 2023-09-15 14:42:49 | 2023-09-15 14:42:49 | finished | echo This is a test from Workflow B |       |
++---+---------------------------------------------------+---------------------+---------------------+----------+-------------------------------------+-------+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you want to retrieve the log file itself, you can hit the same endpoint, but with an <code>Accept</code> header of <code>application/octet-stream</code> and the endpoint will download the entire log file contents.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creating_and_using_webhooks">Creating and Using Webhooks</h3>
+<div class="paragraph">
+<p>Complete management and execution of Webhooks is accomplished via the extensive REST API suite. Common flows when maintaining Workflows are described below.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Webhooks management via the AVM UI is coming soon!
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="creating_a_webhook">Creating a Webhook</h4>
+<div class="paragraph">
+<p>To create a Webhook Record, follow the steps below.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a file containing the RDF definition of your Webhook configuration. An example file is shown below.</p>
+<div class="listingblock">
+<div class="title">webhook.ttl</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt;.
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;.
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;.
+@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt;.
+@prefix web: &lt;https://mobi.solutions/ontologies/webhooks#&gt;.
+@prefix : &lt;https://mobi.solutions/test#&gt;.
+@base &lt;https://mobi.solutions/test&gt;.
+
+:WebhookConfigurationA a web:WebhookConfiguration ;
+    web:url "https://webhook.site/bea4adf7-86e3-4d2c-a4c6-3ad90f28b7cf" ;
+    web:httpMethod "GET" ;
+    web:eventFilter "(event.topics=com/mobi/catalog/version)" ;
+    web:active true .</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Send a <strong>POST</strong> request to <code>/webhooks</code> with the following form data contents. The response from this endpoint will include the IRI of the newly created Webhook Record, which will the unique identifier for your Webhook needed for any further requests.</p>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Parameter</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>file</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The required binary RDF file containing your Webhook configuration</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The required title for the Webhook Record you are creating</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An optional description for the Webhook Record you are creating</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>markdown</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An optional markdown overview of the Webhook Record you are creating</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>keywords</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An optional list of keywords to associate with the Webhook Record you are creating</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Once created, the Webhook Record will appear in the Catalog UI in the application so record metadata and permissions can be adjusted from there.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="update_a_webhook_configuration">Update a Webhook Configuration</h4>
+<div class="paragraph">
+<p>Webhook Configurations are managed by Webhook Records which are types of Unversioned Records. This means that any change to the configuration is made immediately and does not require a commit to be made. Thus the full new configuration with your desired changes needs to be provided in a single call. To update the configuration of a Webhook, you will need to follow steps similar to those below.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Make a <strong>GET</strong> request to <code>/webhooks/{ENCODED_RECORD_IRI}/configuration</code> where <code>ENCODED_RECORD_IRI</code> is replaced by the URL encoded version of the IRI of the target Webhook Record. This will return the full JSON-LD of your Webhook&#8217;s configuration. An example response is shown below.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">[
+  {
+    "@id": "https://mobi.solutions/test#WebhookConfigurationA",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Thing",
+      "https://mobi.solutions/ontologies/webhooks#WebhookConfiguration"
+    ],
+    "https://mobi.solutions/ontologies/webhooks#active": [
+      {
+        "@value": "ACTIVE"
+      }
+    ],
+    "https://mobi.solutions/ontologies/webhooks#eventFilter": [
+      {
+        "@value": "(event.topics=com/mobi/catalog/version)"
+      }
+    ],
+    "https://mobi.solutions/ontologies/webhooks#httpMethod": [
+      {
+        "@value": "GET"
+      }
+    ],
+    "https://mobi.solutions/ontologies/webhooks#url": [
+      {
+        "@value": "https://webhook.site/eac32363-3e88-46f1-9e46-215626eac344"
+      }
+    ]
+  }
+]</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Make the desired changes to the configuration and send a <strong>PUT</strong> request to <code>/webhooks/{ENCODED_RECORD_IRI}/configuration</code> where <code>ENCODED_RECORD_IRI</code> is replaced by the URL encoded version of the IRI of the target Webhook Record with the updated configuration data as form data. The following describes options for how to provide the data. If the request is successful, the endpoint will return an empty 200 response.</p>
+<div class="paragraph">
+<p>+</p>
+</div>
+</li>
+</ol>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Parameter</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>file</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The file with the new version of the Webhook configuration. Required if <code>jsonld</code> is not provided.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>jsonld</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The JSON-LD of the new version of the Webhook configuration. Required if <code>file</code> is not provided.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="retrieving_webhook_execution_history">Retrieving Webhook Execution History</h4>
+<div class="paragraph">
+<p>As WEbhooks are fired, provenance is tracked for each execution along with any callbacks received for particular executions. This can all be retrieved via various REST endpoints provided by the platform. Common scenarios are described below with the appropriate REST endpoints.</p>
+</div>
+<div class="sect4">
+<h5 id="retrieve_latest_webhook_execution">Retrieve Latest Webhook Execution</h5>
+<div class="paragraph">
+<p>Send a <strong>GET</strong> request to <code>/webhooks/{ENCODED_RECORD_IRI}/executions/latest</code> where <code>ENCODED_RECORD_IRI</code> is replaced by the URL encoded version of the IRI of the target Webhook Record. The response will be the full JSON-LD of the latest <code>w:WebhookExecutionActivity</code> for the target Webhook Record along with all associated data. An example response is shown below.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example Latest Webhook Execution JSON-LD</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">[
+  {
+    "@id": "http://mobi.com/activities/ae4eb510-ace4-4dc1-91be-5c641abc8ce8",
+    "@type": [
+      "http://www.w3.org/ns/prov#Activity",
+      "https://mobi.solutions/ontologies/webhooks#WebhookExecutionActivity",
+      "http://www.w3.org/2002/07/owl#Thing"
+    ],
+    "https://mobi.solutions/ontologies/webhooks#hasConnectionAttempt": [
+      {
+        "@id": "https://mobi.solutions/webhooks/attempt/7389c2c1-54ab-4021-b5db-d1694a3aae6c"
+      }
+    ],
+    "https://mobi.solutions/ontologies/webhooks#requestBody": [
+      {
+        "@value": "{\"activityIRI\":\"http://mobi.com/activities/ae4eb510-ace4-4dc1-91be-5c641abc8ce8\",\"event\":{\"type\":\"http://mobi.com/ontologies/catalog#Version\",\"version\":\"https://mobi.solutions/ontologies/Test/V0\",\"record\":\"https://mobi.com/records#8051e9b6-a32d-411d-988d-014f94bdc536\",\"event.topics\":\"com/mobi/catalog/version\"}}"
+      }
+    ],
+    "https://mobi.solutions/ontologies/webhooks#requestMethod": [
+      {
+        "@value": "GET"
+      }
+    ],
+    "https://mobi.solutions/ontologies/webhooks#requestUrl": [
+      {
+        "@id": "https://webhook.site/eac32363-3e88-46f1-9e46-215626eac344"
+      }
+    ],
+    "https://mobi.solutions/ontologies/webhooks#succeeded": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean",
+        "@value": "true"
+      }
+    ],
+    "http://www.w3.org/ns/prov#endedAtTime": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "@value": "2026-06-25T20:21:34.799989-04:00"
+      }
+    ],
+    "http://www.w3.org/ns/prov#startedAtTime": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "@value": "2026-06-25T20:21:34.191272-04:00"
+      }
+    ],
+    "http://www.w3.org/ns/prov#used": [
+      {
+        "@id": "https://mobi.com/records#5b580258-178e-499e-8361-7d334d7ddada"
+      }
+    ],
+    "http://www.w3.org/ns/prov#wasAssociatedWith": [
+      {
+        "@id": "http://mobi.com/users/d033e22ae348aeb5660fc2140aec35850c4da997"
+      }
+    ]
+  },
+  {
+    "@id": "https://mobi.solutions/webhooks/attempt/7389c2c1-54ab-4021-b5db-d1694a3aae6c",
+    "@type": [
+      "https://mobi.solutions/ontologies/webhooks#ConnectionAttempt",
+      "http://www.w3.org/2002/07/owl#Thing"
+    ],
+    "https://mobi.solutions/ontologies/webhooks#hasResponseHeader": [
+      {
+        "@id": "https://mobi.solutions/webhooks/headers/c9a5b9c2-39e5-4413-9377-e6569983a85f"
+      },
+      {
+        "@id": "https://mobi.solutions/webhooks/headers/c0f9eaa4-d3e9-426a-be5d-4bfcc1204c20"
+      },
+      {
+        "@id": "https://mobi.solutions/webhooks/headers/047d8e25-67f2-4e1a-90ff-4b16eafc174f"
+      },
+      {
+        "@id": "https://mobi.solutions/webhooks/headers/e9200489-b038-4eee-872c-a5d2bd8c1c8c"
+      },
+      {
+        "@id": "https://mobi.solutions/webhooks/headers/7f01085b-9cab-45a2-a424-d34849069e7f"
+      },
+      {
+        "@id": "https://mobi.solutions/webhooks/headers/144cd6d7-9f12-4a89-8d7d-e1d3ad52b083"
+      },
+      {
+        "@id": "https://mobi.solutions/webhooks/headers/9f699e6d-07f8-4b8b-b0fc-9037c1ed6d27"
+      },
+      {
+        "@id": "https://mobi.solutions/webhooks/headers/996e5366-b6e2-46ac-b73e-591823ac1e4d"
+      }
+    ],
+    "https://mobi.solutions/ontologies/webhooks#requestTimestamp": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "@value": "2026-06-25T20:21:34.199083-04:00"
+      }
+    ],
+    "https://mobi.solutions/ontologies/webhooks#responseBody": [
+      {
+        "@value": "This URL has no default content configured. &lt;a href=\"https://webhook.site/#!/edit/eac32363-3e88-46f1-9e46-215626eac344\"&gt;Change response in Webhook.site&lt;/a&gt;."
+      }
+    ],
+    "https://mobi.solutions/ontologies/webhooks#responseStatus": [
+      {
+        "@value": "200"
+      }
+    ],
+    "https://mobi.solutions/ontologies/webhooks#responseTimestamp": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "@value": "2026-06-25T20:21:34.797262-04:00"
+      }
+    ]
+  },
+  {
+    "@id": "https://mobi.solutions/webhooks/headers/047d8e25-67f2-4e1a-90ff-4b16eafc174f",
+    "@type": [
+      "https://mobi.solutions/ontologies/webhooks#Header",
+      "http://www.w3.org/2002/07/owl#Thing"
+    ],
+    "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+      {
+        "@value": "transfer-encoding"
+      }
+    ],
+    "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+      {
+        "@value": "chunked"
+      }
+    ]
+  },
+  {
+    "@id": "https://mobi.solutions/webhooks/headers/144cd6d7-9f12-4a89-8d7d-e1d3ad52b083",
+    "@type": [
+      "https://mobi.solutions/ontologies/webhooks#Header",
+      "http://www.w3.org/2002/07/owl#Thing"
+    ],
+    "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+      {
+        "@value": "content-security-policy"
+      }
+    ],
+    "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+      {
+        "@value": "signup-to-remove-csp-header 'webhook.site/register'; base-uri 'self'; form-action 'none'; script-src 'none'; worker-src 'none'; frame-src 'none';"
+      }
+    ]
+  },
+  {
+    "@id": "https://mobi.solutions/webhooks/headers/7f01085b-9cab-45a2-a424-d34849069e7f",
+    "@type": [
+      "https://mobi.solutions/ontologies/webhooks#Header",
+      "http://www.w3.org/2002/07/owl#Thing"
+    ],
+    "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+      {
+        "@value": "x-token-id"
+      }
+    ],
+    "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+      {
+        "@value": "eac32363-3e88-46f1-9e46-215626eac344"
+      }
+    ]
+  },
+  {
+    "@id": "https://mobi.solutions/webhooks/headers/996e5366-b6e2-46ac-b73e-591823ac1e4d",
+    "@type": [
+      "https://mobi.solutions/ontologies/webhooks#Header",
+      "http://www.w3.org/2002/07/owl#Thing"
+    ],
+    "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+      {
+        "@value": "date"
+      }
+    ],
+    "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+      {
+        "@value": "Fri, 26 Jun 2026 00:21:36 GMT"
+      }
+    ]
+  },
+  {
+    "@id": "https://mobi.solutions/webhooks/headers/9f699e6d-07f8-4b8b-b0fc-9037c1ed6d27",
+    "@type": [
+      "https://mobi.solutions/ontologies/webhooks#Header",
+      "http://www.w3.org/2002/07/owl#Thing"
+    ],
+    "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+      {
+        "@value": "cache-control"
+      }
+    ],
+    "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+      {
+        "@value": "no-cache, private"
+      }
+    ]
+  },
+  {
+    "@id": "https://mobi.solutions/webhooks/headers/c0f9eaa4-d3e9-426a-be5d-4bfcc1204c20",
+    "@type": [
+      "https://mobi.solutions/ontologies/webhooks#Header",
+      "http://www.w3.org/2002/07/owl#Thing"
+    ],
+    "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+      {
+        "@value": "content-type"
+      }
+    ],
+    "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+      {
+        "@value": "text/html; charset=UTF-8"
+      }
+    ]
+  },
+  {
+    "@id": "https://mobi.solutions/webhooks/headers/c9a5b9c2-39e5-4413-9377-e6569983a85f",
+    "@type": [
+      "https://mobi.solutions/ontologies/webhooks#Header",
+      "http://www.w3.org/2002/07/owl#Thing"
+    ],
+    "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+      {
+        "@value": "server"
+      }
+    ],
+    "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+      {
+        "@value": "nginx"
+      }
+    ]
+  },
+  {
+    "@id": "https://mobi.solutions/webhooks/headers/e9200489-b038-4eee-872c-a5d2bd8c1c8c",
+    "@type": [
+      "https://mobi.solutions/ontologies/webhooks#Header",
+      "http://www.w3.org/2002/07/owl#Thing"
+    ],
+    "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+      {
+        "@value": "x-request-id"
+      }
+    ],
+    "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+      {
+        "@value": "4c5ce272-dd32-466c-9a00-23f80e56fdad"
+      }
+    ]
+  }
+]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="retrieve_all_webhook_executions">Retrieve All Webhook Executions</h5>
+<div class="paragraph">
+<p>Send a <strong>GET</strong> request to <code>/webhooks/{ENCODED_RECORD_IRI}/executions</code> where <code>ENCODED_RECORD_IRI</code> is replaced by the URL encoded version of the IRI of the target Webhook Record. The response will be a JSON array containing all <code>w:WebhookExecutionActivity</code> for the target Webhook Record along with all associated data. The endpoint provides query parameters to tailor the results such as <code>offset</code>, <code>limit</code>, <code>sort</code>, and <code>ascending</code>. An example response is shown below.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example List of Webhook Executions</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">[
+  [
+    {
+      "@id": "http://mobi.com/activities/477cb977-8c1c-4289-b3bc-e11d36fa6d6e",
+      "@type": [
+        "http://www.w3.org/ns/prov#Activity",
+        "https://mobi.solutions/ontologies/webhooks#WebhookExecutionActivity",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasConnectionAttempt": [
+        {
+          "@id": "https://mobi.solutions/webhooks/attempt/f858f32d-fc95-4a63-849d-d4270907e52d"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#requestBody": [
+        {
+          "@value": "{\"activityIRI\":\"http://mobi.com/activities/477cb977-8c1c-4289-b3bc-e11d36fa6d6e\",\"event\":{\"type\":\"http://mobi.com/ontologies/catalog#Version\",\"version\":\"https://mobi.solutions/ontologies/Test/V1\",\"record\":\"https://mobi.com/records#8051e9b6-a32d-411d-988d-014f94bdc536\",\"event.topics\":\"com/mobi/catalog/version\"}}"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#requestMethod": [
+        {
+          "@value": "GET"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#requestUrl": [
+        {
+          "@id": "https://webhook.site/eac32363-3e88-46f1-9e46-215626eac344"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#succeeded": [
+        {
+          "@type": "http://www.w3.org/2001/XMLSchema#boolean",
+          "@value": "true"
+        }
+      ],
+      "http://www.w3.org/ns/prov#endedAtTime": [
+        {
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+          "@value": "2026-06-25T20:23:38.51763-04:00"
+        }
+      ],
+      "http://www.w3.org/ns/prov#startedAtTime": [
+        {
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+          "@value": "2026-06-25T20:23:37.875121-04:00"
+        }
+      ],
+      "http://www.w3.org/ns/prov#used": [
+        {
+          "@id": "https://mobi.com/records#5b580258-178e-499e-8361-7d334d7ddada"
+        }
+      ],
+      "http://www.w3.org/ns/prov#wasAssociatedWith": [
+        {
+          "@id": "http://mobi.com/users/d033e22ae348aeb5660fc2140aec35850c4da997"
+        }
+      ]
+    },
+    {
+      "@id": "https://mobi.solutions/webhooks/attempt/f858f32d-fc95-4a63-849d-d4270907e52d",
+      "@type": [
+        "https://mobi.solutions/ontologies/webhooks#ConnectionAttempt",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasResponseHeader": [
+        {
+          "@id": "https://mobi.solutions/webhooks/headers/08a1f8df-6de2-42f3-b836-f757264bb198"
+        },
+        {
+          "@id": "https://mobi.solutions/webhooks/headers/f14c7311-64fb-4a5b-8bad-af4e48487ebb"
+        },
+        {
+          "@id": "https://mobi.solutions/webhooks/headers/570bbac1-bc1b-4ed1-aec7-9bf3554e7494"
+        },
+        {
+          "@id": "https://mobi.solutions/webhooks/headers/56056c04-f4ac-458a-8ffe-0e4b5724eaff"
+        },
+        {
+          "@id": "https://mobi.solutions/webhooks/headers/9e642549-e2c1-4109-b63e-b67d1a760c52"
+        },
+        {
+          "@id": "https://mobi.solutions/webhooks/headers/7eeeccb4-d9cd-404e-b378-06814e67c11f"
+        },
+        {
+          "@id": "https://mobi.solutions/webhooks/headers/4a329eea-c9df-4b1a-824f-c08518696d81"
+        },
+        {
+          "@id": "https://mobi.solutions/webhooks/headers/23b46dfc-47cc-4173-b845-221b94d6ae7a"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#requestTimestamp": [
+        {
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+          "@value": "2026-06-25T20:23:37.962302-04:00"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#responseBody": [
+        {
+          "@value": "This URL has no default content configured. &lt;a href=\"https://webhook.site/#!/edit/eac32363-3e88-46f1-9e46-215626eac344\"&gt;Change response in Webhook.site&lt;/a&gt;."
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#responseStatus": [
+        {
+          "@value": "200"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#responseTimestamp": [
+        {
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+          "@value": "2026-06-25T20:23:38.500228-04:00"
+        }
+      ]
+    },
+    {
+      "@id": "https://mobi.solutions/webhooks/headers/08a1f8df-6de2-42f3-b836-f757264bb198",
+      "@type": [
+        "https://mobi.solutions/ontologies/webhooks#Header",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+        {
+          "@value": "server"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+        {
+          "@value": "nginx"
+        }
+      ]
+    },
+    {
+      "@id": "https://mobi.solutions/webhooks/headers/23b46dfc-47cc-4173-b845-221b94d6ae7a",
+      "@type": [
+        "https://mobi.solutions/ontologies/webhooks#Header",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+        {
+          "@value": "date"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+        {
+          "@value": "Fri, 26 Jun 2026 00:23:40 GMT"
+        }
+      ]
+    },
+    {
+      "@id": "https://mobi.solutions/webhooks/headers/4a329eea-c9df-4b1a-824f-c08518696d81",
+      "@type": [
+        "https://mobi.solutions/ontologies/webhooks#Header",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+        {
+          "@value": "cache-control"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+        {
+          "@value": "no-cache, private"
+        }
+      ]
+    },
+    {
+      "@id": "https://mobi.solutions/webhooks/headers/56056c04-f4ac-458a-8ffe-0e4b5724eaff",
+      "@type": [
+        "https://mobi.solutions/ontologies/webhooks#Header",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+        {
+          "@value": "x-request-id"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+        {
+          "@value": "ec6f47df-bfa7-4a84-b6ac-1f2f52fdb603"
+        }
+      ]
+    },
+    {
+      "@id": "https://mobi.solutions/webhooks/headers/570bbac1-bc1b-4ed1-aec7-9bf3554e7494",
+      "@type": [
+        "https://mobi.solutions/ontologies/webhooks#Header",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+        {
+          "@value": "transfer-encoding"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+        {
+          "@value": "chunked"
+        }
+      ]
+    },
+    {
+      "@id": "https://mobi.solutions/webhooks/headers/7eeeccb4-d9cd-404e-b378-06814e67c11f",
+      "@type": [
+        "https://mobi.solutions/ontologies/webhooks#Header",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+        {
+          "@value": "content-security-policy"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+        {
+          "@value": "signup-to-remove-csp-header 'webhook.site/register'; base-uri 'self'; form-action 'none'; script-src 'none'; worker-src 'none'; frame-src 'none';"
+        }
+      ]
+    },
+    {
+      "@id": "https://mobi.solutions/webhooks/headers/9e642549-e2c1-4109-b63e-b67d1a760c52",
+      "@type": [
+        "https://mobi.solutions/ontologies/webhooks#Header",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+        {
+          "@value": "x-token-id"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+        {
+          "@value": "eac32363-3e88-46f1-9e46-215626eac344"
+        }
+      ]
+    },
+    {
+      "@id": "https://mobi.solutions/webhooks/headers/f14c7311-64fb-4a5b-8bad-af4e48487ebb",
+      "@type": [
+        "https://mobi.solutions/ontologies/webhooks#Header",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+        {
+          "@value": "content-type"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+        {
+          "@value": "text/html; charset=UTF-8"
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "@id": "http://mobi.com/activities/ae4eb510-ace4-4dc1-91be-5c641abc8ce8",
+      "@type": [
+        "http://www.w3.org/ns/prov#Activity",
+        "https://mobi.solutions/ontologies/webhooks#WebhookExecutionActivity",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasConnectionAttempt": [
+        {
+          "@id": "https://mobi.solutions/webhooks/attempt/7389c2c1-54ab-4021-b5db-d1694a3aae6c"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#requestBody": [
+        {
+          "@value": "{\"activityIRI\":\"http://mobi.com/activities/ae4eb510-ace4-4dc1-91be-5c641abc8ce8\",\"event\":{\"type\":\"http://mobi.com/ontologies/catalog#Version\",\"version\":\"https://mobi.solutions/ontologies/Test/V0\",\"record\":\"https://mobi.com/records#8051e9b6-a32d-411d-988d-014f94bdc536\",\"event.topics\":\"com/mobi/catalog/version\"}}"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#requestMethod": [
+        {
+          "@value": "GET"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#requestUrl": [
+        {
+          "@id": "https://webhook.site/eac32363-3e88-46f1-9e46-215626eac344"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#succeeded": [
+        {
+          "@type": "http://www.w3.org/2001/XMLSchema#boolean",
+          "@value": "true"
+        }
+      ],
+      "http://www.w3.org/ns/prov#endedAtTime": [
+        {
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+          "@value": "2026-06-25T20:21:34.799989-04:00"
+        }
+      ],
+      "http://www.w3.org/ns/prov#startedAtTime": [
+        {
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+          "@value": "2026-06-25T20:21:34.191272-04:00"
+        }
+      ],
+      "http://www.w3.org/ns/prov#used": [
+        {
+          "@id": "https://mobi.com/records#5b580258-178e-499e-8361-7d334d7ddada"
+        }
+      ],
+      "http://www.w3.org/ns/prov#wasAssociatedWith": [
+        {
+          "@id": "http://mobi.com/users/d033e22ae348aeb5660fc2140aec35850c4da997"
+        }
+      ]
+    },
+    {
+      "@id": "https://mobi.solutions/webhooks/attempt/7389c2c1-54ab-4021-b5db-d1694a3aae6c",
+      "@type": [
+        "https://mobi.solutions/ontologies/webhooks#ConnectionAttempt",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasResponseHeader": [
+        {
+          "@id": "https://mobi.solutions/webhooks/headers/c9a5b9c2-39e5-4413-9377-e6569983a85f"
+        },
+        {
+          "@id": "https://mobi.solutions/webhooks/headers/c0f9eaa4-d3e9-426a-be5d-4bfcc1204c20"
+        },
+        {
+          "@id": "https://mobi.solutions/webhooks/headers/047d8e25-67f2-4e1a-90ff-4b16eafc174f"
+        },
+        {
+          "@id": "https://mobi.solutions/webhooks/headers/e9200489-b038-4eee-872c-a5d2bd8c1c8c"
+        },
+        {
+          "@id": "https://mobi.solutions/webhooks/headers/7f01085b-9cab-45a2-a424-d34849069e7f"
+        },
+        {
+          "@id": "https://mobi.solutions/webhooks/headers/144cd6d7-9f12-4a89-8d7d-e1d3ad52b083"
+        },
+        {
+          "@id": "https://mobi.solutions/webhooks/headers/9f699e6d-07f8-4b8b-b0fc-9037c1ed6d27"
+        },
+        {
+          "@id": "https://mobi.solutions/webhooks/headers/996e5366-b6e2-46ac-b73e-591823ac1e4d"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#requestTimestamp": [
+        {
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+          "@value": "2026-06-25T20:21:34.199083-04:00"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#responseBody": [
+        {
+          "@value": "This URL has no default content configured. &lt;a href=\"https://webhook.site/#!/edit/eac32363-3e88-46f1-9e46-215626eac344\"&gt;Change response in Webhook.site&lt;/a&gt;."
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#responseStatus": [
+        {
+          "@value": "200"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#responseTimestamp": [
+        {
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+          "@value": "2026-06-25T20:21:34.797262-04:00"
+        }
+      ]
+    },
+    {
+      "@id": "https://mobi.solutions/webhooks/headers/047d8e25-67f2-4e1a-90ff-4b16eafc174f",
+      "@type": [
+        "https://mobi.solutions/ontologies/webhooks#Header",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+        {
+          "@value": "transfer-encoding"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+        {
+          "@value": "chunked"
+        }
+      ]
+    },
+    {
+      "@id": "https://mobi.solutions/webhooks/headers/144cd6d7-9f12-4a89-8d7d-e1d3ad52b083",
+      "@type": [
+        "https://mobi.solutions/ontologies/webhooks#Header",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+        {
+          "@value": "content-security-policy"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+        {
+          "@value": "signup-to-remove-csp-header 'webhook.site/register'; base-uri 'self'; form-action 'none'; script-src 'none'; worker-src 'none'; frame-src 'none';"
+        }
+      ]
+    },
+    {
+      "@id": "https://mobi.solutions/webhooks/headers/7f01085b-9cab-45a2-a424-d34849069e7f",
+      "@type": [
+        "https://mobi.solutions/ontologies/webhooks#Header",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+        {
+          "@value": "x-token-id"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+        {
+          "@value": "eac32363-3e88-46f1-9e46-215626eac344"
+        }
+      ]
+    },
+    {
+      "@id": "https://mobi.solutions/webhooks/headers/996e5366-b6e2-46ac-b73e-591823ac1e4d",
+      "@type": [
+        "https://mobi.solutions/ontologies/webhooks#Header",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+        {
+          "@value": "date"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+        {
+          "@value": "Fri, 26 Jun 2026 00:21:36 GMT"
+        }
+      ]
+    },
+    {
+      "@id": "https://mobi.solutions/webhooks/headers/9f699e6d-07f8-4b8b-b0fc-9037c1ed6d27",
+      "@type": [
+        "https://mobi.solutions/ontologies/webhooks#Header",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+        {
+          "@value": "cache-control"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+        {
+          "@value": "no-cache, private"
+        }
+      ]
+    },
+    {
+      "@id": "https://mobi.solutions/webhooks/headers/c0f9eaa4-d3e9-426a-be5d-4bfcc1204c20",
+      "@type": [
+        "https://mobi.solutions/ontologies/webhooks#Header",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+        {
+          "@value": "content-type"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+        {
+          "@value": "text/html; charset=UTF-8"
+        }
+      ]
+    },
+    {
+      "@id": "https://mobi.solutions/webhooks/headers/c9a5b9c2-39e5-4413-9377-e6569983a85f",
+      "@type": [
+        "https://mobi.solutions/ontologies/webhooks#Header",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+        {
+          "@value": "server"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+        {
+          "@value": "nginx"
+        }
+      ]
+    },
+    {
+      "@id": "https://mobi.solutions/webhooks/headers/e9200489-b038-4eee-872c-a5d2bd8c1c8c",
+      "@type": [
+        "https://mobi.solutions/ontologies/webhooks#Header",
+        "http://www.w3.org/2002/07/owl#Thing"
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderName": [
+        {
+          "@value": "x-request-id"
+        }
+      ],
+      "https://mobi.solutions/ontologies/webhooks#hasHeaderValue": [
+        {
+          "@value": "4c5ce272-dd32-466c-9a00-23f80e56fdad"
+        }
+      ]
+    }
+  ]
+]</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-10-29 14:31:02 UTC
+</div>
+</div>
+<script src="../highlight/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
+</body>
+</html>
